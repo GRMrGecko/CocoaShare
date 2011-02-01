@@ -366,7 +366,11 @@ static MGMController *MGMSharedController;
 			NSMenuItem *item = [[NSMenuItem new] autorelease];
 			NSDateFormatter *formatter = [[NSDateFormatter new] autorelease];
 			[formatter setDateFormat:@"MMMM d, yyyy h:mm:ss a"];
-			[item setTitle:[formatter stringFromDate:[historyItem objectForKey:MGMHDate]]];
+			NSString *date = [formatter stringFromDate:[historyItem objectForKey:MGMHDate]];
+			if (date!=nil)
+				[item setTitle:date];
+			else
+				[item setTitle:[NSString stringWithFormat:@"%@", [historyItem objectForKey:MGMHDate]]];
 			[item setRepresentedObject:[historyItem objectForKey:MGMHURL]];
 			[item setTarget:self];
 			[item setAction:@selector(copyHistoryItem:)];
