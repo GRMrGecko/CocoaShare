@@ -1,0 +1,19 @@
+//
+//  MGMAddons.h
+//  CocoaShare
+//
+//  Created by James on 1/22/11.
+//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//
+
+#import <Cocoa/Cocoa.h>
+
+@interface NSString (MGMAddons)
+- (NSString *)replace:(NSString *)targetString with:(NSString *)replaceString;
+- (NSString *)escapePath;
+@end
+
+@interface NSBezierPath (MGMAddons)
++ (NSBezierPath *)pathWithRect:(NSRect)theRect radiusX:(float)theRadiusX radiusY:(float)theRadiusY;
+- (void)fillGradientFrom:(NSColor *)theStartColor to:(NSColor *)theEndColor;
+@end
