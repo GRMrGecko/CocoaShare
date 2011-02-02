@@ -2,12 +2,13 @@
 //  MGMWebDavGet.m
 //  CocoaShare
 //
-//  Created by James on 1/29/11.
+//  Created by Mr. Gecko on 1/29/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMWebDavGet.h"
 #import "MGMWebDav.h"
+#import "MGMLocalized.h"
 
 NSString * const MGMWebDavMGET = @"GET";
 
@@ -94,7 +95,7 @@ NSString * const MGMWebDavMGET = @"GET";
 		[fileHandle closeFile];
 		[fileHandle release];
 		fileHandle = nil;
-		NSString *description = [NSString stringWithFormat:@"The response was returned as %@ and not %@.", [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:200]];
+		NSString *description = [NSString stringWithFormat:[@"The response was returned as %@ and not %@." localized], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:200]];
 		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:[response statusCode] userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
 		if ([[self delegate] respondsToSelector:@selector(webDav:error:getting:)]) [[self delegate] webDav:webDav error:error getting:self];
 		[webDav cancelHandler:self];

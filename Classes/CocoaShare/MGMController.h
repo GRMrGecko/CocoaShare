@@ -8,6 +8,7 @@
 
 #import <Cocoa/Cocoa.h>
 #import "MGMPlugInProtocol.h"
+#import "MGMLocalized.h"
 
 extern NSString * const MGMDisplay;
 extern NSString * const MGMStartup;

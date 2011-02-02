@@ -7,10 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		2A044B7A12E68D3100E0B624 /* HTTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A044B7912E68D3100E0B624 /* HTTPAccountPane.xib */; };
 		2A044C4E12E7612500E0B624 /* Dropbox.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A044C4012E760DD00E0B624 /* Dropbox.bundle */; };
 		2A044CE712E768D500E0B624 /* MGMDropboxPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A044C7212E7621B00E0B624 /* MGMDropboxPlugIn.m */; };
-		2A044CE812E7698300E0B624 /* DropboxAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A044C7812E762D100E0B624 /* DropboxAccountPane.xib */; };
 		2A044D8F12E92DA800E0B624 /* MGMUsers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEAB3F112E2A57400552BAA /* MGMUsers.framework */; };
 		2A0501D512F49A7B000F74EA /* MGMWebDav.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0501C612F49A7B000F74EA /* MGMWebDav.m */; };
 		2A0501D612F49A7B000F74EA /* MGMWebDavAddons.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0501C812F49A7B000F74EA /* MGMWebDavAddons.m */; };
@@ -22,13 +20,10 @@
 		2A0501DC12F49A7B000F74EA /* MGMWebDavPut.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0501D412F49A7B000F74EA /* MGMWebDavPut.m */; };
 		2A0501F812F49D4E000F74EA /* MobileMe.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0501F112F49D08000F74EA /* MobileMe.bundle */; };
 		2A05023112F49F74000F74EA /* MGMMobileMePlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A05023012F49F74000F74EA /* MGMMobileMePlugIn.m */; };
-		2A05023312F49F86000F74EA /* MobileMeAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A05023212F49F86000F74EA /* MobileMeAccountPane.xib */; };
 		2A0503CC12F4D464000F74EA /* twitpic.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0503C312F4D43B000F74EA /* twitpic.bundle */; };
-		2A05041B12F4DDF0000F74EA /* twitpicAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0503D512F4D4D5000F74EA /* twitpicAccountPane.xib */; };
 		2A05041C12F4DDFC000F74EA /* MGMTwitpicPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0503DA12F4D5E6000F74EA /* MGMTwitpicPlugIn.m */; };
 		2A05042D12F4DE17000F74EA /* MGMUsers.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEAB3F112E2A57400552BAA /* MGMUsers.framework */; };
 		2A0504B912F4E65C000F74EA /* MGMTwitpicPostWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0504B812F4E65C000F74EA /* MGMTwitpicPostWindow.m */; };
-		2A0504DA12F4EA04000F74EA /* twitpicPostWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0504D912F4EA04000F74EA /* twitpicPostWindow.xib */; };
 		2A0504F312F4F024000F74EA /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A0504F212F4F024000F74EA /* QuartzCore.framework */; };
 		2A280C8512EB50FB00435C36 /* Growl Registration Ticket.growlRegDict in Resources */ = {isa = PBXBuildFile; fileRef = 2A280C8412EB50FB00435C36 /* Growl Registration Ticket.growlRegDict */; };
 		2A280EBF12EB7A5E00435C36 /* DBAccountInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A280E6A12EB7A5D00435C36 /* DBAccountInfo.m */; };
@@ -72,22 +67,29 @@
 		2A28154412ECE26600435C36 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A28153D12ECE24300435C36 /* libcrypto.dylib */; };
 		2A2F97A212F05C720069B37E /* FTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0C8C9412EF844F00A75AB7 /* FTP.bundle */; };
 		2A2F995412F094F10069B37E /* SFTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A2F994512F094710069B37E /* SFTP.bundle */; };
-		2A2F996A12F0957E0069B37E /* SFTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A2F996912F0957E0069B37E /* SFTPAccountPane.xib */; };
 		2A2F996E12F095DA0069B37E /* MGMSFTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F996D12F095DA0069B37E /* MGMSFTPPlugIn.m */; };
 		2A48832E12E52E84001618B5 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A48832D12E52E84001618B5 /* RegexKitLite.m */; };
 		2A48833512E52EAA001618B5 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A48833412E52EAA001618B5 /* libicucore.dylib */; };
 		2A48835612E53232001618B5 /* MGMAutoUpdateField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A48835512E53232001618B5 /* MGMAutoUpdateField.m */; };
 		2A48849612E678C3001618B5 /* MGMHTTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A48849512E678C3001618B5 /* MGMHTTPPlugIn.m */; };
 		2A48849B12E679DC001618B5 /* HTTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A48847612E6768D001618B5 /* HTTP.bundle */; };
+		2A4FA5C912F9EDE0009F5B3A /* MGMLocalized.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A4FA5C812F9EDE0009F5B3A /* MGMLocalized.m */; };
+		2A4FA61112F9F8DE009F5B3A /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61012F9F8DE009F5B3A /* Localizable.strings */; };
+		2A4FA61312F9F8E4009F5B3A /* HTTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61212F9F8E4009F5B3A /* HTTPAccountPane.xib */; };
+		2A4FA61512F9F8E9009F5B3A /* DropboxAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61412F9F8E9009F5B3A /* DropboxAccountPane.xib */; };
+		2A4FA61712F9F8F0009F5B3A /* FTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61612F9F8F0009F5B3A /* FTPAccountPane.xib */; };
+		2A4FA61912F9F8F5009F5B3A /* SFTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61812F9F8F5009F5B3A /* SFTPAccountPane.xib */; };
+		2A4FA61B12F9F8FA009F5B3A /* WebDavAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61A12F9F8FA009F5B3A /* WebDavAccountPane.xib */; };
+		2A4FA61D12F9F900009F5B3A /* MobileMeAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61C12F9F900009F5B3A /* MobileMeAccountPane.xib */; };
+		2A4FA61F12F9F905009F5B3A /* twitpicAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA61E12F9F905009F5B3A /* twitpicAccountPane.xib */; };
+		2A4FA62112F9F90A009F5B3A /* twitpicPostWindow.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A4FA62012F9F90A009F5B3A /* twitpicPostWindow.xib */; };
 		2A52DDC512E3AC17000FC8CD /* CocoaShare.icns in Resources */ = {isa = PBXBuildFile; fileRef = 2A52DDC412E3AC16000FC8CD /* CocoaShare.icns */; };
 		2A52DDC912E3AC26000FC8CD /* menuicon.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A52DDC612E3AC26000FC8CD /* menuicon.png */; };
 		2A52DDCA12E3AC26000FC8CD /* menuicondrag.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A52DDC712E3AC26000FC8CD /* menuicondrag.png */; };
 		2A52DDCB12E3AC26000FC8CD /* menuiconupload.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A52DDC812E3AC26000FC8CD /* menuiconupload.png */; };
 		2A52DF5812E3D041000FC8CD /* menuiconselected.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A52DF5712E3D041000FC8CD /* menuiconselected.png */; };
 		2A52DF7312E3D436000FC8CD /* MGMMenuItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A52DF7212E3D436000FC8CD /* MGMMenuItem.m */; };
-		2A55259A12F05B9700F97FE6 /* FTPAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A0C8CB012EF853400A75AB7 /* FTPAccountPane.xib */; };
 		2A55259D12F05BA700F97FE6 /* MGMFTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C8CB412EF854D00A75AB7 /* MGMFTPPlugIn.m */; };
-		2A5C1B0412F2FB3F005153FA /* WebDavAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A5C1B0312F2FB3F005153FA /* WebDavAccountPane.xib */; };
 		2A5C1B0812F2FB5D005153FA /* MGMWebDavPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C1B0712F2FB5D005153FA /* MGMWebDavPlugIn.m */; };
 		2A5C1B4912F32EE3005153FA /* WebDav.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A5C1AF312F2FA6F005153FA /* WebDav.bundle */; };
 		2AEAB3F312E2A57400552BAA /* GeckoReporter.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2AEAB3EF12E2A57400552BAA /* GeckoReporter.framework */; };
@@ -211,14 +213,14 @@
 		13E42FB307B3F0F600E4EEF1 /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = /System/Library/Frameworks/CoreData.framework; sourceTree = "<absolute>"; };
 		29B97324FDCFA39411CA2CEA /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = /System/Library/Frameworks/AppKit.framework; sourceTree = "<absolute>"; };
 		29B97325FDCFA39411CA2CEA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = /System/Library/Frameworks/Foundation.framework; sourceTree = "<absolute>"; };
-		2A044B7912E68D3100E0B624 /* HTTPAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HTTPAccountPane.xib; sourceTree = "<group>"; };
+		2A044B7912E68D3100E0B624 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/HTTPAccountPane.xib; sourceTree = "<group>"; };
 		2A044B8A12E68E9E00E0B624 /* MGMPlugInProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMPlugInProtocol.h; sourceTree = "<group>"; };
 		2A044C4012E760DD00E0B624 /* Dropbox.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Dropbox.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A044C5B12E7614C00E0B624 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A044C6F12E761F300E0B624 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/Dropbox/prefix.pch; sourceTree = "<group>"; };
 		2A044C7112E7621B00E0B624 /* MGMDropboxPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMDropboxPlugIn.h; sourceTree = "<group>"; };
 		2A044C7212E7621B00E0B624 /* MGMDropboxPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMDropboxPlugIn.m; sourceTree = "<group>"; };
-		2A044C7812E762D100E0B624 /* DropboxAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DropboxAccountPane.xib; sourceTree = "<group>"; };
+		2A044C7812E762D100E0B624 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/DropboxAccountPane.xib; sourceTree = "<group>"; };
 		2A0501C512F49A7B000F74EA /* MGMWebDav.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWebDav.h; sourceTree = "<group>"; };
 		2A0501C612F49A7B000F74EA /* MGMWebDav.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWebDav.m; sourceTree = "<group>"; };
 		2A0501C712F49A7B000F74EA /* MGMWebDavAddons.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWebDavAddons.h; sourceTree = "<group>"; };
@@ -240,21 +242,21 @@
 		2A05020412F49DF0000F74EA /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/MobileMe/prefix.pch; sourceTree = "<group>"; };
 		2A05022F12F49F74000F74EA /* MGMMobileMePlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMMobileMePlugIn.h; sourceTree = "<group>"; };
 		2A05023012F49F74000F74EA /* MGMMobileMePlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMMobileMePlugIn.m; sourceTree = "<group>"; };
-		2A05023212F49F86000F74EA /* MobileMeAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MobileMeAccountPane.xib; sourceTree = "<group>"; };
+		2A05023212F49F86000F74EA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/MobileMeAccountPane.xib; sourceTree = "<group>"; };
 		2A0503C312F4D43B000F74EA /* twitpic.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = twitpic.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A0503D012F4D49E000F74EA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A0503D212F4D4AA000F74EA /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/twitpic/prefix.pch; sourceTree = "<group>"; };
-		2A0503D512F4D4D5000F74EA /* twitpicAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = twitpicAccountPane.xib; sourceTree = "<group>"; };
+		2A0503D512F4D4D5000F74EA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/twitpicAccountPane.xib; sourceTree = "<group>"; };
 		2A0503D912F4D5E6000F74EA /* MGMTwitpicPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTwitpicPlugIn.h; sourceTree = "<group>"; };
 		2A0503DA12F4D5E6000F74EA /* MGMTwitpicPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTwitpicPlugIn.m; sourceTree = "<group>"; };
 		2A0504B712F4E65C000F74EA /* MGMTwitpicPostWindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMTwitpicPostWindow.h; sourceTree = "<group>"; };
 		2A0504B812F4E65C000F74EA /* MGMTwitpicPostWindow.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMTwitpicPostWindow.m; sourceTree = "<group>"; };
-		2A0504D912F4EA04000F74EA /* twitpicPostWindow.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = twitpicPostWindow.xib; sourceTree = "<group>"; };
+		2A0504D912F4EA04000F74EA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/twitpicPostWindow.xib; sourceTree = "<group>"; };
 		2A0504F212F4F024000F74EA /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		2A0C8C9412EF844F00A75AB7 /* FTP.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FTP.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A0C8CAB12EF84FE00A75AB7 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A0C8CAD12EF850900A75AB7 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/FTP/prefix.pch; sourceTree = "<group>"; };
-		2A0C8CB012EF853400A75AB7 /* FTPAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FTPAccountPane.xib; sourceTree = "<group>"; };
+		2A0C8CB012EF853400A75AB7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
 		2A0C8CB312EF854D00A75AB7 /* MGMFTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFTPPlugIn.h; sourceTree = "<group>"; };
 		2A0C8CB412EF854D00A75AB7 /* MGMFTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFTPPlugIn.m; sourceTree = "<group>"; wrapsLines = 1; };
 		2A280C8412EB50FB00435C36 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
@@ -337,7 +339,7 @@
 		2A2F994512F094710069B37E /* SFTP.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTP.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2F996112F095320069B37E /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/SFTP/prefix.pch; sourceTree = "<group>"; };
 		2A2F996712F0955B0069B37E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2A2F996912F0957E0069B37E /* SFTPAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SFTPAccountPane.xib; sourceTree = "<group>"; };
+		2A2F996912F0957E0069B37E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
 		2A2F996C12F095DA0069B37E /* MGMSFTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSFTPPlugIn.h; sourceTree = "<group>"; };
 		2A2F996D12F095DA0069B37E /* MGMSFTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSFTPPlugIn.m; sourceTree = "<group>"; wrapsLines = 1; };
 		2A48832C12E52E84001618B5 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
@@ -350,6 +352,9 @@
 		2A48849312E67874001618B5 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/HTTP/prefix.pch; sourceTree = "<group>"; };
 		2A48849412E678C3001618B5 /* MGMHTTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMHTTPPlugIn.h; sourceTree = "<group>"; };
 		2A48849512E678C3001618B5 /* MGMHTTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMHTTPPlugIn.m; sourceTree = "<group>"; };
+		2A4FA57A12F9DA71009F5B3A /* English */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.strings; name = English; path = English.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2A4FA5C712F9EDE0009F5B3A /* MGMLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalized.h; sourceTree = "<group>"; };
+		2A4FA5C812F9EDE0009F5B3A /* MGMLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMLocalized.m; sourceTree = "<group>"; };
 		2A52DDC412E3AC16000FC8CD /* CocoaShare.icns */ = {isa = PBXFileReference; lastKnownFileType = image.icns; path = CocoaShare.icns; sourceTree = SOURCE_ROOT; };
 		2A52DDC612E3AC26000FC8CD /* menuicon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuicon.png; sourceTree = "<group>"; };
 		2A52DDC712E3AC26000FC8CD /* menuicondrag.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menuicondrag.png; sourceTree = "<group>"; };
@@ -360,7 +365,7 @@
 		2A5C1AF312F2FA6F005153FA /* WebDav.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = WebDav.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A5C1AFE12F2FAF3005153FA /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2A5C1B0012F2FB04005153FA /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/WebDav/prefix.pch; sourceTree = "<group>"; };
-		2A5C1B0312F2FB3F005153FA /* WebDavAccountPane.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WebDavAccountPane.xib; sourceTree = "<group>"; };
+		2A5C1B0312F2FB3F005153FA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
 		2A5C1B0612F2FB5D005153FA /* MGMWebDavPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWebDavPlugIn.h; sourceTree = "<group>"; };
 		2A5C1B0712F2FB5D005153FA /* MGMWebDavPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWebDavPlugIn.m; sourceTree = "<group>"; };
 		2AEAB3EF12E2A57400552BAA /* GeckoReporter.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GeckoReporter.framework; path = Frameworks/GeckoReporter.framework; sourceTree = "<group>"; };
@@ -549,7 +554,7 @@
 			isa = PBXGroup;
 			children = (
 				2A044C5B12E7614C00E0B624 /* Info.plist */,
-				2A044C7812E762D100E0B624 /* DropboxAccountPane.xib */,
+				2A4FA61412F9F8E9009F5B3A /* DropboxAccountPane.xib */,
 			);
 			path = Dropbox;
 			sourceTree = "<group>";
@@ -599,7 +604,7 @@
 			isa = PBXGroup;
 			children = (
 				2A05020212F49DDD000F74EA /* Info.plist */,
-				2A05023212F49F86000F74EA /* MobileMeAccountPane.xib */,
+				2A4FA61C12F9F900009F5B3A /* MobileMeAccountPane.xib */,
 			);
 			path = MobileMe;
 			sourceTree = "<group>";
@@ -625,8 +630,8 @@
 			isa = PBXGroup;
 			children = (
 				2A0503D012F4D49E000F74EA /* Info.plist */,
-				2A0503D512F4D4D5000F74EA /* twitpicAccountPane.xib */,
-				2A0504D912F4EA04000F74EA /* twitpicPostWindow.xib */,
+				2A4FA61E12F9F905009F5B3A /* twitpicAccountPane.xib */,
+				2A4FA62012F9F90A009F5B3A /* twitpicPostWindow.xib */,
 			);
 			path = twitpic;
 			sourceTree = "<group>";
@@ -654,7 +659,7 @@
 			isa = PBXGroup;
 			children = (
 				2A0C8CAB12EF84FE00A75AB7 /* Info.plist */,
-				2A0C8CB012EF853400A75AB7 /* FTPAccountPane.xib */,
+				2A4FA61612F9F8F0009F5B3A /* FTPAccountPane.xib */,
 			);
 			path = FTP;
 			sourceTree = "<group>";
@@ -802,7 +807,7 @@
 			isa = PBXGroup;
 			children = (
 				2A2F996712F0955B0069B37E /* Info.plist */,
-				2A2F996912F0957E0069B37E /* SFTPAccountPane.xib */,
+				2A4FA61812F9F8F5009F5B3A /* SFTPAccountPane.xib */,
 			);
 			path = SFTP;
 			sourceTree = "<group>";
@@ -838,7 +843,7 @@
 			isa = PBXGroup;
 			children = (
 				2A48848A12E67747001618B5 /* Info.plist */,
-				2A044B7912E68D3100E0B624 /* HTTPAccountPane.xib */,
+				2A4FA61212F9F8E4009F5B3A /* HTTPAccountPane.xib */,
 			);
 			path = HTTP;
 			sourceTree = "<group>";
@@ -864,7 +869,7 @@
 			isa = PBXGroup;
 			children = (
 				2A5C1AFE12F2FAF3005153FA /* Info.plist */,
-				2A5C1B0312F2FB3F005153FA /* WebDavAccountPane.xib */,
+				2A4FA61A12F9F8FA009F5B3A /* WebDavAccountPane.xib */,
 			);
 			path = WebDav;
 			sourceTree = "<group>";
@@ -918,6 +923,8 @@
 				2A52DF7212E3D436000FC8CD /* MGMMenuItem.m */,
 				2A48835412E53232001618B5 /* MGMAutoUpdateField.h */,
 				2A48835512E53232001618B5 /* MGMAutoUpdateField.m */,
+				2A4FA5C712F9EDE0009F5B3A /* MGMLocalized.h */,
+				2A4FA5C812F9EDE0009F5B3A /* MGMLocalized.m */,
 				2AEAB46312E2ACF400552BAA /* Preferences */,
 				2A48832B12E52E84001618B5 /* RegexKit */,
 				2A0501C412F49A7B000F74EA /* MGMWebDav */,
@@ -971,6 +978,7 @@
 				2A52DDC712E3AC26000FC8CD /* menuicondrag.png */,
 				2A52DF5712E3D041000FC8CD /* menuiconselected.png */,
 				2A52DDC812E3AC26000FC8CD /* menuiconupload.png */,
+				2A4FA61012F9F8DE009F5B3A /* Localizable.strings */,
 				2AEAB48812E2ADDF00552BAA /* Preferences */,
 			);
 			path = CocoaShare;
@@ -1184,7 +1192,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A044CE812E7698300E0B624 /* DropboxAccountPane.xib in Resources */,
+				2A4FA61512F9F8E9009F5B3A /* DropboxAccountPane.xib in Resources */,
 				2A280EE912EB7A5E00435C36 /* db_logo.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1193,7 +1201,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A05023312F49F86000F74EA /* MobileMeAccountPane.xib in Resources */,
+				2A4FA61D12F9F900009F5B3A /* MobileMeAccountPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1201,8 +1209,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A05041B12F4DDF0000F74EA /* twitpicAccountPane.xib in Resources */,
-				2A0504DA12F4EA04000F74EA /* twitpicPostWindow.xib in Resources */,
+				2A4FA61F12F9F905009F5B3A /* twitpicAccountPane.xib in Resources */,
+				2A4FA62112F9F90A009F5B3A /* twitpicPostWindow.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1210,7 +1218,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A55259A12F05B9700F97FE6 /* FTPAccountPane.xib in Resources */,
+				2A4FA61712F9F8F0009F5B3A /* FTPAccountPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1218,7 +1226,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A2F996A12F0957E0069B37E /* SFTPAccountPane.xib in Resources */,
+				2A4FA61912F9F8F5009F5B3A /* SFTPAccountPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1226,7 +1234,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A044B7A12E68D3100E0B624 /* HTTPAccountPane.xib in Resources */,
+				2A4FA61312F9F8E4009F5B3A /* HTTPAccountPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1234,7 +1242,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A5C1B0412F2FB3F005153FA /* WebDavAccountPane.xib in Resources */,
+				2A4FA61B12F9F8FA009F5B3A /* WebDavAccountPane.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1261,6 +1269,7 @@
 				2A280C8512EB50FB00435C36 /* Growl Registration Ticket.growlRegDict in Resources */,
 				2AEF115912F527B900F495BE /* About.rtf in Resources */,
 				2AEF118612F52A7D00F495BE /* CocoaShareIcon.png in Resources */,
+				2A4FA61112F9F8DE009F5B3A /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1379,6 +1388,7 @@
 				2A0501DA12F49A7B000F74EA /* MGMWebDavOptions.m in Sources */,
 				2A0501DB12F49A7B000F74EA /* MGMWebDavPropFind.m in Sources */,
 				2A0501DC12F49A7B000F74EA /* MGMWebDavPut.m in Sources */,
+				2A4FA5C912F9EDE0009F5B3A /* MGMLocalized.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1423,6 +1433,78 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		2A4FA61012F9F8DE009F5B3A /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A4FA57A12F9DA71009F5B3A /* English */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		2A4FA61212F9F8E4009F5B3A /* HTTPAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A044B7912E68D3100E0B624 /* English */,
+			);
+			name = HTTPAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61412F9F8E9009F5B3A /* DropboxAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A044C7812E762D100E0B624 /* English */,
+			);
+			name = DropboxAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61612F9F8F0009F5B3A /* FTPAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A0C8CB012EF853400A75AB7 /* English */,
+			);
+			name = FTPAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61812F9F8F5009F5B3A /* SFTPAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A2F996912F0957E0069B37E /* English */,
+			);
+			name = SFTPAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61A12F9F8FA009F5B3A /* WebDavAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A5C1B0312F2FB3F005153FA /* English */,
+			);
+			name = WebDavAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61C12F9F900009F5B3A /* MobileMeAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A05023212F49F86000F74EA /* English */,
+			);
+			name = MobileMeAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA61E12F9F905009F5B3A /* twitpicAccountPane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A0503D512F4D4D5000F74EA /* English */,
+			);
+			name = twitpicAccountPane.xib;
+			sourceTree = "<group>";
+		};
+		2A4FA62012F9F90A009F5B3A /* twitpicPostWindow.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A0504D912F4EA04000F74EA /* English */,
+			);
+			name = twitpicPostWindow.xib;
+			sourceTree = "<group>";
+		};
 		2AEAB48312E2ADDF00552BAA /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

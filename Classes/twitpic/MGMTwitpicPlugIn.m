@@ -2,7 +2,7 @@
 //  MGMTwitpicPlugIn.m
 //  CocoaShare
 //
-//  Created by James on 1/29/11.
+//  Created by Mr. Gecko on 1/29/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -76,8 +76,8 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 - (IBAction)save:(id)sender {
 	if ([userField isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"UserName Required"];
-		[alert setInformativeText:@"Please enter your Twitter UserName."];
+		[alert setMessageText:[@"UserName Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your Twitter UserName." localizedFor:self]];
 		[alert runModal];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -119,7 +119,7 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 - (void)sendFile:(NSString *)thePath withName:(NSString *)theName post:(BOOL)shouldPost message:(NSString *)theMessage {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:MGMTwitpicUser]==nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:@"Account is not logged in." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
 	}
@@ -210,7 +210,7 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 	filePath = nil;
 	[fileName release];
 	fileName = nil;
-	error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:3 userInfo:[NSDictionary dictionaryWithObject:@"Unknown response" forKey:NSLocalizedDescriptionKey]];
+	error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:3 userInfo:[NSDictionary dictionaryWithObject:[@"Unknown response." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 	[[MGMController sharedController] upload:uploadedPath receivedError:error];
 }
 @end

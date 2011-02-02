@@ -2,7 +2,7 @@
 //  MGMEventsPane.m
 //  CocoaShare
 //
-//  Created by James on 1/15/11.
+//  Created by Mr. Gecko on 1/15/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -19,7 +19,7 @@
 			NSArray *sounds = [[self sounds] retain];
 			NSMenu *soundsMenu = [[NSMenu new] autorelease];
 			NSMenuItem *noneMenu = [[NSMenuItem new] autorelease];
-			[noneMenu setTitle:@"No Sound"];
+			[noneMenu setTitle:[@"No Sound" localized]];
 			[soundsMenu addItem:noneMenu];
 			[soundsMenu addItem:[NSMenuItem separatorItem]];
 			int selectedPath = -1;
@@ -45,6 +45,8 @@
 }
 - (void)dealloc {
 	[view release];
+	[sound stop];
+	[sound release];
 	[super dealloc];
 }
 + (void)setUpToolbarItem:(NSToolbarItem *)theItem {
@@ -53,7 +55,7 @@
     [theItem setImage:[NSImage imageNamed:@"Events"]];
 }
 + (NSString *)title {
-	return @"Events";
+	return [@"Events" localized];
 }
 - (NSView *)preferencesView {
 	return view;
@@ -111,15 +113,21 @@
 }
 - (IBAction)soundChange:(id)sender {
 	if ([[soundPopUp selectedItem] representedObject]!=nil) {
-		NSSound *sound = [[NSSound alloc] initWithContentsOfFile:[[soundPopUp selectedItem] representedObject] byReference:YES];
+		if (sound!=nil) {
+			[sound stop];
+			[sound release];
+		}
+		sound = [[NSSound alloc] initWithContentsOfFile:[[soundPopUp selectedItem] representedObject] byReference:YES];
 		[sound setDelegate:self];
 		[sound play];
 		[preferences setObject:[[soundPopUp selectedItem] representedObject] forKey:[NSString stringWithFormat:MGMESound, [eventPopUp indexOfSelectedItem]]];
 	}
 }
-- (void)sound:(NSSound *)sound didFinishPlaying:(BOOL)finishedPlaying {
-	if (finishedPlaying)
+- (void)sound:(NSSound *)theSound didFinishPlaying:(BOOL)finishedPlaying {
+	if (finishedPlaying) {
 		[sound release];
+		sound = nil;
+	}
 }
 
 - (IBAction)moveChange:(id)sender {
@@ -131,8 +139,8 @@
 	[panel setCanChooseDirectories:YES];
 	[panel setResolvesAliases:YES];
 	[panel setAllowsMultipleSelection:NO];
-	[panel setTitle:@"Choose Folder"];
-	[panel setPrompt:@"Choose"];
+	[panel setTitle:[@"Choose Folder" localized]];
+	[panel setPrompt:[@"Choose" localized]];
 	int returnCode = [panel runModal];
 	if (returnCode==NSOKButton) {
 		NSString *path = [[[panel URLs] objectAtIndex:0] path];

@@ -2,13 +2,14 @@
 //  MGMAutoUploadPane.m
 //  CocoaShare
 //
-//  Created by James on 1/15/11.
+//  Created by Mr. Gecko on 1/15/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMAutoUploadPane.h"
 #import "MGMController.h"
 #import "RegexKitLite.h"
+#import <GeckoReporter/GeckoReporter.h>
 
 @implementation MGMAutoUploadPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {
@@ -34,7 +35,7 @@
     [theItem setImage:[NSImage imageNamed:@"AutoUpload"]];
 }
 + (NSString *)title {
-	return @"Auto Upload";
+	return [@"Auto Upload" localized];
 }
 - (NSView *)preferencesView {
 	return view;
@@ -86,7 +87,12 @@
 	[NSThread detachNewThreadSelector:@selector(saveFilters) toTarget:controller withObject:nil];
 }
 - (IBAction)addScreenshotFilter:(id)sender {
-	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"~/Desktop", MGMFPath, @"(?i)Screen shot .+ at .+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z|Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z", MGMFFilter, nil]];
+	NSString *filter = nil;
+	if ([[MGMSystemInfo info] isAfterLeopard])
+		filter = @"MD:(?i)isScreenCapture\\z";
+	else
+		filter = [@"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" localized];
+	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"~/Desktop", MGMFPath, filter, MGMFFilter, nil]];
 	[filtersTable reloadData];
 	int index = [[controller filters] count]-1;
 	[filtersTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
@@ -107,8 +113,8 @@
 	[panel setCanChooseDirectories:YES];
 	[panel setResolvesAliases:YES];
 	[panel setAllowsMultipleSelection:NO];
-	[panel setTitle:@"Choose Folder"];
-	[panel setPrompt:@"Choose"];
+	[panel setTitle:[@"Choose Folder" localized]];
+	[panel setPrompt:[@"Choose" localized]];
 	int returnCode = [panel runModal];
 	if (returnCode==NSOKButton) {
 		NSString *path = [[[panel URLs] objectAtIndex:0] path];
@@ -139,7 +145,14 @@
 	[self test:self];
 }
 - (IBAction)test:(id)sender {
-	BOOL result = [[testField stringValue] isMatchedByRegex:[filterField stringValue]];
-	[testStatusField setStringValue:(result ? @"Match" : @"No Match")];
+	NSString *filter = [filterField stringValue];
+	if ([filter hasPrefix:@"MD:"]) {
+		if ([filter hasPrefix:@"MD: "])
+			filter = [filter substringFromIndex:4];
+		else
+			filter = [filter substringFromIndex:3];
+	}
+	BOOL result = [[testField stringValue] isMatchedByRegex:filter];
+	[testStatusField setStringValue:(result ? [@"Match" localized] : [@"No Match" localized])];
 }
 @end

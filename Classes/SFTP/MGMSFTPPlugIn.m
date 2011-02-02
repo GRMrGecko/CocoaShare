@@ -2,7 +2,7 @@
 //  MGMSFTPPlugIn.m
 //  CocoaShare
 //
-//  Created by James on 1/26/11.
+//  Created by Mr. Gecko on 1/26/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -89,7 +89,7 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 	[pathField setEnabled:NO];
 	[urlField setEnabled:NO];
 	[loginButton setEnabled:NO];
-	[loginButton setTitle:@"Logging In"];
+	[loginButton setTitle:[@"Logging In" localizedFor:self]];
 }
 - (void)unlockLogin {
 	[hostField setEnabled:YES];
@@ -98,23 +98,23 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 	[pathField setEnabled:YES];
 	[urlField setEnabled:YES];
 	[loginButton setEnabled:YES];
-	[loginButton setTitle:@"Login"];
+	[loginButton setTitle:[@"Login" localizedFor:self]];
 }
 - (IBAction)login:(id)sender {
 	if ([[hostField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Host Required"];
-		[alert setInformativeText:@"Please enter your sftp host."];
+		[alert setMessageText:[@"Host Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your sftp host." localizedFor:self]];
 		[alert runModal];
 	} else if ([[userField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"UserName Required"];
-		[alert setInformativeText:@"Please enter your sftp username."];
+		[alert setMessageText:[@"UserName Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your sftp username." localizedFor:self]];
 		[alert runModal];
 	} else if ([[urlField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"URL Required"];
-		[alert setInformativeText:@"Please enter the URL to where the files will be uploaded."];
+		[alert setMessageText:[@"URL Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter the URL to where the files will be uploaded." localizedFor:self]];
 		[alert runModal];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -160,8 +160,8 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 	
 	if (![loginButton isEnabled]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Account Error"];
-		[alert setInformativeText:@"Incorrect login info."];
+		[alert setMessageText:[@"Account Error" localizedFor:self]];
+		[alert setInformativeText:[@"Incorrect login info." localizedFor:self]];
 		[alert runModal];
 		[self unlockLogin];
 	}
@@ -172,8 +172,8 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		if ([[defaults objectForKey:MGMSFTPPath] isEqual:@""]) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Login Successful"];
-			[alert setInformativeText:@"You have sucessfully logged into your account."];
+			[alert setMessageText:[@"Login Successful" localizedFor:self]];
+			[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		} else {
@@ -184,27 +184,27 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		if ([[defaults objectForKey:MGMSFTPPath] hasPrefix:theString]) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Login Successful"];
-			[alert setInformativeText:@"You have sucessfully logged into your account."];
+			[alert setMessageText:[@"Login Successful" localizedFor:self]];
+			[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		} else {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Account Error"];
-			[alert setInformativeText:@"You have sucessfully logged into your account, but the path you have entered does not exist."];
+			[alert setMessageText:[@"Account Error" localizedFor:self]];
+			[alert setInformativeText:[@"You have sucessfully logged into your account, but the path you have entered does not exist." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		}
 		[[SFTPInputPipe fileHandleForWriting] writeData:[@"exit\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	} else if ([theString rangeOfString:@"Permission denied"].location!=NSNotFound) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Account Error"];
+		[alert setMessageText:[@"Account Error" localizedFor:self]];
 		[alert setInformativeText:theString];
 		[alert runModal];
 		[self unlockLogin];
 	} else if ([theString rangeOfString:@"Could not resolve"].location!=NSNotFound) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Account Error"];
+		[alert setMessageText:[@"Account Error" localizedFor:self]];
 		[alert setInformativeText:theString];
 		[alert runModal];
 		[self unlockLogin];
@@ -224,7 +224,7 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 - (void)sendFileAtPath:(NSString *)thePath withName:(NSString *)theName {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:MGMSFTPHost]==nil || [defaults objectForKey:MGMSFTPUser]==nil || [defaults objectForKey:MGMSFTPURL]==nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:@"Account is not logged in." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
 	}
@@ -268,7 +268,7 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 	SFTPInputPipe = nil;
 	
 	if (theNotification!=nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:@"Incorrect login info" forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:[@"Incorrect login info" localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		NSString *finishPath = [[filePath retain] autorelease];
 		[filePath release];
 		filePath = nil;

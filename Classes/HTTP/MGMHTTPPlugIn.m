@@ -2,7 +2,7 @@
 //  MGMHTTPPlugIn.m
 //  CocoaShare
 //
-//  Created by James on 1/18/11.
+//  Created by Mr. Gecko on 1/18/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -92,7 +92,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 - (void)check:(NSDictionary *)theData didFailWithError:(NSError *)theError {
 	NSLog(@"HTTP Error: %@", theError);
 	NSAlert *alert = [[NSAlert new] autorelease];
-	[alert setMessageText:@"Account Error"];
+	[alert setMessageText:[@"Account Error" localizedFor:self]];
 	[alert setInformativeText:[theError localizedDescription]];
 	[alert runModal];
 	[self unlockLogin];
@@ -106,8 +106,8 @@ const BOOL MGMHTTPResponseInvisible = YES;
 		if ([[response objectForKey:MGMHTTPRSuccessful] boolValue]) {
 			if ([[response objectForKey:MGMHTTPRLoggedIn] boolValue] && !userLoggingIn) {
 				NSAlert *alert = [[NSAlert new] autorelease];
-				[alert setMessageText:@"Login Successful"];
-				[alert setInformativeText:@"You have sucessfully logged into your account."];
+				[alert setMessageText:[@"Login Successful" localizedFor:self]];
+				[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
 				[alert runModal];
 				[self unlockLogin];
 			} else if (![[response objectForKey:MGMHTTPRLoggedIn] boolValue]) {
@@ -121,7 +121,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 					return;
 				}
 				NSAlert *alert = [[NSAlert new] autorelease];
-				[alert setMessageText:@"Account Error"];
+				[alert setMessageText:[@"Account Error" localizedFor:self]];
 				[alert setInformativeText:[response objectForKey:MGMHTTPRError]];
 				[alert runModal];
 				[self unlockLogin];
@@ -131,8 +131,8 @@ const BOOL MGMHTTPResponseInvisible = YES;
 		}
 	} else {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Unable to check http login detials"];
-		[alert setInformativeText:[NSString stringWithFormat:@"The URL %@ may not be a CocoaShare compatible URL.", [[NSUserDefaults standardUserDefaults] objectForKey:MGMHTTPURL]]];
+		[alert setMessageText:[@"Account Error" localizedFor:self]];
+		[alert setInformativeText:[NSString stringWithFormat:[@"The URL %@ may not be a CocoaShare compatible URL." localizedFor:self], [[NSUserDefaults standardUserDefaults] objectForKey:MGMHTTPURL]]];
 		[alert runModal];
 		[self unlockLogin];
 	}
@@ -143,21 +143,21 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[userField setEnabled:NO];
 	[passwordField setEnabled:NO];
 	[loginButton setEnabled:NO];
-	[loginButton setTitle:@"Logging In"];
+	[loginButton setTitle:[@"Logging In" localizedFor:self]];
 }
 - (void)unlockLogin {
 	[urlField setEnabled:YES];
 	[userField setEnabled:YES];
 	[passwordField setEnabled:YES];
 	[loginButton setEnabled:YES];
-	[loginButton setTitle:@"Login"];
+	[loginButton setTitle:[@"Login" localizedFor:self]];
 }
 - (IBAction)login:(id)sender {
 	userLoggingIn = NO;
 	if ([[urlField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"URL Required"];
-		[alert setInformativeText:@"Please enter the URL for the HTTP account."];
+		[alert setMessageText:[@"URL Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter the URL for the HTTP account." localizedFor:self]];
 		[alert runModal];
 	} else {
 		[[MGMController sharedController] setPassword:[passwordField stringValue]];
@@ -172,7 +172,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 - (void)sendFileAtPath:(NSString *)thePath withName:(NSString *)theName {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:MGMHTTPURL]==nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:@"Account is not logged in." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
 	}
@@ -216,7 +216,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 			[[MGMController sharedController] upload:[theData objectForKey:MGMConnectionObject] receivedError:error];
 		}
 	} else {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:@"HTTP Server response is not a CocoaShare compatible response." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:[@"HTTP Server response is not a CocoaShare compatible response." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:[theData objectForKey:MGMConnectionObject] receivedError:error];
 	}
 }

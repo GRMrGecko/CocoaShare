@@ -2,12 +2,13 @@
 //  MGMWebDavDelete.m
 //  CocoaShare
 //
-//  Created by James on 1/29/11.
+//  Created by Mr. Gecko on 1/29/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMWebDavDelete.h"
 #import "MGMWebDav.h"
+#import "MGMLocalized.h"
 
 NSString * const MGMWebDavMDELETE = @"DELETE";
 
@@ -74,7 +75,7 @@ NSString * const MGMWebDavMDELETE = @"DELETE";
 	if ([response statusCode]==204) {
 		if ([[self delegate] respondsToSelector:@selector(webDav:deleted:)]) [[self delegate] webDav:webDav deleted:self];
 	} else {
-		NSString *description = [NSString stringWithFormat:@"The response was returned as %@ and not %@.", [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:204]];
+		NSString *description = [NSString stringWithFormat:[@"The response was returned as %@ and not %@." localized], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:204]];
 		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:[response statusCode] userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
 		if ([[self delegate] respondsToSelector:@selector(webDav:error:deleting:)]) [[self delegate] webDav:webDav error:error deleting:self];
 	}

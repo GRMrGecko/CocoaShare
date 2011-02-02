@@ -92,10 +92,10 @@ static MGMController *MGMSharedController;
 		[defaults setInteger:[defaults integerForKey:MGMLaunchCount]+1 forKey:MGMLaunchCount];
 		if ([defaults integerForKey:MGMLaunchCount]==5) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Donations"];
-			[alert setInformativeText:@"Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development."];
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
+			[alert setMessageText:[@"Donations" localized]];
+			[alert setInformativeText:[@"Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development." localized]];
+			[alert addButtonWithTitle:[@"Yes" localized]];
+			[alert addButtonWithTitle:[@"No" localized]];
 			int result = [alert runModal];
 			if (result==1000)
 				[self donate:self];
@@ -267,9 +267,9 @@ static MGMController *MGMSharedController;
 		[menuItem setDelegate:self];
 		[menuItem setImage:[NSImage imageNamed:@"menuicon"]];
 		[menuItem setAlternateImage:[NSImage imageNamed:@"menuiconselected"]];
+		[menuItem setToolTip:@"CocoaShare"];
 		statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 		[statusItem setView:menuItem];
-		[statusItem setToolTip:@"CocoaShare"];	
 	}
 }
 - (void)removeMenu {
@@ -294,10 +294,10 @@ static MGMController *MGMSharedController;
 		
 		if (isHidden) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Restart Required"];
-			[alert setInformativeText:@"Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?"];
-			[alert addButtonWithTitle:@"Yes"];
-			[alert addButtonWithTitle:@"No"];
+			[alert setMessageText:[@"Restart Required" localized]];
+			[alert setInformativeText:[@"Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?" localized]];
+			[alert addButtonWithTitle:[@"Yes" localized]];
+			[alert addButtonWithTitle:[@"No" localized]];
 			int result = [alert runModal];
 			if (result==1000) {
 				//Took from Sparkle.
@@ -309,8 +309,8 @@ static MGMController *MGMSharedController;
 		}
 	} else {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Unable to change dock"];
-		[alert setInformativeText:[NSString stringWithFormat:@"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable.", (isHidden ? @"hide" : @"unhide")]];
+		[alert setMessageText:[@"Unable to change dock" localized]];
+		[alert setInformativeText:[NSString stringWithFormat:[@"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable." localized], (isHidden ? [@"hide" localized] : [@"unhide" localized])]];
 		[alert runModal];
 	}
 	if (!isHidden) {
@@ -337,8 +337,8 @@ static MGMController *MGMSharedController;
 		if ([manager fileExistsAtPath:[files objectAtIndex:i] isDirectory:&directory]) {
 			if (directory) {
 				NSAlert *alert = [[NSAlert new] autorelease];
-				[alert setMessageText:@"Upload Error"];
-				[alert setInformativeText:@"Uploading of directories is impossible."];
+				[alert setMessageText:[@"Upload Error" localized]];
+				[alert setInformativeText:[@"Uploading of directories is impossible." localized]];
 				[alert runModal];
 				continue;
 			}
@@ -365,7 +365,7 @@ static MGMController *MGMSharedController;
 			NSDictionary *historyItem = [history objectAtIndex:i];
 			NSMenuItem *item = [[NSMenuItem new] autorelease];
 			NSDateFormatter *formatter = [[NSDateFormatter new] autorelease];
-			[formatter setDateFormat:@"MMMM d, yyyy h:mm:ss a"];
+			[formatter setDateFormat:[@"MMMM d, yyyy h:mm:ss a" localized]];
 			NSString *date = [formatter stringFromDate:[historyItem objectForKey:MGMHDate]];
 			if (date!=nil)
 				[item setTitle:date];
@@ -378,7 +378,7 @@ static MGMController *MGMSharedController;
 		}
 	} else {
 		NSMenuItem *item = [[NSMenuItem new] autorelease];
-		[item setTitle:@"No Upload History"];
+		[item setTitle:[@"No Upload History" localized]];
 		[item setEnabled:NO];
 		[mainMenu insertItem:item atIndex:splitterIndex];
 	}
@@ -408,8 +408,8 @@ static MGMController *MGMSharedController;
 	[panel setCanChooseDirectories:NO];
 	[panel setResolvesAliases:YES];
 	[panel setAllowsMultipleSelection:YES];
-	[panel setTitle:@"Choose File(s)"];
-	[panel setPrompt:@"Choose"];
+	[panel setTitle:[@"Choose File(s)" localized]];
+	[panel setPrompt:[@"Choose" localized]];
 	[self becomeFront:nil];
 	int returnCode = [panel runModal];
 	if (returnCode==NSOKButton) {
@@ -433,7 +433,7 @@ static MGMController *MGMSharedController;
 
 - (IBAction)disableFilters:(id)sender {
 	filtersEnabled = !filtersEnabled;
-	[disableFilters setTitle:(filtersEnabled ? @"Disable Auto Upload" : @"Enable Auto Upload")];
+	[disableFilters setTitle:(filtersEnabled ? [@"Disable Auto Upload" localized] : [@"Enable Auto Upload" localized])];
 }
 - (IBAction)about:(id)sender {
 	[about show];
@@ -492,16 +492,45 @@ static MGMController *MGMSharedController;
 - (void)subscribedPathChanged:(NSString *)thePath {
 	if (filtersEnabled) {
 		NSFileManager *manager = [NSFileManager defaultManager];
+		NSDate *dateLimit = [NSDate dateWithTimeIntervalSinceNow:-2];
 		NSArray *filtersFound = [self filtersForPath:thePath];
 		NSArray *files = [manager contentsOfDirectoryAtPath:thePath];
 		for (int i=0; i<[files count]; i++) {
 			NSString *file = [files objectAtIndex:i];
 			NSString *fullPath = [thePath stringByAppendingPathComponent:file];
+			NSDictionary *attributes = [manager attributesOfItemAtPath:fullPath];
+			if ([[attributes objectForKey:NSFileCreationDate] earlierDate:dateLimit]!=dateLimit)
+				continue;
 			BOOL directory = NO;
 			if ([manager fileExistsAtPath:fullPath isDirectory:&directory] && !directory) {
 				for (int f=0; f<[filtersFound count]; f++) {
-					if ([file isMatchedByRegex:[[filtersFound objectAtIndex:f] objectForKey:MGMFFilter]])
-						[self addPathToUploads:fullPath isAutomatic:YES];
+					NSString *filter = [[filtersFound objectAtIndex:f] objectForKey:MGMFFilter];
+					if ([filter hasPrefix:@"MD:"]) {
+						if ([filter hasPrefix:@"MD: "])
+							filter = [filter substringFromIndex:4];
+						else
+							filter = [filter substringFromIndex:3];
+						
+						MDItemRef metadata = MDItemCreate(kCFAllocatorDefault, (CFStringRef)fullPath);
+						if (metadata!=NULL) {
+							NSArray *items = (NSArray *)MDItemCopyAttributeNames(metadata);
+							for (int m=0; m<[items count]; m++) {
+								id item = (id)MDItemCopyAttribute(metadata, (CFStringRef)[items objectAtIndex:m]);
+								if ([[items objectAtIndex:m] isMatchedByRegex:filter])
+									[self addPathToUploads:fullPath isAutomatic:YES];
+								else if ([item isKindOfClass:[NSString class]] && [item isMatchedByRegex:filter])
+									[self addPathToUploads:fullPath isAutomatic:YES];
+								CFRelease((CFTypeRef)item);
+							}
+							CFRelease((CFArrayRef)items);
+							CFRelease(metadata);
+						} else {
+							NSLog(@"Unable to get metadata of %@", fullPath);
+						}
+					} else {
+						if ([file isMatchedByRegex:filter])
+							[self addPathToUploads:fullPath isAutomatic:YES];
+					}
 				}
 			}
 		}
@@ -571,20 +600,20 @@ static MGMController *MGMSharedController;
 		NSString *description = nil;
 		NSString *notificationName = nil;
 		if (theEvent==MGMEUploading) {
-			title = @"Uploading File";
-			description = [NSString stringWithFormat:@"Uploading %@", [[thePath lastPathComponent] stringByDeletingPathExtension]];
+			title = [@"Uploading File" localized];
+			description = [NSString stringWithFormat:[@"Uploading %@" localized], [[thePath lastPathComponent] stringByDeletingPathExtension]];
 			notificationName = @"UploadingFile";
 		} else if (theEvent==MGMEUploadingAutomatic) {
-			title = @"Automatically Uploading File";
-			description = [NSString stringWithFormat:@"Uploading %@", [[thePath lastPathComponent] stringByDeletingPathExtension]];
+			title = [@"Automatically Uploading File" localized];
+			description = [NSString stringWithFormat:[@"Uploading %@" localized], [[thePath lastPathComponent] stringByDeletingPathExtension]];
 			notificationName = @"UploadingFileAutomatically";
 		} else if (theEvent==MGMEUploaded) {
-			title = @"Uploaded File";
-			description = [NSString stringWithFormat:@"Uploaded %@ to %@", [[thePath lastPathComponent] stringByDeletingPathExtension], theURL];
+			title = [@"Uploaded File" localized];
+			description = [NSString stringWithFormat:[@"Uploaded %@ to %@" localized], [[thePath lastPathComponent] stringByDeletingPathExtension], theURL];
 			notificationName = @"UploadedFile";
 		} else if (theEvent==MGMEUploadedAutomatic) {
-			title = @"Automatically Uploaded File";
-			description = [NSString stringWithFormat:@"Uploaded %@ to %@", [[thePath lastPathComponent] stringByDeletingPathExtension], theURL];
+			title = [@"Automatically Uploaded File" localized];
+			description = [NSString stringWithFormat:[@"Uploaded %@ to %@" localized], [[thePath lastPathComponent] stringByDeletingPathExtension], theURL];
 			notificationName = @"UploadedFileAutomatically";
 		}
 		[GrowlApplicationBridge notifyWithTitle:title description:description notificationName:notificationName iconData:[[[NSApplication sharedApplication] applicationIconImage] TIFFRepresentation] priority:0 isSticky:NO clickContext:nil];
@@ -610,8 +639,8 @@ static MGMController *MGMSharedController;
 		if ([currentPlugIn respondsToSelector:@selector(allowedExtensions)]) {
 			if (![[currentPlugIn allowedExtensions] containsObject:[[thePath pathExtension] lowercaseString]]) {
 				NSAlert *alert = [[NSAlert new] autorelease];
-				[alert setMessageText:@"Upload Error"];
-				[alert setInformativeText:@"The current PlugIn does not support this file format."];
+				[alert setMessageText:[@"Upload Error" localized]];
+				[alert setInformativeText:[@"The current PlugIn does not support this file format." localized]];
 				[alert runModal];
 				return;
 			}
@@ -625,15 +654,15 @@ static MGMController *MGMSharedController;
 	if ([uploads count]>0) {
 		if (currentPlugIn==nil) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Upload Error"];
-			[alert setInformativeText:@"No PlugIns found. You must have at least 1 PlugIn to upload a file."];
+			[alert setMessageText:[@"Upload Error" localized]];
+			[alert setInformativeText:[@"No PlugIns found. You must have at least 1 PlugIn to upload a file." localized]];
 			[alert runModal];
 			[uploads removeAllObjects];
 			return;
 		} else if (![currentPlugIn respondsToSelector:@selector(sendFileAtPath:withName:)]) {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Upload Error"];
-			[alert setInformativeText:@"The current PlugIn doesn't support uploading."];
+			[alert setMessageText:[@"Upload Error" localized]];
+			[alert setInformativeText:[@"The current PlugIn doesn't support uploading." localized]];
 			[alert runModal];
 			[uploads removeAllObjects];
 			return;
@@ -661,11 +690,11 @@ static MGMController *MGMSharedController;
 	NSDictionary *upload = [self uploadForPath:thePath];
 	if (upload!=nil) {
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:MGMGrowlErrors]) {
-			[GrowlApplicationBridge notifyWithTitle:@"Unable to upload" description:[NSString stringWithFormat:@"%@: %@", [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]] notificationName:@"UploadError" iconData:[[[NSApplication sharedApplication] applicationIconImage] TIFFRepresentation] priority:1 isSticky:NO clickContext:nil];
+			[GrowlApplicationBridge notifyWithTitle:[@"Unable to upload" localized] description:[NSString stringWithFormat:@"%@: %@", [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]] notificationName:@"UploadError" iconData:[[[NSApplication sharedApplication] applicationIconImage] TIFFRepresentation] priority:1 isSticky:NO clickContext:nil];
 		} else {
 			NSAlert *alert = [[NSAlert new] autorelease];
-			[alert setMessageText:@"Upload Error"];
-			[alert setInformativeText:[NSString stringWithFormat:@"Unable to upload %@: %@", [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]]];
+			[alert setMessageText:[@"Upload Error" localized]];
+			[alert setInformativeText:[NSString stringWithFormat:[@"Unable to upload %@: %@" localized], [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]]];
 			[alert runModal];
 		}
 		[uploads removeObject:upload];

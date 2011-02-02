@@ -2,12 +2,13 @@
 //  MGMWebDavOptions.m
 //  CocoaShare
 //
-//  Created by James on 1/28/11.
+//  Created by Mr. Gecko on 1/28/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMWebDavOptions.h"
 #import "MGMWebDav.h"
+#import "MGMLocalized.h"
 
 NSString * const MGMWebDavMOPTIONS = @"OPTIONS";
 
@@ -74,7 +75,7 @@ NSString * const MGMWebDavMOPTIONS = @"OPTIONS";
 	if ([[theResponse allHeaderFields] objectForKey:@"Dav"]!=nil) {
 		if ([[self delegate] respondsToSelector:@selector(webDav:receivedOptions:)]) [[self delegate] webDav:webDav receivedOptions:self];
 	} else {
-		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObject:@"The HTTP server does not have WebDav enabled in this directory." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:1 userInfo:[NSDictionary dictionaryWithObject:[@"The HTTP server does not have WebDav enabled in this directory." localized] forKey:NSLocalizedDescriptionKey]];
 		if ([[self delegate] respondsToSelector:@selector(webDav:error:recevingOptions:)]) [[self delegate] webDav:webDav error:error recevingOptions:self];
 	}
 }

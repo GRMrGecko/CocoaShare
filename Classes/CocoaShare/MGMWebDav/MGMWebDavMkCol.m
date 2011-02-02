@@ -2,12 +2,13 @@
 //  MGMWebDavMkCol.m
 //  CocoaShare
 //
-//  Created by James on 1/29/11.
+//  Created by Mr. Gecko on 1/29/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMWebDavMkCol.h"
 #import "MGMWebDav.h"
+#import "MGMLocalized.h"
 
 NSString * const MGMWebDavMMKCOL = @"MKCOL";
 
@@ -74,7 +75,7 @@ NSString * const MGMWebDavMMKCOL = @"MKCOL";
 	if ([response statusCode]==201) {
 		if ([[self delegate] respondsToSelector:@selector(webDav:mkCol:)]) [[self delegate] webDav:webDav mkCol:self];
 	} else {
-		NSString *description = [NSString stringWithFormat:@"The response was returned as %@ and not %@.", [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:201]];
+		NSString *description = [NSString stringWithFormat:[@"The response was returned as %@ and not %@." localized], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:201]];
 		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:[response statusCode] userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
 		if ([[self delegate] respondsToSelector:@selector(webDav:error:mkCol:)]) [[self delegate] webDav:webDav error:error mkCol:self];
 	}

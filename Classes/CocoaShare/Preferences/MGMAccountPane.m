@@ -2,7 +2,7 @@
 //  MGMAccountPane.m
 //  CocoaShare
 //
-//  Created by James on 1/15/11.
+//  Created by Mr. Gecko on 1/15/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -19,7 +19,7 @@
 			NSArray *accountPlugIns = [controller accountPlugIns];
 			for (int i=0; i<[accountPlugIns count]; i++) {
 				id<MGMPlugInProtocol> plugIn = [accountPlugIns objectAtIndex:i];
-				NSString *name = ([plugIn respondsToSelector:@selector(plugInName)] ? [plugIn plugInName] : @"Unkown name");
+				NSString *name = ([plugIn respondsToSelector:@selector(plugInName)] ? [plugIn plugInName] : [@"Unkown name" localized]);
 				[typePopUp addItemWithTitle:name];
 			}
 			[typePopUp selectItemAtIndex:[controller currentPlugInIndex]];
@@ -43,7 +43,7 @@
     [theItem setImage:[NSImage imageNamed:@"Account"]];
 }
 + (NSString *)title {
-	return @"Account";
+	return [@"Account" localized];
 }
 - (NSView *)preferencesView {
 	return view;

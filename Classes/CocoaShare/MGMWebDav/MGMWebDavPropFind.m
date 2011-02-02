@@ -2,12 +2,13 @@
 //  MGMWebDavPropFind.m
 //  CocoaShare
 //
-//  Created by James on 1/28/11.
+//  Created by Mr. Gecko on 1/28/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMWebDavPropFind.h"
 #import "MGMWebDav.h"
+#import "MGMLocalized.h"
 
 NSString * const MGMWebDavMPROPFIND = @"PROPFIND";
 
@@ -141,7 +142,7 @@ NSString * const MGMWebDavPRFile = @"file";
 - (void)didReceiveResponse:(NSHTTPURLResponse *)theResponse {
 	response = [theResponse retain];
 	if ([response statusCode]!=207) {
-		NSString *description = [NSString stringWithFormat:@"The response was returned as %@ and not %@.", [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:207]];
+		NSString *description = [NSString stringWithFormat:[@"The response was returned as %@ and not %@." localized], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], [NSHTTPURLResponse localizedStringForStatusCode:207]];
 		NSError *error = [NSError errorWithDomain:MGMWebDavErrorDomain code:[response statusCode] userInfo:[NSDictionary dictionaryWithObject:description forKey:NSLocalizedDescriptionKey]];
 		if ([[self delegate] respondsToSelector:@selector(webDav:error:recevingProperties:)]) [[self delegate] webDav:webDav error:error recevingProperties:self];
 		[webDav cancelHandler:self];

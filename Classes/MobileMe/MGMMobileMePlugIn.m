@@ -2,7 +2,7 @@
 //  MGMMobileMePlugIn.m
 //  CocoaShare
 //
-//  Created by James on 1/29/11.
+//  Created by Mr. Gecko on 1/29/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -87,13 +87,13 @@ NSString * const MGMMobileMeFContents = @"contents";
 	[userField setEnabled:NO];
 	[passwordField setEnabled:NO];
 	[loginButton setEnabled:NO];
-	[loginButton setTitle:@"Logging In"];
+	[loginButton setTitle:[@"Logging In" localizedFor:self]];
 }
 - (void)unlockLogin {
 	[userField setEnabled:YES];
 	[passwordField setEnabled:YES];
 	[loginButton setEnabled:YES];
-	[loginButton setTitle:@"Login"];
+	[loginButton setTitle:[@"Login" localizedFor:self]];
 }
 - (void)login {
 	NSString *user = [[NSUserDefaults standardUserDefaults] objectForKey:MGMMobileMeUser];
@@ -108,8 +108,8 @@ NSString * const MGMMobileMeFContents = @"contents";
 - (IBAction)login:(id)sender {
 	if ([userField isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"UserName Required"];
-		[alert setInformativeText:@"Please enter your MobileMe UserName."];
+		[alert setMessageText:[@"UserName Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your username." localizedFor:self]];
 		[alert runModal];
 	} else {
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -129,7 +129,7 @@ NSString * const MGMMobileMeFContents = @"contents";
 - (void)webDav:(MGMWebDav *)theSender error:(NSError *)theError recevingOptions:(MGMWebDavOptions *)theOptions {
 	NSLog(@"MobileMe Error: %@", theError);
 	NSAlert *alert = [[NSAlert new] autorelease];
-	[alert setMessageText:@"Account Error"];
+	[alert setMessageText:[@"Account Error" localizedFor:self]];
 	[alert setInformativeText:[theError localizedDescription]];
 	[alert runModal];
 	[self unlockLogin];
@@ -143,7 +143,7 @@ NSString * const MGMMobileMeFContents = @"contents";
 - (void)webDav:(MGMWebDav *)theSender error:(NSError *)theError recevingProperties:(MGMWebDavPropFind *)thePropFind {
 	NSLog(@"MobileMe Error: %@", theError);
 	NSAlert *alert = [[NSAlert new] autorelease];
-	[alert setMessageText:@"Account Error"];
+	[alert setMessageText:[@"Account Error" localizedFor:self]];
 	[alert setInformativeText:[theError localizedDescription]];
 	[alert runModal];
 	[self unlockLogin];
@@ -190,8 +190,8 @@ NSString * const MGMMobileMeFContents = @"contents";
 					[propFind setDepth:1];
 					[webDav addHandler:propFind];
 					NSAlert *alert = [[NSAlert new] autorelease];
-					[alert setMessageText:@"Login Successful"];
-					[alert setInformativeText:@"You have sucessfully logged into your account."];
+					[alert setMessageText:[@"Login Successful" localizedFor:self]];
+					[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
 					[alert runModal];
 					[self unlockLogin];
 				}
@@ -199,8 +199,8 @@ NSString * const MGMMobileMeFContents = @"contents";
 			}
 		}
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Account Error"];
-		[alert setInformativeText:@"The URL you have entered does not appear to be a directory."];
+		[alert setMessageText:[@"Account Error" localizedFor:self]];
+		[alert setInformativeText:[@"The URL you have entered does not appear to be a directory." localizedFor:self]];
 		[alert runModal];
 		[self unlockLogin];
 	}
@@ -233,7 +233,7 @@ NSString * const MGMMobileMeFContents = @"contents";
 - (void)sendFileAtPath:(NSString *)thePath withName:(NSString *)theName {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:MGMMobileMeUser]==nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:@"Account is not logged in." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
 	}

@@ -2,7 +2,7 @@
 //  MGMDropboxPlugIn.m
 //  CocoaShare
 //
-//  Created by James on 1/19/11.
+//  Created by Mr. Gecko on 1/19/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
@@ -103,24 +103,24 @@ NSString * const MGMDropboxFContents = @"contents";
 	[emailField setEnabled:NO];
 	[passwordField setEnabled:NO];
 	[loginButton setEnabled:NO];
-	[loginButton setTitle:@"Logging In"];
+	[loginButton setTitle:[@"Logging In" localizedFor:self]];
 }
 - (void)unlockLogin {
 	[emailField setEnabled:YES];
 	[passwordField setEnabled:YES];
 	[loginButton setEnabled:YES];
-	[loginButton setTitle:@"Login"];
+	[loginButton setTitle:[@"Login" localizedFor:self]];
 }
 - (IBAction)login:(id)sender {
 	if ([[emailField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Email Required"];
-		[alert setInformativeText:@"Please enter your email."];
+		[alert setMessageText:[@"Email Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your email." localizedFor:self]];
 		[alert runModal];
     } else if ([[passwordField stringValue] isEqual:@""]) {
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Password Required"];
-		[alert setInformativeText:@"Please enter you password."];
+		[alert setMessageText:[@"Password Required" localizedFor:self]];
+		[alert setInformativeText:[@"Please enter your password." localizedFor:self]];
 		[alert runModal];
     } else {
 		userLoggingIn = YES;
@@ -134,7 +134,7 @@ NSString * const MGMDropboxFContents = @"contents";
 - (void)restClient:(DBRestClient *)client loginFailedWithError:(NSError *)error {
 	NSLog(@"Dropbox Error: %@", error);
 	NSAlert *alert = [[NSAlert new] autorelease];
-	[alert setMessageText:@"Account Error"];
+	[alert setMessageText:[@"Account Error" localizedFor:self]];
 	[alert setInformativeText:[error localizedDescription]];
 	[alert runModal];
 	[self unlockLogin];
@@ -147,8 +147,8 @@ NSString * const MGMDropboxFContents = @"contents";
 		loadingPublic = YES;
 		[dropbox loadMetadata:MGMDropboxPublic];
 		NSAlert *alert = [[NSAlert new] autorelease];
-		[alert setMessageText:@"Login Successful"];
-		[alert setInformativeText:@"You have sucessfully logged into your account."];
+		[alert setMessageText:[@"Login Successful" localizedFor:self]];
+		[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
 		[alert runModal];
 		[self unlockLogin];
 	}
@@ -216,15 +216,15 @@ NSString * const MGMDropboxFContents = @"contents";
 }
 - (void)restClient:(DBRestClient *)client loadAccountInfoFailedWithError:(NSError *)error {
 	NSAlert *alert = [[NSAlert new] autorelease];
-	[alert setMessageText:@"Account Error"];
-	[alert setInformativeText:@"Unable to get your account ID."];
+	[alert setMessageText:[@"Account Error" localizedFor:self]];
+	[alert setInformativeText:[@"Unable to get your account ID." localizedFor:self]];
 	[alert runModal];
 }
 
 - (void)sendFileAtPath:(NSString *)thePath withName:(NSString *)theName {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 	if ([defaults objectForKey:MGMDropboxEmail]==nil) {
-		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:@"Account is not logged in." forKey:NSLocalizedDescriptionKey]];
+		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
 	}
