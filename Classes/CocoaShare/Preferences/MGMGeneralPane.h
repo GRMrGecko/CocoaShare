@@ -16,6 +16,7 @@
 	IBOutlet NSMatrix *uploadName;
 	IBOutlet NSTextField *historyCountField;
 	IBOutlet NSButton *growlErrors;
+	IBOutlet NSTextField *uploadLimit;
 }
 - (id)initWithPreferences:(MGMPreferences *)thePreferences;
 + (void)setUpToolbarItem:(NSToolbarItem *)theItem;
@@ -27,4 +28,5 @@
 - (IBAction)changeUploadName:(id)sender;
 - (IBAction)changeHistoryCount:(id)sender;
 - (IBAction)changeGrowlErrors:(id)sender;
+- (IBAction)changeUploadLimit:(id)sender;
 @end

@@ -20,7 +20,7 @@ void MGMPathSubscriptionChange(FNMessage theMessage, OptionBits theFlags, void *
     if (theMessage==kFNDirectoryModifiedMessage)
         [(MGMPathSubscriber *)thePathSubscription subscriptionChanged:theSubscription];
 	else
-		NSLog(@"MGMPathSubscription: Received unkown message: %d", theMessage);
+		NSLog(@"MGMPathSubscription: Received Unknown message: %d", (int)theMessage);
 }
 
 @implementation MGMPathSubscriber
@@ -59,7 +59,7 @@ void MGMPathSubscriptionChange(FNMessage theMessage, OptionBits theFlags, void *
 	FNSubscriptionRef subscription = NULL;
 	OSStatus error = FNSubscribeByPath((UInt8 *)[thePath fileSystemRepresentation], subscriptionUPP, self, kFNNotifyInBackground, &subscription);
 	if (error!=noErr) {
-		NSLog(@"MGMPathSubscription: Unable to subscribe to %@ due to the error %d", thePath, error);
+		NSLog(@"MGMPathSubscription: Unable to subscribe to %@ due to the error %ld", thePath, (long)error);
 		return;
 	}
 	[subscriptions setObject:[NSValue valueWithPointer:subscription] forKey:thePath];

@@ -15,6 +15,7 @@
 #import <MGMUsers/MGMUsers.h>
 #import <GeckoReporter/GeckoReporter.h>
 #import <Growl/GrowlApplicationBridge.h>
+#import <Carbon/Carbon.h>
 
 NSString * const MGMCopyright = @"Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/";
 NSString * const MGMVersion = @"MGMVersion";
@@ -25,6 +26,7 @@ NSString * const MGMStartup = @"MGMStartup";
 NSString * const MGMUploadName = @"MGMUploadName";
 NSString * const MGMHistoryCount = @"MGMHistoryCount";
 NSString * const MGMGrowlErrors = @"MGMGrowlErrors";
+NSString * const MGMUploadLimit = @"MGMUploadLimit";
 
 NSString * const MGMHistoryPlist = @"history.plist";
 NSString * const MGMHURL = @"url";
@@ -58,6 +60,18 @@ NSString * const MGMUAutomatic = @"automatic";
 NSString * const MGMNSStringPboardType = @"NSStringPboardType";
 NSString * const MGMNSPasteboardTypeString = @"public.utf8-plain-text";
 
+OSStatus frontAppChanged(EventHandlerCallRef nextHandler, EventRef theEvent, void *userData) {
+	ProcessSerialNumber thisProcess;
+	GetCurrentProcess(&thisProcess);
+	ProcessSerialNumber newProcess;
+	GetFrontProcess(&newProcess);
+	Boolean same;
+	SameProcess(&newProcess, &thisProcess, &same);
+	if (!same)
+		[(MGMController *)userData setFrontProcess:&newProcess];
+    return (CallNextEventHandler(nextHandler, theEvent));
+}
+
 static MGMController *MGMSharedController;
 
 @implementation MGMController
@@ -69,10 +83,10 @@ static MGMController *MGMSharedController;
 }
 - (id)init {
 	if (MGMSharedController!=nil) {
-		if (self = [super init])
+		if ((self = [super init]))
 			[self release];
 		self = MGMSharedController;
-	} else if (self = [super init]) {
+	} else if ((self = [super init])) {
 		MGMSharedController = self;
 	}
 	return self;
@@ -136,6 +150,12 @@ static MGMController *MGMSharedController;
     [preferences addPreferencesPaneClassName:@"MGMAutoUploadPane"];
     [preferences addPreferencesPaneClassName:@"MGMEventsPane"];
 	
+	EventTypeSpec eventType;
+	eventType.eventClass = kEventClassApplication;
+	eventType.eventKind = kEventAppFrontSwitched;
+	EventHandlerUPP handlerUPP = NewEventHandlerUPP(frontAppChanged);
+	InstallApplicationEventHandler(handlerUPP, 1, &eventType, self, NULL);
+	
 	if ([defaults integerForKey:MGMLaunchCount]==2)
 		[preferences showPreferences];
 	
@@ -170,6 +190,7 @@ static MGMController *MGMSharedController;
 	[defaults setObject:[NSNumber numberWithBool:[[MGMLoginItems items] selfExists]] forKey:MGMStartup];
 	[defaults setObject:[NSNumber numberWithInt:0] forKey:MGMUploadName];
 	[defaults setObject:[NSNumber numberWithInt:5] forKey:MGMHistoryCount];
+	[defaults setObject:[NSNumber numberWithInt:5] forKey:MGMUploadLimit];
 	
 	[defaults setObject:[NSNumber numberWithInt:2] forKey:[NSString stringWithFormat:MGMEDelete, MGMEUploadedAutomatic]];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
@@ -244,21 +265,32 @@ static MGMController *MGMSharedController;
 	return currentPlugInIndex;
 }
 
+- (void)setFrontProcess:(ProcessSerialNumber *)theProcess {
+	frontProcess = *theProcess;
+	/*CFStringRef name;
+	CopyProcessName(theProcess, &name);
+	if (name!=NULL) {
+		NSLog(@"%@ became front", (NSString *)name);
+		CFRelease(name);
+	}*/
+}
 - (void)becomeFront:(NSWindow *)theWindow {
-	GetFrontProcess(&lastFrontProcess);
 	if (theWindow!=nil) {
+		windowCount++;
 		if ([[MGMSystemInfo info] isUIElement])
 			[theWindow setLevel:NSFloatingWindowLevel];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(windowWillClose:) name:NSWindowWillCloseNotification object:theWindow];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(frontWindowClosed:) name:NSWindowWillCloseNotification object:theWindow];
 	}
 	[[NSApplication sharedApplication] activateIgnoringOtherApps:YES];
 }
 - (void)resignFront {
-	SetFrontProcess(&lastFrontProcess);
+	SetFrontProcess(&frontProcess);
 }
-- (void)windowWillClose:(NSNotification *)notification {
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:[notification name] object:[notification object]];
-	[self resignFront];
+- (void)frontWindowClosed:(NSNotification *)theNotification {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:[theNotification name] object:[theNotification object]];
+	windowCount--;
+	if (windowCount==0)
+		[self resignFront];
 }
 
 - (void)addMenu {
@@ -492,14 +524,15 @@ static MGMController *MGMSharedController;
 - (void)subscribedPathChanged:(NSString *)thePath {
 	if (filtersEnabled) {
 		NSFileManager *manager = [NSFileManager defaultManager];
-		NSDate *dateLimit = [NSDate dateWithTimeIntervalSinceNow:-2];
+		int uploadLimit = [[NSUserDefaults standardUserDefaults] integerForKey:MGMUploadLimit];
+		NSDate *dateLimit = [NSDate dateWithTimeIntervalSinceNow:-uploadLimit];
 		NSArray *filtersFound = [self filtersForPath:thePath];
 		NSArray *files = [manager contentsOfDirectoryAtPath:thePath];
 		for (int i=0; i<[files count]; i++) {
 			NSString *file = [files objectAtIndex:i];
 			NSString *fullPath = [thePath stringByAppendingPathComponent:file];
 			NSDictionary *attributes = [manager attributesOfItemAtPath:fullPath];
-			if ([[attributes objectForKey:NSFileCreationDate] earlierDate:dateLimit]!=dateLimit)
+			if (uploadLimit!=0 && [[attributes objectForKey:NSFileCreationDate] earlierDate:dateLimit]!=dateLimit)
 				continue;
 			BOOL directory = NO;
 			if ([manager fileExistsAtPath:fullPath isDirectory:&directory] && !directory) {
@@ -520,9 +553,11 @@ static MGMController *MGMSharedController;
 									[self addPathToUploads:fullPath isAutomatic:YES];
 								else if ([item isKindOfClass:[NSString class]] && [item isMatchedByRegex:filter])
 									[self addPathToUploads:fullPath isAutomatic:YES];
-								CFRelease((CFTypeRef)item);
+								if (item!=nil)
+									CFRelease((CFTypeRef)item);
 							}
-							CFRelease((CFArrayRef)items);
+							if (items!=nil)
+								CFRelease((CFArrayRef)items);
 							CFRelease(metadata);
 						} else {
 							NSLog(@"Unable to get metadata of %@", fullPath);
@@ -590,7 +625,7 @@ static MGMController *MGMSharedController;
 			NSInteger tag;
 			[[NSWorkspace sharedWorkspace] performFileOperation:NSWorkspaceRecycleOperation source:[thePath stringByDeletingLastPathComponent] destination:trash files:[NSArray arrayWithObject:[thePath lastPathComponent]] tag:&tag];
 			if (tag!=0)
-				NSLog(@"Error Deleting: %d", tag);
+				NSLog(@"Error Deleting: %ld", (long)tag);
 		}
 	}
 	
@@ -677,7 +712,7 @@ static MGMController *MGMSharedController;
 		[menuItem setImage:[NSImage imageNamed:@"menuiconupload"]];
 		[self processEvent:([[upload objectForKey:MGMUAutomatic] boolValue] ? MGMEUploadingAutomatic : MGMEUploading) path:[upload objectForKey:MGMUPath]];
 		int uploadNameType = [[[NSUserDefaults standardUserDefaults] objectForKey:MGMUploadName] intValue];
-		NSString *randomizedName = [[NSString stringWithFormat:@"%d", [[NSDate date] timeIntervalSince1970]] MD5];
+		NSString *randomizedName = [[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]] MD5];
 		NSString *name = [[upload objectForKey:MGMUPath] lastPathComponent];
 		if ((uploadNameType==0 && [[upload objectForKey:MGMUAutomatic] boolValue]) || uploadNameType==1)
 			name = [randomizedName stringByAppendingPathExtension:[name pathExtension]];

@@ -41,8 +41,6 @@
 	<string>0.1</string>
 	<key>LSMinimumSystemVersion</key>
 	<string>${MACOSX_DEPLOYMENT_TARGET}</string>
-	<key>NSHumanReadableCopyright</key>
-	<string>Copyright (c) 2011 Mr. Gecko&apos;s Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/</string>
 	<key>MGMGRBugsEmail</key>
 	<string>bugs@mrgeckosmedia.com</string>
 	<key>MGMGRContactEmail</key>
@@ -52,9 +50,11 @@
 	<key>MGMGRReportFileAttached</key>
 	<true/>
 	<key>MGMGRTimeFormat</key>
-	<string>%A, %m/%d/%y %I:%M:%S %p</string>
+	<string>EEEE, MM/dd/yy h:mm:ss a</string>
 	<key>MGMGRTimeZone</key>
 	<string>CST</string>
+	<key>NSHumanReadableCopyright</key>
+	<string>Copyright (c) 2011 Mr. Gecko&apos;s Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/</string>
 	<key>NSMainNibFile</key>
 	<string>MainMenu</string>
 	<key>NSPrincipalClass</key>

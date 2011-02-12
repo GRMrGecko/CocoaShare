@@ -13,6 +13,13 @@
 - (NSString *)escapePath;
 @end
 
+extern NSString * const MGMMPFPath;
+extern NSString * const MGMMPFName;
+
+@interface NSDictionary (MGMAddons)
+- (NSData *)buildMultiPartBodyWithBoundary:(NSString *)theBoundary;
+@end
+
 @interface NSBezierPath (MGMAddons)
 + (NSBezierPath *)pathWithRect:(NSRect)theRect radiusX:(float)theRadiusX radiusY:(float)theRadiusY;
 - (void)fillGradientFrom:(NSColor *)theStartColor to:(NSColor *)theEndColor;

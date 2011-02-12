@@ -110,14 +110,14 @@
 #pragma mark -
 
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		
 	}
 	return self;
 }
 
 - (id)initWithName:(NSString *)inName andValue:(NSString *)inValue {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		name = [inName copy];
 		value = [inValue copy];
 	}

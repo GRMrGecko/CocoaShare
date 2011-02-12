@@ -178,14 +178,14 @@ NSString * const MGMFTPURL = @"MGMFTPURL";
 			[self unlockLogin];
 			NSAlert *alert = [[NSAlert new] autorelease];
 			[alert setMessageText:[@"Login Successful" localizedFor:self]];
-			[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+			[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 			[alert runModal];
 			[[FTPInputPipe fileHandleForWriting] writeData:[@"bye\n" dataUsingEncoding:NSUTF8StringEncoding]];
 		} else if (response==550) {
 			[self unlockLogin];
 			NSAlert *alert = [[NSAlert new] autorelease];
 			[alert setMessageText:[@"Account Error" localizedFor:self]];
-			[alert setInformativeText:[@"You have sucessfully logged into your account, but the path you have entered does not exist." localizedFor:self]];
+			[alert setInformativeText:[@"You have successfully logged into your account, but the path you have entered does not exist." localizedFor:self]];
 			[alert runModal];
 			[[FTPInputPipe fileHandleForWriting] writeData:[@"bye\n" dataUsingEncoding:NSUTF8StringEncoding]];
 		} else if (response==230) {
@@ -194,7 +194,7 @@ NSString * const MGMFTPURL = @"MGMFTPURL";
 				[self unlockLogin];
 				NSAlert *alert = [[NSAlert new] autorelease];
 				[alert setMessageText:[@"Login Successful" localizedFor:self]];
-				[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+				[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 				[alert runModal];
 				[[FTPInputPipe fileHandleForWriting] writeData:[@"bye\n" dataUsingEncoding:NSUTF8StringEncoding]];
 			} else {

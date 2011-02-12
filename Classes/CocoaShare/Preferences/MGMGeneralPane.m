@@ -12,7 +12,7 @@
 
 @implementation MGMGeneralPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {
-	if (self = [super initWithPreferences:thePreferences]) {
+	if ((self = [super initWithPreferences:thePreferences])) {
 		if (![NSBundle loadNibNamed:@"GeneralPane" owner:self]) {
 			NSLog(@"Error loading General pane");
 		} else {
@@ -21,6 +21,7 @@
 			[uploadName selectCellAtRow:[preferences integerForKey:MGMUploadName] column:0];
 			[historyCountField setIntValue:[preferences integerForKey:MGMHistoryCount]];
 			[growlErrors setState:([preferences boolForKey:MGMGrowlErrors] ? NSOnState : NSOffState)];
+			[uploadLimit setIntValue:[preferences integerForKey:MGMUploadLimit]];
 		}
 	}
 	return self;
@@ -77,5 +78,8 @@
 }
 - (IBAction)changeGrowlErrors:(id)sender {
 	[preferences setBool:([growlErrors state]==NSOnState) forKey:MGMGrowlErrors];
+}
+- (IBAction)changeUploadLimit:(id)sender {
+	[preferences setInteger:[uploadLimit intValue] forKey:MGMUploadLimit];
 }
 @end

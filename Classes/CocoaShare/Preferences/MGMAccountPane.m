@@ -11,7 +11,7 @@
 
 @implementation MGMAccountPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {
-	if (self = [super initWithPreferences:thePreferences]) {
+	if ((self = [super initWithPreferences:thePreferences])) {
 		if (![NSBundle loadNibNamed:@"AccountPane" owner:self]) {
 			NSLog(@"Error loading Account pane");
 		} else {
@@ -19,13 +19,14 @@
 			NSArray *accountPlugIns = [controller accountPlugIns];
 			for (int i=0; i<[accountPlugIns count]; i++) {
 				id<MGMPlugInProtocol> plugIn = [accountPlugIns objectAtIndex:i];
-				NSString *name = ([plugIn respondsToSelector:@selector(plugInName)] ? [plugIn plugInName] : [@"Unkown name" localized]);
+				NSString *name = ([plugIn respondsToSelector:@selector(plugInName)] ? [plugIn plugInName] : [@"Unknown name" localized]);
 				[typePopUp addItemWithTitle:name];
 			}
 			[typePopUp selectItemAtIndex:[controller currentPlugInIndex]];
-			plugInView = nil;
 			if ([[controller currentPlugIn] respondsToSelector:@selector(plugInView)]) plugInView = [[controller currentPlugIn] plugInView];
-			NSRect plugInFrame = [plugInView frame];
+			NSRect plugInFrame = NSZeroRect;
+			if (plugInView!=nil)
+				plugInFrame = [plugInView frame];
 			[view setFrame:NSMakeRect(0, 0, (plugInFrame.size.width<130 ? 130 : plugInFrame.size.width), (plugInFrame.size.height<20 ? 20 : plugInFrame.size.height)+36)];
 			[view addSubview:plugInView];
 		}
@@ -56,7 +57,9 @@
 	[controller setCurrentPlugIn:[[controller accountPlugIns] objectAtIndex:[typePopUp indexOfSelectedItem]]];
 	[typePopUp selectItemAtIndex:[controller currentPlugInIndex]];
 	if ([[controller currentPlugIn] respondsToSelector:@selector(plugInView)]) plugInView = [[controller currentPlugIn] plugInView];
-	NSRect plugInFrame = [plugInView frame];
+	NSRect plugInFrame = NSZeroRect;
+	if (plugInView!=nil)
+		plugInFrame = [plugInView frame];
 	NSRect viewFrame = NSMakeRect(0, 0, (plugInFrame.size.width<130 ? 130 : plugInFrame.size.width), (plugInFrame.size.height<20 ? 20 : plugInFrame.size.height)+36);
 	
 	NSWindow *preferencesWindow = [preferences preferencesWindow];

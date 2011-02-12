@@ -44,7 +44,7 @@ NSString * const MPOAuthTokenRefreshDateDefaultsKey		= @"MPOAuthAutomaticTokenRe
 }
 
 - (id)initWithCredentials:(NSDictionary *)inCredentials authenticationURL:(NSURL *)inAuthURL andBaseURL:(NSURL *)inBaseURL autoStart:(BOOL)aFlag {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		[self setAuthenticationURL:inAuthURL];
 		[self setBaseURL:inBaseURL];
 		[self setAuthenticationState:MPOAuthAuthenticationStateUnauthenticated];

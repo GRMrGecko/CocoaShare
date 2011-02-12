@@ -13,7 +13,7 @@
 
 @implementation MGMAutoUploadPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {
-	if (self = [super initWithPreferences:thePreferences]) {
+	if ((self = [super initWithPreferences:thePreferences])) {
 		if (![NSBundle loadNibNamed:@"AutoUploadPane" owner:self]) {
 			NSLog(@"Error loading Auto Upload pane");
 		} else {

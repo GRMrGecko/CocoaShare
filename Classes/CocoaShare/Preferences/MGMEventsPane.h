@@ -9,7 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import <MGMUsers/MGMUsers.h>
 
-@interface MGMEventsPane : MGMPreferencesPane {
+@interface MGMEventsPane : MGMPreferencesPane <NSSoundDelegate> {
 	IBOutlet NSView *view;
 	IBOutlet NSPopUpButton *eventPopUp;
 	IBOutlet NSPopUpButton *soundPopUp;

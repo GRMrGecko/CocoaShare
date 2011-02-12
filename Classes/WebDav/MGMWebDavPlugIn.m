@@ -142,7 +142,7 @@ NSString * const MGMWebDavUser = @"MGMWebDavUser";
 			if (!userLoggingIn) {
 				NSAlert *alert = [[NSAlert new] autorelease];
 				[alert setMessageText:[@"Login Successful" localizedFor:self]];
-				[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+				[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 				[alert runModal];
 				[self unlockLogin];
 			}

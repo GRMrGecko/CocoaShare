@@ -114,16 +114,15 @@ static id networkRequestDelegate = nil;
     
     if (tempFilename) {
         [fileHandle closeFile];
-        NSError* rmError;
+        NSError *rmError = nil;
 		NSFileManager *manager = [NSFileManager defaultManager];
 		BOOL result = NO;
 		if ([manager respondsToSelector:@selector(removeFileAtPath:handler:)])
 			result = [manager removeFileAtPath:tempFilename handler:nil];
 		else
 			result = [manager removeItemAtPath:tempFilename error:&rmError];
-        if (!result) {
+        if (!result)
             NSLog(@"DBRequest#cancel Error removing temp file: %@", rmError);
-        }
     }
     
     [networkRequestDelegate networkRequestStopped];
@@ -252,16 +251,15 @@ static id networkRequestDelegate = nil;
     
     if (tempFilename) {
         NSFileManager *manager = [NSFileManager defaultManager];
-		NSError* removeError;
+		NSError *removeError = nil;
 		BOOL result = NO;
 		if ([manager respondsToSelector:@selector(removeFileAtPath:handler:)])
 			result = [manager removeFileAtPath:tempFilename handler:nil];
 		else
 			result = [manager removeItemAtPath:tempFilename error:&removeError];
-        if (!result) {
+        if (!result)
             NSLog(@"DBRequest#connection:didFailWithError: error removing temporary file: %@", 
                     [removeError localizedDescription]);
-        }
         [tempFilename release];
         tempFilename = nil;
     }
@@ -272,9 +270,9 @@ static id networkRequestDelegate = nil;
     [networkRequestDelegate networkRequestStopped];
 }
 
-- (void)connection:(NSURLConnection*)connection didSendBodyData:(int)bytesWritten 
-    totalBytesWritten:(int)totalBytesWritten 
-    totalBytesExpectedToWrite:(int)totalBytesExpectedToWrite {
+- (void)connection:(NSURLConnection*)connection didSendBodyData:(NSInteger)bytesWritten 
+    totalBytesWritten:(NSInteger)totalBytesWritten 
+    totalBytesExpectedToWrite:(NSInteger)totalBytesExpectedToWrite {
     
     uploadProgress = (float)totalBytesWritten / (float)totalBytesExpectedToWrite;
     if (uploadProgressSelector) {

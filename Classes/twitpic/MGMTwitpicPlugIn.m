@@ -169,7 +169,7 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 }
 - (void)uploadDidFinish:(NSDictionary *)theData {
 	NSError *error = nil;
-	NSXMLDocument *document = [[NSXMLDocument alloc] initWithData:[theData objectForKey:MGMConnectionData] options:0 error:&error];
+	NSXMLDocument *document = [[[NSXMLDocument alloc] initWithData:[theData objectForKey:MGMConnectionData] options:0 error:&error] autorelease];
 	if (error!=nil) {
 		NSString *uploadedPath = [[filePath retain] autorelease];
 		[filePath release];

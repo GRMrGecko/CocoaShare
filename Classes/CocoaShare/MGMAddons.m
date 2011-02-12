@@ -46,6 +46,53 @@
 }
 @end
 
+NSString * const MGMMPFPath = @"path";
+NSString * const MGMMPFName = @"name";
+
+@implementation NSDictionary (MGMAddons)
+- (NSData *)buildMultiPartBodyWithBoundary:(NSString *)theBoundary {
+	NSFileManager *manager = [NSFileManager defaultManager];
+	NSMutableData *data = [NSMutableData data];
+	NSArray *keys = [self allKeys];
+	for (int i=0; i<[keys count]; i++) {
+		NSString *key = [keys objectAtIndex:i];
+		id object = [self objectForKey:key];
+		[data appendData:[[NSString stringWithFormat:@"--%@\r\n", theBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+		if (![object isKindOfClass:[NSDictionary class]])
+			  [data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];  
+		if ([object isKindOfClass:[NSString class]]) {
+			[data appendData:[object dataUsingEncoding:NSUTF8StringEncoding]];
+		} else if ([object isKindOfClass:[NSNumber class]]) {
+			[data appendData:[[object stringValue] dataUsingEncoding:NSUTF8StringEncoding]];
+		} else if ([object isKindOfClass:[NSData class]]) {
+			[data appendData:object];
+		} else if ([object isKindOfClass:[NSURL class]]) {
+			[data appendData:[[object absoluteString] dataUsingEncoding:NSUTF8StringEncoding]];
+		} else if ([object isKindOfClass:[NSDictionary class]]) {
+			if ([manager fileExistsAtPath:[object objectForKey:MGMMPFPath]] && [manager isReadableFileAtPath:[object objectForKey:MGMMPFPath]]) {
+				[data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", key, [object objectForKey:MGMMPFName]] dataUsingEncoding:NSUTF8StringEncoding]];
+				NSString *mimeString = @"application/octet-stream";
+				CFStringRef extentionInfo = UTTypeCreatePreferredIdentifierForTag(kUTTagClassFilenameExtension, (CFStringRef)[[object objectForKey:MGMMPFPath] pathExtension], CFSTR("public.data"));
+				if (extentionInfo!=NULL) {
+					CFStringRef mime = UTTypeCopyPreferredTagWithClass(extentionInfo, kUTTagClassMIMEType);
+					CFRelease(extentionInfo);
+					if (mime!=NULL) {
+						mimeString = [(NSString *)mime autorelease];
+					}
+				}
+				[data appendData:[[NSString stringWithFormat:@"Content-Type: %@\r\n", mimeString] dataUsingEncoding:NSUTF8StringEncoding]];
+				[data appendData:[@"Content-Transfer-Encoding: binary\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+				[data appendData:[NSData dataWithContentsOfFile:[object objectForKey:MGMMPFPath]]];
+			}
+		}
+		[data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
+	}
+	[data appendData:[[NSString stringWithFormat:@"--%@--", theBoundary] dataUsingEncoding:NSUTF8StringEncoding]];
+	
+	return data;
+}
+@end
+
 @implementation NSBezierPath (MGMAddons)
 + (NSBezierPath *)pathWithRect:(NSRect)theRect radiusX:(float)theRadiusX radiusY:(float)theRadiusY {
     NSBezierPath *path = [NSBezierPath bezierPath];

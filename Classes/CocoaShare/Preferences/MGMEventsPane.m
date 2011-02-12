@@ -12,11 +12,11 @@
 
 @implementation MGMEventsPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {
-	if (self = [super initWithPreferences:thePreferences]) {
+	if ((self = [super initWithPreferences:thePreferences])) {
 		if (![NSBundle loadNibNamed:@"EventsPane" owner:self]) {
 			NSLog(@"Error loading Events pane");
 		} else {
-			NSArray *sounds = [[self sounds] retain];
+			NSArray *sounds = [self sounds];
 			NSMenu *soundsMenu = [[NSMenu new] autorelease];
 			NSMenuItem *noneMenu = [[NSMenuItem new] autorelease];
 			[noneMenu setTitle:[@"No Sound" localized]];
@@ -47,6 +47,7 @@
 	[view release];
 	[sound stop];
 	[sound release];
+	sound = nil;
 	[super dealloc];
 }
 + (void)setUpToolbarItem:(NSToolbarItem *)theItem {

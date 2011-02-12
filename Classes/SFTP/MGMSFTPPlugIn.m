@@ -173,7 +173,7 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		if ([[defaults objectForKey:MGMSFTPPath] isEqual:@""]) {
 			NSAlert *alert = [[NSAlert new] autorelease];
 			[alert setMessageText:[@"Login Successful" localizedFor:self]];
-			[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+			[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		} else {
@@ -185,13 +185,13 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		if ([[defaults objectForKey:MGMSFTPPath] hasPrefix:theString]) {
 			NSAlert *alert = [[NSAlert new] autorelease];
 			[alert setMessageText:[@"Login Successful" localizedFor:self]];
-			[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+			[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		} else {
 			NSAlert *alert = [[NSAlert new] autorelease];
 			[alert setMessageText:[@"Account Error" localizedFor:self]];
-			[alert setInformativeText:[@"You have sucessfully logged into your account, but the path you have entered does not exist." localizedFor:self]];
+			[alert setInformativeText:[@"You have successfully logged into your account, but the path you have entered does not exist." localizedFor:self]];
 			[alert runModal];
 			[self unlockLogin];
 		}

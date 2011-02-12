@@ -8,6 +8,7 @@
 
 #import "MGMHTTPPlugIn.h"
 #import "MGMController.h"
+#import "MGMAddons.h"
 #import <MGMUsers/MGMUsers.h>
 
 NSString * const MGMCopyright = @"Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/";
@@ -107,11 +108,11 @@ const BOOL MGMHTTPResponseInvisible = YES;
 			if ([[response objectForKey:MGMHTTPRLoggedIn] boolValue] && !userLoggingIn) {
 				NSAlert *alert = [[NSAlert new] autorelease];
 				[alert setMessageText:[@"Login Successful" localizedFor:self]];
-				[alert setInformativeText:[@"You have sucessfully logged into your account." localizedFor:self]];
+				[alert setInformativeText:[@"You have successfully logged into your account." localizedFor:self]];
 				[alert runModal];
 				[self unlockLogin];
 			} else if (![[response objectForKey:MGMHTTPRLoggedIn] boolValue]) {
-				NSLog(@"HTTP Error: Unkown response from server.");
+				NSLog(@"HTTP Error: Unknown response from server.");
 			}
 		} else {
 			if (![[response objectForKey:MGMHTTPRLoggedIn] boolValue]) {
@@ -184,20 +185,10 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[postRequest setHTTPMethod:MGMHTTPPostMethod];
 	[postRequest setValue:[NSString stringWithFormat:@"multipart/form-data; boundary=%@", boundary, nil] forHTTPHeaderField:@"Content-Type"];
 	
-	NSMutableData *data = [NSMutableData data];
-	[data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[@"Content-Disposition: form-data; name=\"upload\"\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[@"upload" dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	
-	[data appendData:[[NSString stringWithFormat:@"--%@\r\n", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[[NSString stringWithFormat:@"Content-Disposition: form-data; name=\"upload\"; filename=\"%@\"\r\n", theName] dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[@"Content-Type: application/octet-stream\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[@"Content-Transfer-Encoding: binary\r\n\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[NSData dataWithContentsOfFile:thePath]];
-	[data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
-	[data appendData:[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
-	[postRequest setHTTPBody:data];
+	NSMutableDictionary *data = [NSMutableDictionary dictionary];
+	[data setObject:@"file" forKey:@"upload"];
+	[data setObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMMPFPath, theName, MGMMPFName, nil] forKey:@"file"];
+	[postRequest setHTTPBody:[data buildMultiPartBodyWithBoundary:boundary]];
 	[[[MGMController sharedController] connectionManager] connectionWithRequest:postRequest delegate:self didFailWithError:@selector(upload:didFailWithError:) didFinish:@selector(uploadDidFinish:) invisible:MGMHTTPResponseInvisible object:thePath];
 }
 - (void)upload:(NSDictionary *)theData didFailWithError:(NSError *)theError {

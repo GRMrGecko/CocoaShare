@@ -17,8 +17,8 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 
 @interface MGMWebDav (MGMPrivate)
 - (id<MGMWebDavHandler>)handlerForConnection:(NSURLConnection *)theConnection;
-- (CFHTTPMessageRef)httpMessageFromResponse:(NSHTTPURLResponse *)theResponse;
-- (CFHTTPMessageRef)httpMessageFromRequest:(NSURLRequest *)theRequest;
+- (CFHTTPMessageRef)newHTTPMessageFromResponse:(NSHTTPURLResponse *)theResponse;
+- (CFHTTPMessageRef)newHTTPMessageFromRequest:(NSURLRequest *)theRequest;
 @end
 
 @implementation MGMWebDav
@@ -123,7 +123,7 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 	}
 }
 
-- (CFHTTPMessageRef)httpMessageFromResponse:(NSHTTPURLResponse *)theResponse {
+- (CFHTTPMessageRef)newHTTPMessageFromResponse:(NSHTTPURLResponse *)theResponse {
 	CFHTTPMessageRef message = CFHTTPMessageCreateResponse(kCFAllocatorDefault, [theResponse statusCode], (CFStringRef)[NSHTTPURLResponse localizedStringForStatusCode:[theResponse statusCode]], kCFHTTPVersion1_1);
 	
 	NSDictionary *headers = [theResponse allHeaderFields];
@@ -133,7 +133,7 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 	}
 	return message;
 }
-- (CFHTTPMessageRef)httpMessageFromRequest:(NSURLRequest *)theRequest {
+- (CFHTTPMessageRef)newHTTPMessageFromRequest:(NSURLRequest *)theRequest {
 	CFHTTPMessageRef message = CFHTTPMessageCreateRequest(kCFAllocatorDefault, (CFStringRef)[theRequest HTTPMethod], (CFURLRef)[theRequest URL], kCFHTTPVersion1_1);
 
 	NSDictionary *headers = [theRequest allHTTPHeaderFields];

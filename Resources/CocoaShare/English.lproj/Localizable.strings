@@ -87,7 +87,7 @@
 "No Sound" = "No Sound";
 
 /* Genral */
-"Unkown name" = "Unkown name";
+"Unknown name" = "Unknown name";
 
 /* Preferences Interface */
 /* General */
@@ -101,6 +101,7 @@
 "Random for automatic and manual upload." = "Random for automatic and manual upload.";
 "Keep x uploads in history." = "Keep x uploads in history.";
 "Display growl notifications for errors:" = "Display growl notifications for errors:";
+"Auto upload limit within x seconds." = "Auto upload limit within x seconds.";
 
 /* Account */
 "Type:" = "Type:";
@@ -141,7 +142,7 @@
 "Please enter your password." = "Please enter your password.";
 "Account Error" = "Account Error";
 "Login Successful" = "Login Successful";
-"You have sucessfully logged into your account." = "You have sucessfully logged into your account.";
+"You have successfully logged into your account." = "You have successfully logged into your account.";
 "Account is not logged in." = "Account is not logged in.";
 "URL Required" = "URL Required";
 "Email Required" = "Email Required";
@@ -155,7 +156,7 @@
 "Please enter your host." = "Please enter your host.";
 "Please enter the URL to where the files will be uploaded." = "Please enter the URL to where the files will be uploaded.";
 "Incorrect login info." = "Incorrect login info.";
-"You have sucessfully logged into your account, but the path you have entered does not exist." = "You have sucessfully logged into your account, but the path you have entered does not exist.";
+"You have successfully logged into your account, but the path you have entered does not exist." = "You have successfully logged into your account, but the path you have entered does not exist.";
 "The path to upload files to does not exist." = "The path to upload files to does not exist.";
 
 /* HTTP */
@@ -183,6 +184,7 @@
 "Path:" = "Path:";
 "URL:" = "URL:";
 "Email:" = "Email:";
+"Private Key" = "Private Key";
 
 /* twitpic */
 "Ask for message and post to Twitter?" = "Ask for message and post to Twitter?";

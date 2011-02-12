@@ -17,7 +17,7 @@
 @implementation MPOAuthURLRequest
 
 - (id)initWithURL:(NSURL *)inURL andParameters:(NSArray *)inParameters {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		url = [inURL retain];
 		parameters = inParameters ? [inParameters mutableCopy] : [[NSMutableArray alloc] initWithCapacity:10];
 		[self setHTTPMethod:@"GET"];
@@ -26,7 +26,7 @@
 }
 
 - (id)initWithURLRequest:(NSURLRequest *)inRequest {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		url = [[[inRequest URL] urlByRemovingQuery] retain];
 		parameters = [[MPURLRequestParameter parametersFromString:[[inRequest URL] query]] mutableCopy];
 		[self setHTTPMethod:[inRequest HTTPMethod]];

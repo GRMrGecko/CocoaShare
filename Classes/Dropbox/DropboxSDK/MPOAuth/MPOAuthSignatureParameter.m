@@ -13,6 +13,7 @@
 
 #import <openssl/evp.h>
 #include <openssl/hmac.h>
+#include <openssl/sha.h>
 #include "Base64Transcoder.h"
 
 @interface MPOAuthSignatureParameter ()
@@ -64,7 +65,7 @@
 	if ([inMethod isEqual:kMPOAuthSignatureMethodHMACSHA1]) {
 		self = [self initUsingHMAC_SHA1WithText:inText andSecret:inSecret forRequest:inRequest];
 	} else if ([inMethod isEqualToString:kMPOAuthSignatureMethodPlaintext]) {
-		if (self = [super init]) {
+		if ((self = [super init])) {
 			[self setName:@"oauth_signature"];
 			[self setValue:inSecret];
 		}
@@ -78,7 +79,7 @@
 }
 
 - (id)initUsingHMAC_SHA1WithText:(NSString *)inText andSecret:(NSString *)inSecret forRequest:(MPOAuthURLRequest *)inRequest {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		NSString *signatureBaseString = [MPOAuthSignatureParameter signatureBaseStringUsingParameterString:inText forRequest:inRequest];
 
 		[self setName:@"oauth_signature"];

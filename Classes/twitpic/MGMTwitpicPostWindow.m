@@ -10,8 +10,8 @@
 #import "MGMAddons.h"
 
 @implementation MGMTwitpicPostWindow
-- (id)initWithContentRect:(NSRect)theRect styleMask:(unsigned int)theStyleMask backing:(NSBackingStoreType)theBufferingType defer:(BOOL)isDefer {
-	if (self = [super initWithContentRect:theRect styleMask:NSBorderlessWindowMask backing:theBufferingType defer:isDefer]) {
+- (id)initWithContentRect:(NSRect)theRect styleMask:(NSUInteger)theStyleMask backing:(NSBackingStoreType)theBufferingType defer:(BOOL)isDefer {
+	if ((self = [super initWithContentRect:theRect styleMask:NSBorderlessWindowMask backing:theBufferingType defer:isDefer])) {
 		[self setLevel:NSStatusWindowLevel];
         [self setAlphaValue:1.0];
         [self setOpaque:NO];

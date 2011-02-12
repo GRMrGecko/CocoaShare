@@ -15,6 +15,7 @@ extern NSString * const MGMStartup;
 extern NSString * const MGMUploadName;
 extern NSString * const MGMHistoryCount;
 extern NSString * const MGMGrowlErrors;
+extern NSString * const MGMUploadLimit;
 
 extern NSString * const MGMESound;
 extern NSString * const MGMEPath;
@@ -35,12 +36,13 @@ extern NSString * const MGMFFilter;
 
 @class MGMURLConnectionManager, MGMPreferences, MGMAbout, MGMMenuItem, MGMPathSubscriber;
 
-@interface MGMController : NSObject {
+@interface MGMController : NSObject <NSSoundDelegate> {
 	MGMURLConnectionManager *connectionManager;
 	MGMPreferences *preferences;
 	MGMAbout *about;
 	
-	ProcessSerialNumber lastFrontProcess;
+	ProcessSerialNumber frontProcess;
+	unsigned int windowCount;
 	
 	IBOutlet NSMenu *mainMenu;
 	IBOutlet NSMenuItem *disableFilters;
@@ -75,6 +77,7 @@ extern NSString * const MGMFFilter;
 - (id<MGMPlugInProtocol>)currentPlugIn;
 - (int)currentPlugInIndex;
 
+- (void)setFrontProcess:(ProcessSerialNumber *)theProcess;
 - (void)becomeFront:(NSWindow *)theWindow;
 - (void)resignFront;
 

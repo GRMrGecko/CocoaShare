@@ -18,7 +18,7 @@ NSString * const MGMHideKey = @"Hide";
 	return [[[self alloc] init] autorelease];
 }
 - (id)init {
-	if (self = [super init]) {
+	if ((self = [super init])) {
 		loginItems = [[NSMutableDictionary dictionaryWithContentsOfFile:[MGMLoginItemsPath stringByExpandingTildeInPath]] retain];
 	}
 	return self;

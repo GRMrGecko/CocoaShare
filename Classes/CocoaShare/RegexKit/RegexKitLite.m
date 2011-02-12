@@ -1467,7 +1467,7 @@ static id rkl_makeDictionary(RKLCachedRegex *cachedRegex, RKLRegexOp regexOp, RK
         }
       }
       RKLCDelayedAssert((matchedStringIndex <= captureCount), exception, exitNow);
-      if(RKL_EXPECTED(((*matchedDictionariesPtr++ = (NSDictionary * RKL_GC_VOLATILE)CFDictionaryCreate(NULL, (const void **)matchedKeys, (const void **)matchedStrings, (CFIndex)createdStringsCount, &rkl_transferOwnershipDictionaryKeyCallBacks, &rkl_transferOwnershipDictionaryValueCallBacks)) == NULL), 0L)) { goto exitNow; }
+      if(RKL_EXPECTED(((*matchedDictionariesPtr++ = [(NSDictionary * RKL_GC_VOLATILE)CFDictionaryCreate(NULL, (const void **)matchedKeys, (const void **)matchedStrings, (CFIndex)createdStringsCount, &rkl_transferOwnershipDictionaryKeyCallBacks, &rkl_transferOwnershipDictionaryValueCallBacks) autorelease]) == NULL), 0L)) { goto exitNow; }
       createdStringsCount = 0UL;
     }
   }

@@ -33,7 +33,7 @@ NSString * const MPOAuthAccessTokenURLKey					= @"MPOAuthAccessTokenURL";
 		[self release];
 		
 		self = [[methodClass alloc] initWithAPI:inAPI forURL:inURL withConfiguration:configuration];
-	} else if (self = [super init]) {
+	} else if ((self = [super init])) {
 		oauthAPI = inAPI;
 	}
 	
@@ -71,7 +71,7 @@ NSString * const MPOAuthAccessTokenURLKey					= @"MPOAuthAccessTokenURL";
 	NSDictionary *oauthConfigDictionary = [NSDictionary dictionaryWithContentsOfFile:oauthConfigPath];
 	NSEnumerator *enumerator = [oauthConfigDictionary keyEnumerator];
 	NSString *domainString = nil;
-	while (domainString = [enumerator nextObject]) {
+	while ((domainString = [enumerator nextObject])) {
 		if ([inBaseURL domainMatches:domainString]) {
 			NSDictionary *oauthConfig = [oauthConfigDictionary objectForKey:domainString];
 			

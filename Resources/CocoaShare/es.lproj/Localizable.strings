@@ -1,0 +1,200 @@
+/* CocoaShare Strings */
+
+/* Menus */
+"Upload File" = "Subir Archivo";
+"Disable Auto Upload" = "Desactivar Auto Subir";
+"Enable Auto Upload" = "Activar Auto Subir";
+"About CocoaShare" = "Acerca de CocoaShare";
+"Preferences..." = "Preferencias...";
+"Check for Updates..." = "Buscar actualizaciones...";
+"Donate" = "Dona";
+"Help" = "Ayuda";
+"Contact Mr. Gecko" = "Póngase en contacto con Mr. Gecko";
+"Report a Bug" = "Informar de un error";
+"Quit CocoaShare" = "Salir CocoaShare";
+"Services" = "Servicios";
+"File" = "Archivo";
+"Edit" = "Editar";
+"Undo" = "Deshacer";
+"Redo" = "Rehacer";
+"Cut" = "Cortar";
+"Copy" = "Copiar";
+"Paste" = "Pegar";
+"Delete" = "Eliminar";
+"Select All" = "Seleccionar todo";
+"Window" = "Ventana";
+"Minimize" = "Reducir al mínimo";
+"Zoom" = "Zoom";
+"Close" = "Cerrar";
+"Bring All to Front" = "Traer todo al frente";
+
+/* Upload Dialog */
+"Choose File(s)" = "Elegir archivo(s)";
+"Upload Error" = "Subir error";
+"Uploading of directories is impossible." = "Subida de los directorios es imposible.";
+
+/* History */
+"MMMM d, yyyy h:mm:ss a" = "MMMM d, yyyy h:mm:ss a"; // Based on tr35-6
+"No Upload History" = "No Subir Historia";
+
+/* Dock change message */
+"Restart Required" = "Es necesario reiniciar";
+"Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?" = "A finde para ocultar el muelle, debe reiniciar CocoaShare. ¿Desea reiniciar CocoaShare ahora?";
+"Unable to change dock" = "No se puede cambiar muelle";
+"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable." = "CocoaShare es incapaz de %@ el muelle debido a los permisos. Para solucionar este problema, haga clic derecho en CocoaShare y seleccione Obtener información para hacer CocoaShare escritura.";
+"hide" = "ocultar";
+"unhide" = "mostrar";
+
+/* Donations */
+"Donations" = "Donations";
+"Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development." = "Gracias por usar CocoaShare. CocoaShare es un software de donación compatible. Si te gusta usar, por favor considere una donación para ayudar con el desarrollo.";
+
+/* Growl */
+"Uploading File" = "Subida de archivos";
+"Automatically Uploading File" = "Subida de archivos de forma automática";
+"Uploaded File" = "Subido Archivo";
+"Automatically Uploaded File" = "Subida de archivos de forma automática";
+"Uploaded %@ to %@" = "Subido %@ a %@";
+"Uploading %@" = "Carga %@";
+"Unable to upload" = "No se puede cargar";
+
+/* Format Error */
+"The current PlugIn does not support this file format." = "El plug-in actual no es compatible con este formato de archivo.";
+
+/* PlugIn Errors */
+"No PlugIns found. You must have at least 1 PlugIn to upload a file." = "No se han encontrado plugins. Usted debe tener al menos un Plugin para cargar un archivo.";
+"The current PlugIn doesn't support uploading." = "El plug-in actual no soporta la carga.";
+"Unable to upload %@: %@" = "No se puede cargar %@: %@";
+
+/* WebDav */
+"The response was returned as %@ and not %@." = "La respuesta fue devuelto como %@ y no %@.";
+"The HTTP server does not have WebDav enabled in this directory." = "El servidor HTTP no tiene WebDav habilitado en este directorio.";
+
+/* Standared Buttons */
+"Yes" = "Sí";
+"No" = "No";
+"Choose" = "Elige";
+
+/* Preferences */
+"General" = "General";
+"Account" = "Cuenta";
+"Auto Upload" = "Auto Subir";
+"Choose Folder" = "Elegir carpeta";
+"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" = "(?i)Foto [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z"; // For 10.4.
+"Match" = "Partido";
+"No Match" = "No Partido";
+"Events" = "Eventos";
+"No Sound" = "No hay sonido";
+
+/* Genral */
+"Unknown name" = "Nombre desconocido";
+
+/* Preferences Interface */
+/* General */
+"Display:" = "Pantalla:";
+"Dock" = "Dock";
+"Dock and Menu Bar" = "Dock y Barra de menús";
+"Menu Bar" = "Barra de menús";
+"Start at login:" = "Comienzan a partir de entrada:";
+"Uploaded File Name" = "Subido Nombre de archivo";
+"Random for automatic upload only." = "Al azar de carga automática solamente.";
+"Random for automatic and manual upload." = "Al azar para automático y manual de carga.";
+"Keep x uploads in history." = "Mantenga x carga de la historia.";
+"Display growl notifications for errors:" = "Mostrar growl notificaciones de errores:";
+"Auto upload limit within x seconds." = "Auto límite de carga dentro de x segundos.";
+
+/* Account */
+"Type:" = "Tipo:";
+
+/* Auto Upload */
+"Filter" = "Filtro";
+"Path" = "Ruta";
+"Add Filter" = "Añadir filtro";
+"Add new filter" = "Añadir nuevo filtro";
+"Add screenshot filter" = "Añadir filtro de pantalla";
+"Remove Filter" = "Quitar filtro";
+"These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones." = "Estos filtros utiliza Regular Expression. Si usted no sabe Regex, es mejor usar sólo las predefinidas.";
+"Path:" = "Ruta de acceso:";
+"Filter:" = "Filtro:";
+"Test:" = "Prueba:";
+
+/* Events */
+"Event:" = "Event:";
+"Uploading File Automatically" = "Subida de archivos automáticamente";
+"Uploaded File Automatically" = "Subida de archivos automáticamente";
+"Uploading" = "Subir";
+"Uploaded" = "Subido";
+"Play Sound:" = "Reproducir sonido:";
+"Move To:" = "Mover a:";
+"Delete file to:" = "Eliminar archivo a:";
+"nowhere" = "en ninguna parte";
+"oblivion" = "olvido";
+"trash" = "basura";
+"Growl:" = "Growl:";
+
+/* Plugins */
+/* Common Strings */
+"Logging In" = "Inicio de sesión";
+"Login" = "Iniciar sesión";
+"UserName Required" = "Nombre de usuario Requerido";
+"Please enter your username." = "Por favor ingrese su nombre de usuario.";
+"Password Required" = "Se requiere contraseña";
+"Please enter your password." = "Por favor, introduzca su contraseña.";
+"Account Error" = "Cuenta de error";
+"Login Successful" = "Inicio de sesión correcto";
+"You have successfully logged into your account." = "Ha accedido a su cuenta.";
+"Account is not logged in." = "La cuenta no se registra pulgadas";
+"URL Required" = "URL solicitadas";
+"Email Required" = "Email Requerido";
+"Please enter your email." = "Por favor, introduzca su correo electrónico.";
+
+/* Dropbox */
+"Unable to get your account ID." = "No se puede obtener la identificación de la cuenta.";
+
+/* (S)FTP */
+"Host Required" = "Anfitrión Requerido";
+"Please enter your host." = "Por favor, introduzca su anfitrión.";
+"Please enter the URL to where the files will be uploaded." = "Por favor, introduzca la dirección URL donde los archivos serán cargados.";
+"Incorrect login info." = "Incorrect login info.";
+"You have successfully logged into your account, but the path you have entered does not exist." = "Ha accedido a su cuenta, pero el camino que ha ingresado no existe.";
+"The path to upload files to does not exist." = "El camino para subir archivos a no existe.";
+
+/* HTTP */
+"The URL %@ may not be a CocoaShare compatible URL." = "El %@ URL no puede ser una URL CocoaShare compatibles.";
+"Please enter the URL for the HTTP account." = "Por favor, introduzca la dirección URL de la cuenta de HTTP.";
+"HTTP Server response is not a CocoaShare compatible response." = "Respuesta HTTP Server no es una respuesta CocoaShare compatibles.";
+
+/* MobileMe/WebDav */
+"The URL you have entered does not appear to be a directory." = "La URL que ha introducido no parece ser un directorio.";
+"Please enter the WebDav URL." = "Por favor, introduzca la dirección URL WebDav.";
+
+/* twitpic */
+"Please enter your Twitter UserName." = "Por favor, introduzca su nombre de usuario de Twitter.";
+"Unknown response." = "Respuesta desconocida.";
+
+/* TinyGrab */
+"Only paid users are allowed to use TinyGrab in CocoaShare, sorry." = "Sólo los usuarios pagan se les permite usar TinyGrab en CocoaShare, lo siento.";
+"Unable to receive url." = "No se puede recibir url.";
+
+/* Interface */
+/* Common Strings */
+"Host:" = "Anfitrión:";
+"UserName:" = "Nombre de usuario:";
+"Password:" = "Contraseña:";
+"Path:" = "Ruta de acceso:";
+"URL:" = "URL:";
+"Email:" = "Email:";
+"Private Key" = "La clave privada";
+
+/* twitpic */
+"Ask for message and post to Twitter?" = "Pregunte por mensaje y mensaje de Twitter?";
+"Save" = "Save";
+"Upload without posting" = "Subir sin publicar";
+"Post" = "Mensaje";
+
+/* TinyGrab */
+"Type:" = "Tipo:";
+"Unknown" = "Desconocida";
+"Basic" = "Básico";
+"Pro" = "Pro";
+"Register" = "Registrarse";
