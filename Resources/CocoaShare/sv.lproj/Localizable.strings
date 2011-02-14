@@ -1,0 +1,200 @@
+/* CocoaShare Strings */
+
+/* Menus */
+"Upload File" = "Upload File";
+"Disable Auto Upload" = "Disable Auto Upload";
+"Enable Auto Upload" = "Enable Auto Upload";
+"About CocoaShare" = "About CocoaShare";
+"Preferences..." = "Preferences...";
+"Check for Updates..." = "Check for Updates...";
+"Donate" = "Donate";
+"Help" = "Help";
+"Contact Mr. Gecko" = "Contact Mr. Gecko";
+"Report a Bug" = "Report a Bug";
+"Quit CocoaShare" = "Quit CocoaShare";
+"Services" = "Services";
+"File" = "File";
+"Edit" = "Edit";
+"Undo" = "Undo";
+"Redo" = "Redo";
+"Cut" = "Cut";
+"Copy" = "Copy";
+"Paste" = "Paste";
+"Delete" = "Delete";
+"Select All" = "Select All";
+"Window" = "Window";
+"Minimize" = "Minimize";
+"Zoom" = "Zoom";
+"Close" = "Close";
+"Bring All to Front" = "Bring All to Front";
+
+/* Upload Dialog */
+"Choose File(s)" = "Choose File(s)";
+"Upload Error" = "Upload Error";
+"Uploading of directories is impossible." = "Uploading of directories is impossible.";
+
+/* History */
+"MMMM d, yyyy h:mm:ss a" = "MMMM d, yyyy h:mm:ss a"; // Based on tr35-6
+"No Upload History" = "No Upload History";
+
+/* Dock change message */
+"Restart Required" = "Restart Required";
+"Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?" = "Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?";
+"Unable to change dock" = "Unable to change dock";
+"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable." = "CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable.";
+"hide" = "hide";
+"unhide" = "unhide";
+
+/* Donations */
+"Donations" = "Donations";
+"Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development." = "Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development.";
+
+/* Growl */
+"Uploading File" = "Uploading File";
+"Automatically Uploading File" = "Automatically Uploading File";
+"Uploaded File" = "Uploaded File";
+"Automatically Uploaded File" = "Automatically Uploaded File";
+"Uploaded %@ to %@" = "Uploaded %@ to %@";
+"Uploading %@" = "Uploading %@";
+"Unable to upload" = "Unable to upload";
+
+/* Format Error */
+"The current PlugIn does not support this file format." = "The current PlugIn does not support this file format.";
+
+/* PlugIn Errors */
+"No PlugIns found. You must have at least 1 PlugIn to upload a file." = "No PlugIns found. You must have at least 1 PlugIn to upload a file.";
+"The current PlugIn doesn't support uploading." = "The current PlugIn doesn't support uploading.";
+"Unable to upload %@: %@" = "Unable to upload %@: %@";
+
+/* WebDav */
+"The response was returned as %@ and not %@." = "The response was returned as %@ and not %@.";
+"The HTTP server does not have WebDav enabled in this directory." = "The HTTP server does not have WebDav enabled in this directory.";
+
+/* Standared Buttons */
+"Yes" = "Yes";
+"No" = "No";
+"Choose" = "Choose";
+
+/* Preferences */
+"General" = "General";
+"Account" = "Account";
+"Auto Upload" = "Auto Upload";
+"Choose Folder" = "Choose Folder";
+"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" = "(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z"; // For 10.4.
+"Match" = "Match";
+"No Match" = "No Match";
+"Events" = "Events";
+"No Sound" = "No Sound";
+
+/* Genral */
+"Unknown name" = "Unknown name";
+
+/* Preferences Interface */
+/* General */
+"Display:" = "Display:";
+"Dock" = "Dock";
+"Dock and Menu Bar" = "Dock and Menu Bar";
+"Menu Bar" = "Menu Bar";
+"Start at login:" = "Start at login:";
+"Uploaded File Name" = "Uploaded File Name";
+"Random for automatic upload only." = "Random for automatic upload only.";
+"Random for automatic and manual upload." = "Random for automatic and manual upload.";
+"Keep x uploads in history." = "Keep x uploads in history.";
+"Display growl notifications for errors:" = "Display growl notifications for errors:";
+"Auto upload limit within x seconds." = "Auto upload limit within x seconds.";
+
+/* Account */
+"Type:" = "Type:";
+
+/* Auto Upload */
+"Filter" = "Filter";
+"Path" = "Path";
+"Add Filter" = "Add Filter";
+"Add new filter" = "Add new filter";
+"Add screenshot filter" = "Add screenshot filter";
+"Remove Filter" = "Remove Filter";
+"These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones." = "These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones.";
+"Path:" = "Path:";
+"Filter:" = "Filter:";
+"Test:" = "Test:";
+
+/* Events */
+"Event:" = "Event:";
+"Uploading File Automatically" = "Uploading File Automatically";
+"Uploaded File Automatically" = "Uploaded File Automatically";
+"Uploading" = "Uploading";
+"Uploaded" = "Uploaded";
+"Play Sound:" = "Play Sound:";
+"Move To:" = "Move To:";
+"Delete file to:" = "Delete file to:";
+"nowhere" = "nowhere";
+"oblivion" = "oblivion";
+"trash" = "trash";
+"Growl:" = "Growl:";
+
+/* Plugins */
+/* Common Strings */
+"Logging In" = "Logging In";
+"Login" = "Login";
+"UserName Required" = "UserName Required";
+"Please enter your username." = "Please enter your username.";
+"Password Required" = "Password Required";
+"Please enter your password." = "Please enter your password.";
+"Account Error" = "Account Error";
+"Login Successful" = "Login Successful";
+"You have successfully logged into your account." = "You have successfully logged into your account.";
+"Account is not logged in." = "Account is not logged in.";
+"URL Required" = "URL Required";
+"Email Required" = "Email Required";
+"Please enter your email." = "Please enter your email.";
+
+/* Dropbox */
+"Unable to get your account ID." = "Unable to get your account ID.";
+
+/* (S)FTP */
+"Host Required" = "Host Required";
+"Please enter your host." = "Please enter your host.";
+"Please enter the URL to where the files will be uploaded." = "Please enter the URL to where the files will be uploaded.";
+"Incorrect login info." = "Incorrect login info.";
+"You have successfully logged into your account, but the path you have entered does not exist." = "You have successfully logged into your account, but the path you have entered does not exist.";
+"The path to upload files to does not exist." = "The path to upload files to does not exist.";
+
+/* HTTP */
+"The URL %@ may not be a CocoaShare compatible URL." = "The URL %@ may not be a CocoaShare compatible URL.";
+"Please enter the URL for the HTTP account." = "Please enter the URL for the HTTP account.";
+"HTTP Server response is not a CocoaShare compatible response." = "HTTP Server response is not a CocoaShare compatible response.";
+
+/* MobileMe/WebDav */
+"The URL you have entered does not appear to be a directory." = "The URL you have entered does not appear to be a directory.";
+"Please enter the WebDav URL." = "Please enter the WebDav URL.";
+
+/* twitpic */
+"Please enter your Twitter UserName." = "Please enter your Twitter UserName.";
+"Unknown response." = "Unknown response.";
+
+/* TinyGrab */
+"Only paid users are allowed to use TinyGrab in CocoaShare, sorry." = "Only paid users are allowed to use TinyGrab in CocoaShare, sorry.";
+"Unable to receive url." = "Unable to receive url.";
+
+/* Interface */
+/* Common Strings */
+"Host:" = "Host:";
+"UserName:" = "UserName:";
+"Password:" = "Password:";
+"Path:" = "Path:";
+"URL:" = "URL:";
+"Email:" = "Email:";
+"Private Key" = "Private Key";
+
+/* twitpic */
+"Ask for message and post to Twitter?" = "Ask for message and post to Twitter?";
+"Save" = "Save";
+"Upload without posting" = "Upload without posting";
+"Post" = "Post";
+
+/* TinyGrab */
+"Type:" = "Type:";
+"Unknown" = "Unknown";
+"Basic" = "Basic";
+"Pro" = "Pro";
+"Register" = "Register";

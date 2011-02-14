@@ -281,6 +281,20 @@
 		2A0C8CB012EF853400A75AB7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
 		2A0C8CB312EF854D00A75AB7 /* MGMFTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFTPPlugIn.h; sourceTree = "<group>"; };
 		2A0C8CB412EF854D00A75AB7 /* MGMFTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFTPPlugIn.m; sourceTree = "<group>"; wrapsLines = 1; };
+		2A1E47AA13095F5300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2A1E47AB1309605000102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A1E47AC130961C700102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/GeneralPane.xib; sourceTree = "<group>"; };
+		2A1E47AD1309633600102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/AccountPane.xib; sourceTree = "<group>"; };
+		2A1E47AE1309636800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/AutoUploadPane.xib; sourceTree = "<group>"; };
+		2A1E47AF1309653300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/EventsPane.xib; sourceTree = "<group>"; };
+		2A1E47B01309664400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/HTTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B1130966CC00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/DropboxAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B21309670A00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B31309677800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B41309681300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B51309688F00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/MobileMeAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B6130968F300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/twitpicAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B71309695400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/twitpicPostWindow.xib; sourceTree = "<group>"; };
 		2A280C8412EB50FB00435C36 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		2A280E6912EB7A5D00435C36 /* DBAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccountInfo.h; sourceTree = "<group>"; };
 		2A280E6A12EB7A5D00435C36 /* DBAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccountInfo.m; sourceTree = "<group>"; };
@@ -386,18 +400,6 @@
 		2A4FA5C712F9EDE0009F5B3A /* MGMLocalized.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMLocalized.h; sourceTree = "<group>"; };
 		2A4FA5C812F9EDE0009F5B3A /* MGMLocalized.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMLocalized.m; sourceTree = "<group>"; };
 		2A4FA65B12FAF223009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = es; path = es.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2A4FA67412FB0123009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/GeneralPane.xib; sourceTree = "<group>"; };
-		2A4FA67512FB0129009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/AccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67612FB012E009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/AutoUploadPane.xib; sourceTree = "<group>"; };
-		2A4FA67712FB0134009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/EventsPane.xib; sourceTree = "<group>"; };
-		2A4FA67812FB013A009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/HTTPAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67912FB0143009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/DropboxAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67A12FB0153009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67B12FB015A009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67C12FB0161009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67D12FB0166009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/MobileMeAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67E12FB016B009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/twitpicAccountPane.xib; sourceTree = "<group>"; };
-		2A4FA67F12FB0170009F5B3A /* es */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = es; path = es.lproj/twitpicPostWindow.xib; sourceTree = "<group>"; };
 		2A4FA77112FB42A7009F5B3A /* pt_PT */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = pt_PT; path = pt_PT.lproj/Localizable.strings; sourceTree = "<group>"; };
 		2A4FA7AA12FB4A72009F5B3A /* pt_PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pt_PT; path = pt_PT.lproj/MainMenu.xib; sourceTree = "<group>"; };
 		2A4FA7AF12FB4C2B009F5B3A /* pt_PT */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = pt_PT; path = pt_PT.lproj/GeneralPane.xib; sourceTree = "<group>"; };
@@ -1226,6 +1228,7 @@
 				es,
 				portuguese,
 				pt_PT,
+				sv,
 			);
 			mainGroup = 29B97314FDCFA39411CA2CEA /* CocoaShare */;
 			projectDirPath = "";
@@ -1517,6 +1520,7 @@
 				2A4FA57A12F9DA71009F5B3A /* English */,
 				2A4FA65B12FAF223009F5B3A /* es */,
 				2A4FA77112FB42A7009F5B3A /* pt_PT */,
+				2A1E47AA13095F5300102EBD /* sv */,
 			);
 			name = Localizable.strings;
 			sourceTree = "<group>";
@@ -1525,8 +1529,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A044B7912E68D3100E0B624 /* English */,
-				2A4FA67812FB013A009F5B3A /* es */,
 				2A4C784112FC3A6300106ECD /* pt_PT */,
+				2A1E47B01309664400102EBD /* sv */,
 			);
 			name = HTTPAccountPane.xib;
 			sourceTree = "<group>";
@@ -1535,8 +1539,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A044C7812E762D100E0B624 /* English */,
-				2A4FA67912FB0143009F5B3A /* es */,
 				2A4C784312FC3A7400106ECD /* pt_PT */,
+				2A1E47B1130966CC00102EBD /* sv */,
 			);
 			name = DropboxAccountPane.xib;
 			sourceTree = "<group>";
@@ -1545,8 +1549,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A0C8CB012EF853400A75AB7 /* English */,
-				2A4FA67A12FB0153009F5B3A /* es */,
 				2A4C784512FC3A7C00106ECD /* pt_PT */,
+				2A1E47B21309670A00102EBD /* sv */,
 			);
 			name = FTPAccountPane.xib;
 			sourceTree = "<group>";
@@ -1555,8 +1559,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A2F996912F0957E0069B37E /* English */,
-				2A4FA67B12FB015A009F5B3A /* es */,
 				2A4C784712FC3A8300106ECD /* pt_PT */,
+				2A1E47B31309677800102EBD /* sv */,
 			);
 			name = SFTPAccountPane.xib;
 			sourceTree = "<group>";
@@ -1565,8 +1569,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A5C1B0312F2FB3F005153FA /* English */,
-				2A4FA67C12FB0161009F5B3A /* es */,
 				2A4C784912FC3A8C00106ECD /* pt_PT */,
+				2A1E47B41309681300102EBD /* sv */,
 			);
 			name = WebDavAccountPane.xib;
 			sourceTree = "<group>";
@@ -1575,8 +1579,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A05023212F49F86000F74EA /* English */,
-				2A4FA67D12FB0166009F5B3A /* es */,
 				2A4C784C12FC3B2900106ECD /* pt_PT */,
+				2A1E47B51309688F00102EBD /* sv */,
 			);
 			name = MobileMeAccountPane.xib;
 			sourceTree = "<group>";
@@ -1585,8 +1589,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A0503D512F4D4D5000F74EA /* English */,
-				2A4FA67E12FB016B009F5B3A /* es */,
 				2A4C784E12FC3B3100106ECD /* pt_PT */,
+				2A1E47B6130968F300102EBD /* sv */,
 			);
 			name = twitpicAccountPane.xib;
 			sourceTree = "<group>";
@@ -1595,8 +1599,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2A0504D912F4EA04000F74EA /* English */,
-				2A4FA67F12FB0170009F5B3A /* es */,
 				2A4C785012FC3B3800106ECD /* pt_PT */,
+				2A1E47B71309695400102EBD /* sv */,
 			);
 			name = twitpicPostWindow.xib;
 			sourceTree = "<group>";
@@ -1614,6 +1618,7 @@
 			children = (
 				2AEAB48612E2ADDF00552BAA /* English */,
 				2A4FA7AA12FB4A72009F5B3A /* pt_PT */,
+				2A1E47AB1309605000102EBD /* sv */,
 			);
 			name = MainMenu.xib;
 			sourceTree = "<group>";
@@ -1622,8 +1627,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AEAB4D412E2B1E600552BAA /* English */,
-				2A4FA67412FB0123009F5B3A /* es */,
 				2A4FA7AF12FB4C2B009F5B3A /* pt_PT */,
+				2A1E47AC130961C700102EBD /* sv */,
 			);
 			name = GeneralPane.xib;
 			sourceTree = "<group>";
@@ -1632,8 +1637,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AEAB4DA12E2B22500552BAA /* English */,
-				2A4FA67512FB0129009F5B3A /* es */,
 				2A4FA7B512FB4CFA009F5B3A /* pt_PT */,
+				2A1E47AD1309633600102EBD /* sv */,
 			);
 			name = AccountPane.xib;
 			sourceTree = "<group>";
@@ -1642,8 +1647,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AEAB4DC12E2B23200552BAA /* English */,
-				2A4FA67612FB012E009F5B3A /* es */,
 				2A4FA7BE12FB4D85009F5B3A /* pt_PT */,
+				2A1E47AE1309636800102EBD /* sv */,
 			);
 			name = AutoUploadPane.xib;
 			sourceTree = "<group>";
@@ -1652,8 +1657,8 @@
 			isa = PBXVariantGroup;
 			children = (
 				2AEAB4DE12E2B23D00552BAA /* English */,
-				2A4FA67712FB0134009F5B3A /* es */,
 				2A4FA7C412FB4E82009F5B3A /* pt_PT */,
+				2A1E47AF1309653300102EBD /* sv */,
 			);
 			name = EventsPane.xib;
 			sourceTree = "<group>";
