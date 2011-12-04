@@ -44,6 +44,14 @@
 	escapedPath = [escapedPath replace:@"'" with:@"\\'"];
 	return escapedPath;
 }
+- (NSString *)addPercentEscapes {
+	NSString *result = [self stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+	CFStringRef escapedString = CFURLCreateStringByAddingPercentEscapes(kCFAllocatorDefault, (CFStringRef)self, NULL, CFSTR("!*'();:^@&=+$,?%#[]|"), kCFStringEncodingUTF8);
+	
+	if (escapedString!=NULL)
+		result = [(NSString *)escapedString autorelease];
+	return result;
+}
 @end
 
 NSString * const MGMMPFPath = @"path";

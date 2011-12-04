@@ -7,8 +7,8 @@
 //
 
 #import "MGMEventsPane.h"
-#import "MGMFileManager.h"
 #import "MGMController.h"
+#import <MGMUsers/MGMUsers.h>
 
 @implementation MGMEventsPane
 - (id)initWithPreferences:(MGMPreferences *)thePreferences {

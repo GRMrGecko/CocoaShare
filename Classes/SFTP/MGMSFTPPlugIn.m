@@ -120,7 +120,7 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
 		[[MGMController sharedController] setPassword:[passwordField stringValue]];
 		[defaults setObject:[hostField stringValue] forKey:MGMSFTPHost];
-		[defaults setObject:[userField stringValue] forKey:MGMSFTPUser];
+		[defaults setObject:[[userField stringValue] replace:@"@" with:@"+"] forKey:MGMSFTPUser];
 		[defaults setObject:[pathField stringValue] forKey:MGMSFTPPath];
 		[defaults setObject:[urlField stringValue] forKey:MGMSFTPURL];
 		[self lockLogin];
@@ -282,9 +282,9 @@ NSString * const MGMSFTPURL = @"MGMSFTPURL";
 		[self uploadExit:nil];
 		NSString *url = [defaults objectForKey:MGMSFTPURL];
 		if (![url hasSuffix:@"/"])
-			url = [url stringByAppendingFormat:@"/%@", fileName];
+			url = [url stringByAppendingFormat:@"/%@", [fileName addPercentEscapes]];
 		else
-			url = [url stringByAppendingString:fileName];
+			url = [url stringByAppendingString:[fileName addPercentEscapes]];
 		NSString *finishPath = [[filePath retain] autorelease];
 		[filePath release];
 		filePath = nil;

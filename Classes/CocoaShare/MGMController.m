@@ -7,7 +7,6 @@
 //
 
 #import "MGMController.h"
-#import "MGMFileManager.h"
 #import "MGMPathSubscriber.h"
 #import "MGMLoginItems.h"
 #import "MGMMenuItem.h"
@@ -96,6 +95,8 @@ static MGMController *MGMSharedController;
 	[MGMReporter sharedReporter];
 }
 - (void)setup {
+	autoreleaseDrain = [[NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(drainAutoreleasePool) userInfo:nil repeats:YES] retain];
+	
 	[GrowlApplicationBridge setGrowlDelegate:nil];
 	
 	connectionManager = [[MGMURLConnectionManager managerWithCookieStorage:[MGMUser cookieStorage]] retain];
@@ -161,11 +162,14 @@ static MGMController *MGMSharedController;
 	
 	about = [MGMAbout new];
 	
+	uploadLock = [NSLock new];
 	uploads = [NSMutableArray new];
 	
 	[self loadPlugIns];
 }
 - (void)dealloc {
+	[autoreleaseDrain invalidate];
+	[autoreleaseDrain release];
 	[connectionManager release];
 	[preferences release];
 	[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
@@ -177,6 +181,7 @@ static MGMController *MGMSharedController;
 	[filterWatcher release];
 	[accountPlugIns release];
 	[plugIns release];
+	[uploadLock release];
 	[uploads release];
 	[super dealloc];
 }
@@ -194,6 +199,11 @@ static MGMController *MGMSharedController;
 	
 	[defaults setObject:[NSNumber numberWithInt:2] forKey:[NSString stringWithFormat:MGMEDelete, MGMEUploadedAutomatic]];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
+}
+
+- (void)drainAutoreleasePool {
+	NSEvent *event = [NSEvent otherEventWithType:NSApplicationDefined location:NSMakePoint(0, 0) modifierFlags:0 timestamp:CFAbsoluteTimeGetCurrent() windowNumber:0 context:nil subtype:0 data1:0 data2:0];
+	[[NSApplication sharedApplication] postEvent:event atStart:NO];
 }
 
 - (MGMURLConnectionManager *)connectionManager {
@@ -670,6 +680,7 @@ static MGMController *MGMSharedController;
 	return nil;
 }
 - (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic {
+	[uploadLock lock];
 	if ([self uploadForPath:thePath]==nil) {
 		if ([currentPlugIn respondsToSelector:@selector(allowedExtensions)]) {
 			if (![[currentPlugIn allowedExtensions] containsObject:[[thePath pathExtension] lowercaseString]]) {
@@ -684,6 +695,7 @@ static MGMController *MGMSharedController;
 		if ([uploads count]==1)
 			[self processNextUpload];
 	}
+	[uploadLock unlock];
 }
 - (void)processNextUpload {
 	if ([uploads count]>0) {
@@ -732,8 +744,10 @@ static MGMController *MGMSharedController;
 			[alert setInformativeText:[NSString stringWithFormat:[@"Unable to upload %@: %@" localized], [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]]];
 			[alert runModal];
 		}
+		[uploadLock lock];
 		[uploads removeObject:upload];
 		[self processNextUpload];
+		[uploadLock unlock];
 	}
 }
 - (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL {
@@ -745,8 +759,10 @@ static MGMController *MGMSharedController;
 		[pboard setString:[theURL absoluteString] forType:MGMNSStringPboardType];
 		[pboard setString:[theURL absoluteString] forType:MGMNSPasteboardTypeString];
 		[self addURLToHistory:theURL];
+		[uploadLock lock];
 		[uploads removeObject:upload];
 		[self processNextUpload];
+		[uploadLock unlock];
 	}
 }
 @end

@@ -72,7 +72,11 @@ const BOOL MGMHTTPResponseInvisible = YES;
 		if ([defaults objectForKey:MGMHTTPURL]!=nil) {
 			userLoggingIn = YES;
 			loginTries = 0;
-			[[[MGMController sharedController] connectionManager] connectionWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[defaults objectForKey:MGMHTTPURL]]] delegate:self didFailWithError:@selector(check:didFailWithError:) didFinish:@selector(checkDidFinish:) invisible:MGMHTTPResponseInvisible object:nil];
+			MGMURLBasicHandler *handler = [MGMURLBasicHandler handlerWithRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:[defaults objectForKey:MGMHTTPURL]]] delegate:self];
+			[handler setFailWithError:@selector(check:didFailWithError:)];
+			[handler setFinish:@selector(checkDidFinish:)];
+			[handler setInvisible:MGMHTTPResponseInvisible];
+			[[[MGMController sharedController] connectionManager] addHandler:handler];
 		}
 	} else {
 		[[[MGMController sharedController] connectionManager] cancelAll];
@@ -88,9 +92,13 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[request setHTTPMethod:MGMHTTPPostMethod];
 	[request setValue:MGMHTTPURLForm forHTTPHeaderField:MGMHTTPContentType];
 	[request setHTTPBody:[[NSString stringWithFormat:@"login=1&user=%@&password=%@", [[defaults objectForKey:MGMHTTPUSER] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding], [[[MGMController sharedController] password] stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding]] dataUsingEncoding:NSUTF8StringEncoding]];
-	[[[MGMController sharedController] connectionManager] connectionWithRequest:request delegate:self didFailWithError:@selector(check:didFailWithError:) didFinish:@selector(checkDidFinish:) invisible:MGMHTTPResponseInvisible object:nil];
+	MGMURLBasicHandler *handler = [MGMURLBasicHandler handlerWithRequest:request delegate:self];
+	[handler setFailWithError:@selector(check:didFailWithError:)];
+	[handler setFinish:@selector(checkDidFinish:)];
+	[handler setInvisible:MGMHTTPResponseInvisible];
+	[[[MGMController sharedController] connectionManager] addHandler:handler];
 }
-- (void)check:(NSDictionary *)theData didFailWithError:(NSError *)theError {
+- (void)check:(MGMURLBasicHandler *)theHandler didFailWithError:(NSError *)theError {
 	NSLog(@"HTTP Error: %@", theError);
 	NSAlert *alert = [[NSAlert new] autorelease];
 	[alert setMessageText:[@"Account Error" localizedFor:self]];
@@ -98,9 +106,9 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[alert runModal];
 	[self unlockLogin];
 }
-- (void)checkDidFinish:(NSDictionary *)theData {
+- (void)checkDidFinish:(MGMURLBasicHandler *)theHandler {
 	NSString *error = nil;
-	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theData objectForKey:MGMConnectionData] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
 	if (error!=nil)
 		NSLog(@"HTTP Error: %@", error);
 	if (response!=nil) {
@@ -189,26 +197,31 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[data setObject:@"file" forKey:@"upload"];
 	[data setObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMMPFPath, theName, MGMMPFName, nil] forKey:@"file"];
 	[postRequest setHTTPBody:[data buildMultiPartBodyWithBoundary:boundary]];
-	[[[MGMController sharedController] connectionManager] connectionWithRequest:postRequest delegate:self didFailWithError:@selector(upload:didFailWithError:) didFinish:@selector(uploadDidFinish:) invisible:MGMHTTPResponseInvisible object:thePath];
+	MGMURLBasicHandler *handler = [MGMURLBasicHandler handlerWithRequest:postRequest delegate:self];
+	[handler setFailWithError:@selector(upload:didFailWithError:)];
+	[handler setFinish:@selector(uploadDidFinish:)];
+	[handler setInvisible:MGMHTTPResponseInvisible];
+	[handler setObject:thePath];
+	[[[MGMController sharedController] connectionManager] addHandler:handler];
 }
-- (void)upload:(NSDictionary *)theData didFailWithError:(NSError *)theError {
-	[[MGMController sharedController] upload:[theData objectForKey:MGMConnectionObject] receivedError:theError];
+- (void)upload:(MGMURLBasicHandler *)theHandler didFailWithError:(NSError *)theError {
+	[[MGMController sharedController] upload:[theHandler object] receivedError:theError];
 }
-- (void)uploadDidFinish:(NSDictionary *)theData {
+- (void)uploadDidFinish:(MGMURLBasicHandler *)theHandler {
 	NSString *error = nil;
-	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theData objectForKey:MGMConnectionData] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
 	if (error!=nil)
 		NSLog(@"HTTP Error: %@", error);
 	if (response!=nil) {
 		if ([[response objectForKey:MGMHTTPRSuccessful] boolValue]) {
-			[[MGMController sharedController] uploadFinished:[theData objectForKey:MGMConnectionObject] url:[NSURL URLWithString:[response objectForKey:MGMHTTPRURL]]];
+			[[MGMController sharedController] uploadFinished:[theHandler object] url:[NSURL URLWithString:[response objectForKey:MGMHTTPRURL]]];
 		} else {
 			NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:[response objectForKey:MGMHTTPRError] forKey:NSLocalizedDescriptionKey]];
-			[[MGMController sharedController] upload:[theData objectForKey:MGMConnectionObject] receivedError:error];
+			[[MGMController sharedController] upload:[theHandler object] receivedError:error];
 		}
 	} else {
 		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:1 userInfo:[NSDictionary dictionaryWithObject:[@"HTTP Server response is not a CocoaShare compatible response." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
-		[[MGMController sharedController] upload:[theData objectForKey:MGMConnectionObject] receivedError:error];
+		[[MGMController sharedController] upload:[theHandler object] receivedError:error];
 	}
 }
 @end

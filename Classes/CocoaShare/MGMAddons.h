@@ -11,6 +11,7 @@
 @interface NSString (MGMAddons)
 - (NSString *)replace:(NSString *)targetString with:(NSString *)replaceString;
 - (NSString *)escapePath;
+- (NSString *)addPercentEscapes;
 @end
 
 extern NSString * const MGMMPFPath;

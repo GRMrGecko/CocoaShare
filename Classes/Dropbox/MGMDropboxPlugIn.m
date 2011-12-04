@@ -238,7 +238,7 @@ NSString * const MGMDropboxFContents = @"contents";
 	NSString *finishPath = [[filePath retain] autorelease];
 	[filePath release];
 	filePath = nil;
-	NSString *url = [NSString stringWithFormat:@"http://dl.dropbox.com/u/%@%@", [dropboxAccountInfo userId], [destPath replace:MGMDropboxPublic with:@""]];
+	NSString *url = [NSString stringWithFormat:@"http://dl.dropbox.com/u/%@%@", [dropboxAccountInfo userId], [[destPath replace:MGMDropboxPublic with:@""] addPercentEscapes]];
 	[[MGMController sharedController] uploadFinished:finishPath url:[NSURL URLWithString:url]];
 }
 - (void)restClient:(DBRestClient *)client uploadFileFailedWithError:(NSError *)error {

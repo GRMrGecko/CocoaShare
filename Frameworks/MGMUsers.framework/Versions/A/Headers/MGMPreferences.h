@@ -10,7 +10,7 @@
 
 @class MGMPreferencesPane;
 
-@interface MGMPreferences : NSObject {
+@interface MGMPreferences : NSObject <NSWindowDelegate, NSToolbarDelegate> {
 @private
     NSWindow *preferencesWindow;
     NSMutableArray *preferencesPanes;

@@ -1,200 +1,200 @@
 /* CocoaShare Strings */
 
 /* Menus */
-"Upload File" = "Upload File";
-"Disable Auto Upload" = "Disable Auto Upload";
-"Enable Auto Upload" = "Enable Auto Upload";
-"About CocoaShare" = "About CocoaShare";
-"Preferences..." = "Preferences...";
-"Check for Updates..." = "Check for Updates...";
-"Donate" = "Donate";
-"Help" = "Help";
-"Contact Mr. Gecko" = "Contact Mr. Gecko";
-"Report a Bug" = "Report a Bug";
-"Quit CocoaShare" = "Quit CocoaShare";
-"Services" = "Services";
-"File" = "File";
-"Edit" = "Edit";
-"Undo" = "Undo";
-"Redo" = "Redo";
-"Cut" = "Cut";
-"Copy" = "Copy";
-"Paste" = "Paste";
-"Delete" = "Delete";
-"Select All" = "Select All";
-"Window" = "Window";
-"Minimize" = "Minimize";
-"Zoom" = "Zoom";
-"Close" = "Close";
-"Bring All to Front" = "Bring All to Front";
+"Upload File" = "Ladda upp fil";
+"Disable Auto Upload" = "Stäng av automatisk uppladdning";
+"Enable Auto Upload" = "Sätt på automatisk uppladdning";
+"About CocoaShare" = "Om CocoaShare";
+"Preferences..." = "Inställningar...";
+"Check for Updates..." = "Leta efetr uppdateringar...";
+"Donate" = "Donera";
+"Help" = "Hjälp";
+"Contact Mr. Gecko" = "Kontakta Mr. Gecko";
+"Report a Bug" = "Rapportera en bugg";
+"Quit CocoaShare" = "Avsluta CocoaShare";
+"Services" = "Tjänster";
+"File" = "Fil";
+"Edit" = "Redigera";
+"Undo" = "Ångra";
+"Redo" = "Gör om";
+"Cut" = "Klipp ut";
+"Copy" = "Kopiera";
+"Paste" = "Klistra in";
+"Delete" = "Radera";
+"Select All" = "Markera allt";
+"Window" = "Fönster";
+"Minimize" = "Minimera";
+"Zoom" = "Förstora";
+"Close" = "Stäng";
+"Bring All to Front" = "Lägg fönstret överst";
 
 /* Upload Dialog */
-"Choose File(s)" = "Choose File(s)";
-"Upload Error" = "Upload Error";
-"Uploading of directories is impossible." = "Uploading of directories is impossible.";
+"Choose File(s)" = "Välj fil(er)";
+"Upload Error" = "Fel vid uppladdning";
+"Uploading of directories is impossible." = "Uppladdning av valda filer är omöjlig.";
 
 /* History */
 "MMMM d, yyyy h:mm:ss a" = "MMMM d, yyyy h:mm:ss a"; // Based on tr35-6
-"No Upload History" = "No Upload History";
+"No Upload History" = "Ingen uppladdningshistorik";
 
 /* Dock change message */
-"Restart Required" = "Restart Required";
-"Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?" = "Inorder to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?";
-"Unable to change dock" = "Unable to change dock";
-"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable." = "CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable.";
-"hide" = "hide";
-"unhide" = "unhide";
+"Restart Required" = "Omstart krävs";
+"In order to hide the dock, you must restart CocoaShare. Do you want to restart CocoaShare now?" = "För att kunna gömma dockan måste du starta om CocoaShare. Vill du starta om CocoaShare nu?";
+"Unable to change dock" = "Kan inte ändra dockan";
+"CocoaShare is unable to %@ the dock due to permissions. To fix this issue, right click on CocoaShare and choose Get Info to make CocoaShare writable." = "CocoaShare kan inte %@ dockan p.g.a avsaknad av rättigheter. För att lösa problemet, Högerklicka på CocoaShare och välj Mer info och gör CocoaShare skrivbar.";
+"hide" = "Dölj";
+"unhide" = "Visa";
 
 /* Donations */
-"Donations" = "Donations";
+"Donations" = "Donationer";
 "Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development." = "Thank you for using CocoaShare. CocoaShare is donation supported software. If you like using it, please consider giving a donation to help with development.";
 
 /* Growl */
-"Uploading File" = "Uploading File";
-"Automatically Uploading File" = "Automatically Uploading File";
-"Uploaded File" = "Uploaded File";
-"Automatically Uploaded File" = "Automatically Uploaded File";
-"Uploaded %@ to %@" = "Uploaded %@ to %@";
-"Uploading %@" = "Uploading %@";
-"Unable to upload" = "Unable to upload";
+"Uploading File" = "Laddar upp fil";
+"Automatically Uploading File" = "Laddar automatiskt upp fil";
+"Uploaded File" = "Filen uppladdad";
+"Automatically Uploaded File" = "Filen uppladdad automatiskt";
+"Uploaded %@ to %@" = "Laddade upp %@ till %@";
+"Uploading %@" = "Laddar upp %@";
+"Unable to upload" = "Kan ej ladda upp";
 
 /* Format Error */
-"The current PlugIn does not support this file format." = "The current PlugIn does not support this file format.";
+"The current PlugIn does not support this file format." = "Den nuvarande PlugIn har inte support för det här filformatet.";
 
 /* PlugIn Errors */
-"No PlugIns found. You must have at least 1 PlugIn to upload a file." = "No PlugIns found. You must have at least 1 PlugIn to upload a file.";
-"The current PlugIn doesn't support uploading." = "The current PlugIn doesn't support uploading.";
-"Unable to upload %@: %@" = "Unable to upload %@: %@";
+"No PlugIns found. You must have at least 1 PlugIn to upload a file." = "Inga PlugIns kunde hittas. Du måste ha minst en PlugIn för att ladda upp en fil.";
+"The current PlugIn doesn't support uploading." = "Den nuvarande PlugIn:n stödjer inte uppladdning.";
+"Unable to upload %@: %@" = "Kan inte ladda upp %@: %@";
 
 /* WebDav */
-"The response was returned as %@ and not %@." = "The response was returned as %@ and not %@.";
-"The HTTP server does not have WebDav enabled in this directory." = "The HTTP server does not have WebDav enabled in this directory.";
+"The response was returned as %@ and not %@." = "Fick som svar %@ istället för %@.";
+"The HTTP server does not have WebDav enabled in this directory." = "HTTP servern har inte WebDav aktiverat i den här katalogen.";
 
 /* Standared Buttons */
-"Yes" = "Yes";
-"No" = "No";
-"Choose" = "Choose";
+"Yes" = "Ja";
+"No" = "Nej";
+"Choose" = "Välj";
 
 /* Preferences */
-"General" = "General";
-"Account" = "Account";
-"Auto Upload" = "Auto Upload";
-"Choose Folder" = "Choose Folder";
-"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" = "(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z"; // For 10.4.
-"Match" = "Match";
-"No Match" = "No Match";
-"Events" = "Events";
-"No Sound" = "No Sound";
+"General" = "Generellt";
+"Account" = "Konto";
+"Auto Upload" = "Automatisk uppladdning";
+"Choose Folder" = "Välj mapp";
+"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" = "(?i)Bild [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z"; // För 10.4.
+"Match" = "Matcha";
+"No Match" = "Ingen Matchning";
+"Events" = "Händelser";
+"No Sound" = "Inget ljud";
 
 /* Genral */
-"Unknown name" = "Unknown name";
+"Unknown name" = "Okänt namn";
 
 /* Preferences Interface */
 /* General */
-"Display:" = "Display:";
-"Dock" = "Dock";
-"Dock and Menu Bar" = "Dock and Menu Bar";
-"Menu Bar" = "Menu Bar";
-"Start at login:" = "Start at login:";
-"Uploaded File Name" = "Uploaded File Name";
-"Random for automatic upload only." = "Random for automatic upload only.";
-"Random for automatic and manual upload." = "Random for automatic and manual upload.";
-"Keep x uploads in history." = "Keep x uploads in history.";
-"Display growl notifications for errors:" = "Display growl notifications for errors:";
-"Auto upload limit within x seconds." = "Auto upload limit within x seconds.";
+"Display:" = "Skärm:";
+"Dock" = "Docka";
+"Dock and Menu Bar" = "Docka och Menylisten";
+"Menu Bar" = "Menylisten";
+"Start at login:" = "Starta vid inloggning:";
+"Uploaded File Name" = "Laddade upp filnamn";
+"Random for automatic upload only." = "Slummässigt enbart automatisk uppladdning.";
+"Random for automatic and manual upload." = "Slumpmässigt för automatiskt och manuell uppladdning.";
+"Keep x uploads in history." = "Behåller x uppladdningar i historiken.";
+"Display growl notifications for errors:" = "Visa growlmeddelanden för fel:";
+"Auto upload limit within x seconds." = "Automatisk uppladdningsgräns inom x sekunder.";
 
 /* Account */
-"Type:" = "Type:";
+"Type:" = "Typ:";
 
 /* Auto Upload */
 "Filter" = "Filter";
-"Path" = "Path";
-"Add Filter" = "Add Filter";
-"Add new filter" = "Add new filter";
-"Add screenshot filter" = "Add screenshot filter";
-"Remove Filter" = "Remove Filter";
-"These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones." = "These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones.";
-"Path:" = "Path:";
+"Path" = "Katalogväg";
+"Add Filter" = "Lägg till Filter";
+"Add new filter" = "Lägg till nytt filter";
+"Add screenshot filter" = "Lägg till skärmbildsfilter";
+"Remove Filter" = "Ta bort Filter";
+"These filters uses Regular Expression. If you do not know Regex, It's best to just use the predefined ones." = "De här filterna använder Regular Expression. Om du inte känner till Regex så är det bäst att bara använda de förbestämda.";
+"Path:" = "Katalogväg:";
 "Filter:" = "Filter:";
 "Test:" = "Test:";
 
 /* Events */
-"Event:" = "Event:";
-"Uploading File Automatically" = "Uploading File Automatically";
-"Uploaded File Automatically" = "Uploaded File Automatically";
-"Uploading" = "Uploading";
-"Uploaded" = "Uploaded";
-"Play Sound:" = "Play Sound:";
-"Move To:" = "Move To:";
-"Delete file to:" = "Delete file to:";
-"nowhere" = "nowhere";
-"oblivion" = "oblivion";
-"trash" = "trash";
+"Event:" = "Händelse:";
+"Uploading File Automatically" = "Laddar upp filen automatiskt";
+"Uploaded File Automatically" = "Laddade upp filen automatiskt";
+"Uploading" = "Laddar upp";
+"Uploaded" = "Uppladdat";
+"Play Sound:" = "Spela ljud:";
+"Move To:" = "Flytta till:";
+"Delete file to:" = "Radera filen till:";
+"nowhere" = "ingenstans";
+"oblivion" = "glömska";
+"trash" = "skräp";
 "Growl:" = "Growl:";
 
 /* Plugins */
 /* Common Strings */
-"Logging In" = "Logging In";
-"Login" = "Login";
-"UserName Required" = "UserName Required";
-"Please enter your username." = "Please enter your username.";
-"Password Required" = "Password Required";
-"Please enter your password." = "Please enter your password.";
-"Account Error" = "Account Error";
-"Login Successful" = "Login Successful";
-"You have successfully logged into your account." = "You have successfully logged into your account.";
-"Account is not logged in." = "Account is not logged in.";
-"URL Required" = "URL Required";
-"Email Required" = "Email Required";
-"Please enter your email." = "Please enter your email.";
+"Logging In" = "Loggar in";
+"Login" = "Inloggning";
+"UserName Required" = "Användarnamn krävs";
+"Please enter your username." = "Vänligen skriv in ditt användarnamn.";
+"Password Required" = "Lösenord krävs";
+"Please enter your password." = "Vänligen skriv in ditt lösenord.";
+"Account Error" = "Kontofel";
+"Login Successful" = "Inloggningen lyckades";
+"You have successfully logged into your account." = "Du har framgångsrikt loggat in på ditt konto.";
+"Account is not logged in." = "Kontot är inte inloggat.";
+"URL Required" = "URL krävs";
+"Email Required" = "Epost krävs";
+"Please enter your email." = "Vänligen skriv in din epost.";
 
 /* Dropbox */
-"Unable to get your account ID." = "Unable to get your account ID.";
+"Unable to get your account ID." = "Kunde inte hämta ditt konto-ID.";
 
 /* (S)FTP */
-"Host Required" = "Host Required";
-"Please enter your host." = "Please enter your host.";
-"Please enter the URL to where the files will be uploaded." = "Please enter the URL to where the files will be uploaded.";
-"Incorrect login info." = "Incorrect login info.";
-"You have successfully logged into your account, but the path you have entered does not exist." = "You have successfully logged into your account, but the path you have entered does not exist.";
-"The path to upload files to does not exist." = "The path to upload files to does not exist.";
+"Host Required" = "Värd krävs";
+"Please enter your host." = "Vänligen skriv in din värd.";
+"Please enter the URL to where the files will be uploaded." = "Vänligen skriv in den URL som du vill ladda upp filerna till.";
+"Incorrect login info." = "Inkorrekt inloggningsinformation.";
+"You have successfully logged into your account, but the path you have entered does not exist." = "Du har framgångsrikt loggat in men katalogvägen du matat in existerar inte.";
+"The path to upload files to does not exist." = "Katalogvägen för att ladda upp fulerna existerar inte.";
 
 /* HTTP */
-"The URL %@ may not be a CocoaShare compatible URL." = "The URL %@ may not be a CocoaShare compatible URL.";
-"Please enter the URL for the HTTP account." = "Please enter the URL for the HTTP account.";
-"HTTP Server response is not a CocoaShare compatible response." = "HTTP Server response is not a CocoaShare compatible response.";
+"The URL %@ may not be a CocoaShare compatible URL." = "URL:n %@ kanske inte är kompatibel med CocoaShare.";
+"Please enter the URL for the HTTP account." = "Vänligen skriv in en URL för HTTP-kontot.";
+"HTTP Server response is not a CocoaShare compatible response." = "Svaret från HTTP-servern är ej kompatibelt med CocoaShare.";
 
 /* MobileMe/WebDav */
-"The URL you have entered does not appear to be a directory." = "The URL you have entered does not appear to be a directory.";
-"Please enter the WebDav URL." = "Please enter the WebDav URL.";
+"The URL you have entered does not appear to be a directory." = "URL:n du har fyllt i verkar inte vara en filkatalog.";
+"Please enter the WebDav URL." = "Vänligen skriv in WebDav URL:n.";
 
 /* twitpic */
-"Please enter your Twitter UserName." = "Please enter your Twitter UserName.";
-"Unknown response." = "Unknown response.";
+"Please enter your Twitter UserName." = "Vänligen skriv in ditt användarnamn för Twitter.";
+"Unknown response." = "Okänt svar.";
 
 /* TinyGrab */
-"Only paid users are allowed to use TinyGrab in CocoaShare, sorry." = "Only paid users are allowed to use TinyGrab in CocoaShare, sorry.";
-"Unable to receive url." = "Unable to receive url.";
+"Only paid users are allowed to use TinyGrab in CocoaShare, sorry." = "Enbart betalande användare är tillåtna att använda TinyGrab i CocoaShare, tyvärr.";
+"Unable to receive url." = "Kunde inte ta emot URL.";
 
 /* Interface */
 /* Common Strings */
-"Host:" = "Host:";
-"UserName:" = "UserName:";
-"Password:" = "Password:";
-"Path:" = "Path:";
+"Host:" = "Värd:";
+"UserName:" = "Användarnamn:";
+"Password:" = "Lösenord:";
+"Path:" = "Katalogväg:";
 "URL:" = "URL:";
-"Email:" = "Email:";
-"Private Key" = "Private Key";
+"Email:" = "Epost:";
+"Private Key" = "Privat nyckel";
 
 /* twitpic */
-"Ask for message and post to Twitter?" = "Ask for message and post to Twitter?";
-"Save" = "Save";
-"Upload without posting" = "Upload without posting";
-"Post" = "Post";
+"Ask for message and post to Twitter?" = "Fråga om meddelanden och inlägg till Twitter?";
+"Save" = "Spara";
+"Upload without posting" = "Ladda upp utan att göra inlägg";
+"Post" = "Gör ett inlägg";
 
 /* TinyGrab */
-"Type:" = "Type:";
-"Unknown" = "Unknown";
-"Basic" = "Basic";
-"Pro" = "Pro";
-"Register" = "Register";
+"Type:" = "Typ:";
+"Unknown" = "Okänd";
+"Basic" = "Grundläggande";
+"Pro" = "Professionell";
+"Register" = "Registrera";

@@ -76,7 +76,6 @@
 		2A28115012EBCE4A00435C36 /* AutoUpload.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28113E12EBCDFC00435C36 /* AutoUpload.png */; };
 		2A28115112EBCE4A00435C36 /* Events.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28113F12EBCDFC00435C36 /* Events.png */; };
 		2A28115212EBCE4A00435C36 /* General.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28114012EBCDFC00435C36 /* General.png */; };
-		2A2811C912EBDB2E00435C36 /* MGMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2811C212EBD4B600435C36 /* MGMFileManager.m */; };
 		2A28148512ECD21900435C36 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A28148112ECD20C00435C36 /* Security.framework */; };
 		2A28154412ECE26600435C36 /* libcrypto.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A28153D12ECE24300435C36 /* libcrypto.dylib */; };
 		2A2F97A212F05C720069B37E /* FTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0C8C9412EF844F00A75AB7 /* FTP.bundle */; };
@@ -281,20 +280,20 @@
 		2A0C8CB012EF853400A75AB7 /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
 		2A0C8CB312EF854D00A75AB7 /* MGMFTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFTPPlugIn.h; sourceTree = "<group>"; };
 		2A0C8CB412EF854D00A75AB7 /* MGMFTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFTPPlugIn.m; sourceTree = "<group>"; wrapsLines = 1; };
-		2A1E47AA13095F5300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
-		2A1E47AB1309605000102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/MainMenu.xib; sourceTree = "<group>"; };
-		2A1E47AC130961C700102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/GeneralPane.xib; sourceTree = "<group>"; };
-		2A1E47AD1309633600102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/AccountPane.xib; sourceTree = "<group>"; };
-		2A1E47AE1309636800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/AutoUploadPane.xib; sourceTree = "<group>"; };
-		2A1E47AF1309653300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/EventsPane.xib; sourceTree = "<group>"; };
-		2A1E47B01309664400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/HTTPAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B1130966CC00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/DropboxAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B21309670A00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B31309677800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B41309681300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B51309688F00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/MobileMeAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B6130968F300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/twitpicAccountPane.xib; sourceTree = "<group>"; };
-		2A1E47B71309695400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file; name = sv; path = sv.lproj/twitpicPostWindow.xib; sourceTree = "<group>"; };
+		2A1E47AA13095F5300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = sv; path = sv.lproj/Localizable.strings; sourceTree = "<group>"; };
+		2A1E47AB1309605000102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/MainMenu.xib; sourceTree = "<group>"; };
+		2A1E47AC130961C700102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/GeneralPane.xib; sourceTree = "<group>"; };
+		2A1E47AD1309633600102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/AccountPane.xib; sourceTree = "<group>"; };
+		2A1E47AE1309636800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/AutoUploadPane.xib; sourceTree = "<group>"; };
+		2A1E47AF1309653300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/EventsPane.xib; sourceTree = "<group>"; };
+		2A1E47B01309664400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/HTTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B1130966CC00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/DropboxAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B21309670A00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/FTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B31309677800102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B41309681300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B51309688F00102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/MobileMeAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B6130968F300102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/twitpicAccountPane.xib; sourceTree = "<group>"; };
+		2A1E47B71309695400102EBD /* sv */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = sv; path = sv.lproj/twitpicPostWindow.xib; sourceTree = "<group>"; };
 		2A280C8412EB50FB00435C36 /* Growl Registration Ticket.growlRegDict */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = "Growl Registration Ticket.growlRegDict"; sourceTree = "<group>"; };
 		2A280E6912EB7A5D00435C36 /* DBAccountInfo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DBAccountInfo.h; sourceTree = "<group>"; };
 		2A280E6A12EB7A5D00435C36 /* DBAccountInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DBAccountInfo.m; sourceTree = "<group>"; };
@@ -368,8 +367,6 @@
 		2A28113E12EBCDFC00435C36 /* AutoUpload.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = AutoUpload.png; sourceTree = "<group>"; };
 		2A28113F12EBCDFC00435C36 /* Events.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Events.png; sourceTree = "<group>"; };
 		2A28114012EBCDFC00435C36 /* General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = General.png; sourceTree = "<group>"; };
-		2A2811C112EBD4B600435C36 /* MGMFileManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMFileManager.h; sourceTree = "<group>"; };
-		2A2811C212EBD4B600435C36 /* MGMFileManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMFileManager.m; sourceTree = "<group>"; };
 		2A28148112ECD20C00435C36 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2A28153D12ECE24300435C36 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
 		2A2F994512F094710069B37E /* SFTP.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTP.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -967,8 +964,6 @@
 				2AEAB45E12E2ACEA00552BAA /* MGMController.m */,
 				2A28110012EBABC400435C36 /* MGMAddons.h */,
 				2A28110112EBABC400435C36 /* MGMAddons.m */,
-				2A2811C112EBD4B600435C36 /* MGMFileManager.h */,
-				2A2811C212EBD4B600435C36 /* MGMFileManager.m */,
 				2AEAB48F12E2AE4900552BAA /* MGMLoginItems.h */,
 				2AEAB49012E2AE4900552BAA /* MGMLoginItems.m */,
 				2AEAB45F12E2ACEA00552BAA /* MGMPathSubscriber.h */,
@@ -1443,7 +1438,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2A2811C912EBDB2E00435C36 /* MGMFileManager.m in Sources */,
 				2AEAB46112E2ACEA00552BAA /* MGMController.m in Sources */,
 				2A28110B12EBAC4B00435C36 /* MGMAddons.m in Sources */,
 				2AEAB46212E2ACEA00552BAA /* MGMPathSubscriber.m in Sources */,
@@ -2097,7 +2091,7 @@
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_OPTIMIZATION_LEVEL = 0;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;
@@ -2118,7 +2112,7 @@
 					x86_64,
 				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
-				GCC_VERSION = 4.2;
+				GCC_VERSION = com.apple.compilers.llvmgcc42;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.4;

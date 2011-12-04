@@ -50,7 +50,7 @@
 					<object class="NSTextField" id="635325817">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{230, 23}, {60, 17}}</string>
+						<string key="NSFrame">{{311, 23}, {67, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView"/>
@@ -58,7 +58,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="831067007">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">seconds.</string>
+							<string key="NSContents">sekunder.</string>
 							<object class="NSFont" key="NSSupport" id="182711840">
 								<string key="NSName">LucidaGrande</string>
 								<double key="NSSize">13</double>
@@ -88,7 +88,7 @@
 					<object class="NSTextField" id="959576106">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{179, 20}, {46, 22}}</string>
+						<string key="NSFrame">{{260, 20}, {46, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="635325817"/>
@@ -120,7 +120,7 @@
 					<object class="NSTextField" id="399381236">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 23}, {157, 17}}</string>
+						<string key="NSFrame">{{17, 23}, {238, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="959576106"/>
@@ -128,7 +128,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="477036002">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Auto upload limit within</string>
+							<string key="NSContents">Automatisk uppladdningsgräns inom</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="399381236"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -138,7 +138,7 @@
 					<object class="NSButton" id="163629106">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{260, 46}, {18, 18}}</string>
+						<string key="NSFrame">{{222, 46}, {18, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="399381236"/>
@@ -167,7 +167,7 @@
 					<object class="NSTextField" id="820442859">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 48}, {240, 17}}</string>
+						<string key="NSFrame">{{17, 48}, {202, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="163629106"/>
@@ -175,7 +175,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="840777436">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Display growl notifications for errors:</string>
+							<string key="NSContents">Visa growlmeddelanden för fel:</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="820442859"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -185,7 +185,7 @@
 					<object class="NSTextField" id="531055139">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{109, 73}, {122, 17}}</string>
+						<string key="NSFrame">{{128, 73}, {176, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="820442859"/>
@@ -193,7 +193,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="250405865">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">uploads in history.</string>
+							<string key="NSContents">uppladdningar i historiken.</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="531055139"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -203,7 +203,7 @@
 					<object class="NSTextField" id="212615851">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{58, 70}, {46, 22}}</string>
+						<string key="NSFrame">{{77, 70}, {46, 22}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="531055139"/>
@@ -222,7 +222,7 @@
 					<object class="NSTextField" id="275901671">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 73}, {36, 17}}</string>
+						<string key="NSFrame">{{17, 73}, {55, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="212615851"/>
@@ -230,7 +230,7 @@
 						<object class="NSTextFieldCell" key="NSCell" id="238390161">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Keep</string>
+							<string key="NSContents">Behåller</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="275901671"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -240,7 +240,7 @@
 					<object class="NSMatrix" id="493367521">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{20, 100}, {293, 38}}</string>
+						<string key="NSFrame">{{20, 100}, {381, 38}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="275901671"/>
@@ -252,7 +252,7 @@
 							<object class="NSButtonCell" id="317574204">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Random for automatic upload only.</string>
+								<string key="NSContents">Slummässigt enbart automatisk uppladdning.</string>
 								<reference key="NSSupport" ref="182711840"/>
 								<reference key="NSControlView" ref="493367521"/>
 								<int key="NSTag">1</int>
@@ -269,7 +269,7 @@
 							<object class="NSButtonCell" id="972904026">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Random for automatic and manual upload.</string>
+								<string key="NSContents">Slumpmässigt för automatiskt och manuell uppladdning.</string>
 								<reference key="NSSupport" ref="182711840"/>
 								<reference key="NSControlView" ref="493367521"/>
 								<int key="NSButtonFlags">1211912703</int>
@@ -375,7 +375,7 @@ QXBwbGUgQ29tcHV0ZXIsIEluYy4sIDIwMDUAAAAAA</bytes>
 								<int key="NSPeriodicInterval">75</int>
 							</object>
 						</object>
-						<string key="NSCellSize">{293, 18}</string>
+						<string key="NSCellSize">{381, 18}</string>
 						<string key="NSIntercellSpacing">{4, 2}</string>
 						<int key="NSMatrixFlags">1151868928</int>
 						<string key="NSCellClass">NSActionCell</string>
@@ -439,7 +439,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSTextField" id="201989994">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 143}, {130, 17}}</string>
+						<string key="NSFrame">{{17, 143}, {138, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="493367521"/>
@@ -447,7 +447,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSTextFieldCell" key="NSCell" id="842282414">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Uploaded File Name</string>
+							<string key="NSContents">Laddade upp filnamn</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="201989994"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -457,7 +457,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSButton" id="289845884">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{110, 167}, {18, 18}}</string>
+						<string key="NSFrame">{{160, 167}, {18, 18}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="201989994"/>
@@ -481,7 +481,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSTextField" id="573272302">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 168}, {90, 17}}</string>
+						<string key="NSFrame">{{17, 168}, {140, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="289845884"/>
@@ -489,7 +489,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSTextFieldCell" key="NSCell" id="331720251">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Start at login:</string>
+							<string key="NSContents">Starta vid inloggning:</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="573272302"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -499,7 +499,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSTextField" id="71563777">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{17, 234}, {55, 17}}</string>
+						<string key="NSFrame">{{17, 234}, {48, 17}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="175541486"/>
@@ -507,7 +507,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<object class="NSTextFieldCell" key="NSCell" id="255725956">
 							<int key="NSCellFlags">68288064</int>
 							<int key="NSCellFlags2">272630784</int>
-							<string key="NSContents">Display:</string>
+							<string key="NSContents">Skärm:</string>
 							<reference key="NSSupport" ref="182711840"/>
 							<reference key="NSControlView" ref="71563777"/>
 							<reference key="NSBackgroundColor" ref="502149548"/>
@@ -517,7 +517,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 					<object class="NSMatrix" id="175541486">
 						<reference key="NSNextResponder" ref="1005"/>
 						<int key="NSvFlags">268</int>
-						<string key="NSFrame">{{77, 193}, {145, 58}}</string>
+						<string key="NSFrame">{{70, 193}, {145, 58}}</string>
 						<reference key="NSSuperview" ref="1005"/>
 						<reference key="NSWindow"/>
 						<reference key="NSNextKeyView" ref="573272302"/>
@@ -529,7 +529,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<object class="NSButtonCell" id="274046534">
 								<int key="NSCellFlags">-2080244224</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Dock</string>
+								<string key="NSContents">Docka</string>
 								<reference key="NSSupport" ref="182711840"/>
 								<reference key="NSControlView" ref="175541486"/>
 								<int key="NSTag">1</int>
@@ -544,7 +544,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<object class="NSButtonCell" id="1003116730">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Dock and Menu Bar</string>
+								<string key="NSContents">Docka och Menylisten</string>
 								<reference key="NSSupport" ref="182711840"/>
 								<reference key="NSControlView" ref="175541486"/>
 								<int key="NSButtonFlags">1211912703</int>
@@ -649,7 +649,7 @@ QXBwbGUgQ29tcHV0ZXIsIEluYy4sIDIwMDUAAAAAA</bytes>
 							<object class="NSButtonCell" id="438227967">
 								<int key="NSCellFlags">67239424</int>
 								<int key="NSCellFlags2">0</int>
-								<string key="NSContents">Menu Bar</string>
+								<string key="NSContents">Menylisten</string>
 								<reference key="NSSupport" ref="182711840"/>
 								<reference key="NSControlView" ref="175541486"/>
 								<int key="NSButtonFlags">1211912703</int>
@@ -721,7 +721,7 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 						<reference key="NSFont" ref="182711840"/>
 					</object>
 				</object>
-				<string key="NSFrameSize">{333, 271}</string>
+				<string key="NSFrameSize">{421, 271}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
 				<reference key="NSNextKeyView" ref="71563777"/>
@@ -871,17 +871,17 @@ AAMAAAABAAEAAAFTAAMAAAAEAAAFwgAAAAAACAAIAAgACAABAAEAAQABA</bytes>
 							<reference ref="71563777"/>
 							<reference ref="573272302"/>
 							<reference ref="289845884"/>
-							<reference ref="175541486"/>
 							<reference ref="201989994"/>
 							<reference ref="493367521"/>
 							<reference ref="275901671"/>
 							<reference ref="212615851"/>
 							<reference ref="531055139"/>
 							<reference ref="820442859"/>
-							<reference ref="163629106"/>
 							<reference ref="399381236"/>
 							<reference ref="959576106"/>
 							<reference ref="635325817"/>
+							<reference ref="175541486"/>
+							<reference ref="163629106"/>
 						</object>
 						<reference key="parent" ref="0"/>
 					</object>

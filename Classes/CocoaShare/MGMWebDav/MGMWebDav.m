@@ -16,6 +16,7 @@ NSString * const MGMWebDavContentType = @"Content-Type";
 NSString * const MGMWebDavXMLType = @"text/xml";
 
 @interface MGMWebDav (MGMPrivate)
+- (void)resetCredentails;
 - (id<MGMWebDavHandler>)handlerForConnection:(NSURLConnection *)theConnection;
 - (CFHTTPMessageRef)newHTTPMessageFromResponse:(NSHTTPURLResponse *)theResponse;
 - (CFHTTPMessageRef)newHTTPMessageFromRequest:(NSURLRequest *)theRequest;
@@ -42,6 +43,7 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 }
 - (void)dealloc {
 	[rootURL release];
+	[self resetCredentails];
 	[credentials release];
 	[handlers release];
 	[super dealloc];
@@ -53,6 +55,22 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 - (id<MGMWebDavDelegate>)delegate {
 	return delegate;
 }
+- (void)resetCredentails {
+	/*NSURLCredentialStorage *store = [NSURLCredentialStorage sharedCredentialStorage];
+	NSDictionary *allCredentials = [store allCredentials];
+	NSArray *keys = [allCredentials allKeys];
+	for (int i=0; i<[keys count]; i++) {
+		NSURLProtectionSpace *protectionSpace = [keys objectAtIndex:i];
+		NSDictionary *userToCredentialMap = [store credentialsForProtectionSpace:protectionSpace];
+		NSArray *mapKeys = [userToCredentialMap allKeys];
+		for (int u=0; u<[mapKeys count]; u++) {
+			NSString *user = [mapKeys objectAtIndex:u];
+			NSURLCredential *credential = [userToCredentialMap objectForKey:user];
+			NSLog(@"%@", credential);
+			[store removeCredential:credential forProtectionSpace:protectionSpace];
+		}
+	}*/
+}
 - (void)setRootURL:(NSURL *)theURL {
 	[rootURL release];
 	rootURL = [theURL retain];
@@ -61,6 +79,7 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 	return rootURL;
 }
 - (void)setCredentials:(NSURLCredential *)theCredentials {
+	[self resetCredentails];
 	[credentials release];
 	credentials = [theCredentials retain];
 }
@@ -173,6 +192,8 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 	NSLog(@"%p", authentication);
 	CFRelease(message);*/
 	
+	NSLog(@"Asking for authentication");
+	
 	id<MGMWebDavHandler> handler = [self handlerForConnection:theConnection];
 	if ([theChallenge previousFailureCount]<=1 && (credentials!=nil || [handler respondsToSelector:@selector(credentailsForChallenge:)])) {
 		if ([handler respondsToSelector:@selector(credentailsForChallenge:)]) {
@@ -223,6 +244,7 @@ NSString * const MGMWebDavXMLType = @"text/xml";
 	id<MGMWebDavHandler> handler = [self handlerForConnection:theConnection];
 	if ([handler respondsToSelector:@selector(didFailWithError:)])
 		[handler didFailWithError:theError];
+	[handlers removeObject:handler];
 }
 - (void)connectionDidFinishLoading:(NSURLConnection *)theConnection {
 	id<MGMWebDavHandler> handler = [self handlerForConnection:theConnection];

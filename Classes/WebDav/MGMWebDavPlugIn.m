@@ -9,6 +9,7 @@
 #import "MGMWebDavPlugIn.h"
 #import "MGMController.h"
 #import "MGMWebDav.h"
+#import "MGMAddons.h"
 
 NSString * const MGMCopyright = @"Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/";
 
@@ -166,7 +167,7 @@ NSString * const MGMWebDavUser = @"MGMWebDavUser";
 	
 	[filePath release];
 	filePath = [thePath retain];
-	MGMWebDavPut *put = [MGMWebDavPut putAtURI:theName];
+	MGMWebDavPut *put = [MGMWebDavPut putAtURI:[theName addPercentEscapes]];
 	[put setData:[NSData dataWithContentsOfFile:thePath]];
 	[webDav addHandler:put];
 }

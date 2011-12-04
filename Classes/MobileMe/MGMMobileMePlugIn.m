@@ -242,7 +242,7 @@ NSString * const MGMMobileMeFContents = @"contents";
 	filePath = [thePath retain];
 	NSString *path = [[NSUserDefaults standardUserDefaults] objectForKey:MGMMobileMePath];
 	if (path==nil) path = MGMMobileMePublic;
-	MGMWebDavPut *put = [MGMWebDavPut putAtURI:[path stringByAppendingPathComponent:theName]];
+	MGMWebDavPut *put = [MGMWebDavPut putAtURI:[[path stringByAppendingPathComponent:theName] addPercentEscapes]];
 	[put setData:[NSData dataWithContentsOfFile:thePath]];
 	[webDav addHandler:put];
 }

@@ -37,6 +37,8 @@ extern NSString * const MGMFFilter;
 @class MGMURLConnectionManager, MGMPreferences, MGMAbout, MGMMenuItem, MGMPathSubscriber;
 
 @interface MGMController : NSObject <NSSoundDelegate> {
+	NSTimer *autoreleaseDrain;
+	
 	MGMURLConnectionManager *connectionManager;
 	MGMPreferences *preferences;
 	MGMAbout *about;
@@ -61,6 +63,7 @@ extern NSString * const MGMFFilter;
 	id<MGMPlugInProtocol> currentPlugIn;
 	int currentPlugInIndex;
 	
+	NSLock *uploadLock;
 	NSMutableArray *uploads;
 }
 + (id)sharedController;

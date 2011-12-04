@@ -120,7 +120,7 @@ if ($_CS['loggedIn']) {
 				<key>successful</key>
 				<true/>
 				<key>url</key>
-				<string><?=generateURL($uploadName)?></string>
+				<string><?=generateURL(rawurlencode($uploadName))?></string>
 				<key>loggedIn</key>
 				<true/>
 			</dict>

@@ -1,18 +1,19 @@
 //
 //  MGMFileManager.h
-//  CocoaShare
+//  SoundNote
 //
 //  Created by Mr. Gecko on 1/22/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
-#import <Cocoa/Cocoa.h>
+#import <Foundation/Foundation.h>
 
 @interface NSFileManager (MGMFileManager)
 - (BOOL)moveItemAtPath:(NSString *)thePath toPath:(NSString *)theDestination;
 - (BOOL)copyItemAtPath:(NSString *)thePath toPath:(NSString *)theDestination;
 - (BOOL)removeItemAtPath:(NSString *)thePath;
 - (BOOL)linkItemAtPath:(NSString *)thePath toPath:(NSString *)theDestination;
+- (BOOL)createDirectoryAtPath:(NSString *)thePath withAttributes:(NSDictionary *)theAttributes;
 - (BOOL)createSymbolicLinkAtPath:(NSString *)thePath withDestinationPath:(NSString *)theDestination;
 - (NSString *)destinationOfSymbolicLinkAtPath:(NSString *)thePath;
 - (NSArray *)contentsOfDirectoryAtPath:(NSString *)thePath;

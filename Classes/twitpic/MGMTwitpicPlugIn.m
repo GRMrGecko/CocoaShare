@@ -157,9 +157,13 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 	[data appendData:[@"\r\n" dataUsingEncoding:NSUTF8StringEncoding]];
 	[data appendData:[[NSString stringWithFormat:@"--%@--", boundary] dataUsingEncoding:NSUTF8StringEncoding]];
 	[postRequest setHTTPBody:data];
-	[[[MGMController sharedController] connectionManager] connectionWithRequest:postRequest delegate:self didFailWithError:@selector(upload:didFailWithError:) didFinish:@selector(uploadDidFinish:) invisible:MGMTwitpicResponseInvisible object:nil];
+	MGMURLBasicHandler *handler = [MGMURLBasicHandler handlerWithRequest:postRequest delegate:self];
+	[handler setFailWithError:@selector(upload:didFailWithError:)];
+	[handler setFinish:@selector(uploadDidFinish:)];
+	[handler setInvisible:MGMTwitpicResponseInvisible];
+	[[[MGMController sharedController] connectionManager] addHandler:handler];
 }
-- (void)upload:(NSDictionary *)theData didFailWithError:(NSError *)theError {
+- (void)upload:(MGMURLBasicHandler *)theHandler didFailWithError:(NSError *)theError {
 	NSString *uploadedPath = [[filePath retain] autorelease];
 	[filePath release];
 	filePath = nil;
@@ -167,9 +171,9 @@ const BOOL MGMTwitpicResponseInvisible = YES;
 	fileName = nil;
 	[[MGMController sharedController] upload:uploadedPath receivedError:theError];
 }
-- (void)uploadDidFinish:(NSDictionary *)theData {
+- (void)uploadDidFinish:(MGMURLBasicHandler *)theHandler {
 	NSError *error = nil;
-	NSXMLDocument *document = [[[NSXMLDocument alloc] initWithData:[theData objectForKey:MGMConnectionData] options:0 error:&error] autorelease];
+	NSXMLDocument *document = [[[NSXMLDocument alloc] initWithData:[theHandler data] options:0 error:&error] autorelease];
 	if (error!=nil) {
 		NSString *uploadedPath = [[filePath retain] autorelease];
 		[filePath release];
