@@ -10,6 +10,7 @@
 
 @interface MGMPathSubscriber (MGMPrivate)
 - (void)subscriptionChanged:(FNSubscriptionRef)theSubscription;
+- (void)subscriptionFSChanged:(ConstFSEventStreamRef)theSubscription;
 - (void)sendNotificationForPath:(NSString *)thePath;
 @end
 
@@ -17,10 +18,19 @@ static MGMPathSubscriber *MGMSharedPathSubscriber;
 NSString * const MGMSubscribedPathChangedNotification = @"MGMSubscribedPathChangedNotification";
 
 void MGMPathSubscriptionChange(FNMessage theMessage, OptionBits theFlags, void *thePathSubscription, FNSubscriptionRef theSubscription) {
-    if (theMessage==kFNDirectoryModifiedMessage)
-        [(MGMPathSubscriber *)thePathSubscription subscriptionChanged:theSubscription];
+	if (theMessage==kFNDirectoryModifiedMessage)
+		[(MGMPathSubscriber *)thePathSubscription subscriptionChanged:theSubscription];
 	else
-		NSLog(@"MGMPathSubscription: Received Unknown message: %d", (int)theMessage);
+		NSLog(@"MGMPathSubscription: Received Unknown message: %u", theMessage);
+}
+
+void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathSubscription, size_t numEvents, void *eventPaths, const FSEventStreamEventFlags eventFlags[], const FSEventStreamEventId eventIds[]) {
+	for (size_t i=0; i<numEvents; i++) {
+		if (eventFlags[i] & (kFSEventStreamEventFlagItemCreated | kFSEventStreamEventFlagItemRemoved | kFSEventStreamEventFlagItemRenamed)) {
+			[(MGMPathSubscriber *)thePathSubscription subscriptionFSChanged:streamRef];
+			break;
+		}
+    }
 }
 
 @implementation MGMPathSubscriber
@@ -52,23 +62,59 @@ void MGMPathSubscriptionChange(FNMessage theMessage, OptionBits theFlags, void *
 	delegate = theDelegate;
 }
 
+- (int)OSMajorVersion {
+	SInt32 majorVersion;
+	if (Gestalt(gestaltSystemVersionMajor, &majorVersion)==noErr) {
+		return (int)majorVersion;
+	}
+	return -1;
+}
+- (int)OSMinorVersion {
+	SInt32 minorVersion;
+	if (Gestalt(gestaltSystemVersionMinor, &minorVersion)==noErr) {
+		return (int)minorVersion;
+	}
+	return -1;
+}
+
 - (void)addPath:(NSString *)thePath {
 	NSValue *value = [subscriptions objectForKey:thePath];
 	if (value!=nil)
 		return;
-	FNSubscriptionRef subscription = NULL;
-	OSStatus error = FNSubscribeByPath((UInt8 *)[thePath fileSystemRepresentation], subscriptionUPP, self, kFNNotifyInBackground, &subscription);
-	if (error!=noErr) {
-		NSLog(@"MGMPathSubscription: Unable to subscribe to %@ due to the error %ld", thePath, (long)error);
-		return;
+	FSEventStreamContext context = {0, self, NULL, NULL, NULL};
+	if ([self OSMajorVersion]==10 && [self OSMinorVersion]>=5) {
+		FSEventStreamRef stream = FSEventStreamCreate(NULL, &MGMPathSubscriptionFSChange, &context, (CFArrayRef)[NSArray arrayWithObject:thePath], kFSEventStreamEventIdSinceNow, 0.5, kFSEventStreamCreateFlagNone);
+		if (stream==NULL) {
+	 		NSLog(@"MGMPathSubscription: Unable to subscribe to %@", thePath);
+	 		return;
+		}
+		FSEventStreamScheduleWithRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+		FSEventStreamStart(stream);
+		[subscriptions setObject:[NSValue valueWithPointer:stream] forKey:thePath];
+	} else {
+		FNSubscriptionRef subscription = NULL;
+		OSStatus error = FNSubscribeByPath((UInt8 *)[thePath fileSystemRepresentation], subscriptionUPP, self, kFNNotifyInBackground, &subscription);
+		if (error!=noErr) {
+	 		NSLog(@"MGMPathSubscription: Unable to subscribe to %@ due to the error %ld", thePath, (long)error);
+	 		return;
+		}
+		[subscriptions setObject:[NSValue valueWithPointer:subscription] forKey:thePath];
 	}
-	[subscriptions setObject:[NSValue valueWithPointer:subscription] forKey:thePath];
 }
 - (void)removePath:(NSString *)thePath {
 	NSValue *value = [subscriptions objectForKey:thePath];
 	if (value!=nil) {
-		FNUnsubscribe([value pointerValue]);
-		[subscriptions removeObjectForKey:thePath];
+		if ([self OSMajorVersion]==10 && [self OSMinorVersion]>=5) {
+			FSEventStreamRef stream = [value pointerValue];
+			FSEventStreamStop(stream);
+			FSEventStreamUnscheduleFromRunLoop(stream, CFRunLoopGetCurrent(), kCFRunLoopDefaultMode);
+			FSEventStreamInvalidate(stream);
+			FSEventStreamRelease(stream);
+			[subscriptions removeObjectForKey:thePath];
+		} else {
+			FNUnsubscribe([value pointerValue]);
+			[subscriptions removeObjectForKey:thePath];
+		}
 	}
 }
 - (void)removeAllPaths {
@@ -84,6 +130,16 @@ void MGMPathSubscriptionChange(FNMessage theMessage, OptionBits theFlags, void *
 }
 
 - (void)subscriptionChanged:(FNSubscriptionRef)theSubscription {
+	NSArray *keys = [subscriptions allKeysForObject:[NSValue valueWithPointer:theSubscription]];
+	if ([keys count]>=1) {
+		NSString *path = [keys objectAtIndex:0];
+		if (![notificationsSending containsObject:path]) {
+			[notificationsSending addObject:path];
+			[self performSelector:@selector(sendNotificationForPath:) withObject:path afterDelay:0.5];
+		}
+	}
+}
+- (void)subscriptionFSChanged:(ConstFSEventStreamRef)theSubscription {
 	NSArray *keys = [subscriptions allKeysForObject:[NSValue valueWithPointer:theSubscription]];
 	if ([keys count]>=1) {
 		NSString *path = [keys objectAtIndex:0];
