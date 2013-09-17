@@ -8,7 +8,7 @@
 //
 
 $_CS = array();
-$_CS['version'] = "0.1";
+$_CS['version'] = "0.2";
 $_CS['time'] = time();
 
 // You are expected to understand a little PHP to use this file.
@@ -36,7 +36,7 @@ exit();
 // End of MD5 code.
 */
 
-$_CS['domain'] = $_SERVER['SERVER_NAME'];
+$_CS['domain'] = $_SERVER['HTTP_HOST'];
 $_CS['port'] = $_SERVER['SERVER_PORT'];
 $_CS['ssl'] = ($_SERVER['HTTPS']=="on");
 

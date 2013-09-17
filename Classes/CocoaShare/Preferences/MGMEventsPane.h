@@ -9,7 +9,11 @@
 #import <Cocoa/Cocoa.h>
 #import <MGMUsers/MGMUsers.h>
 
-@interface MGMEventsPane : MGMPreferencesPane <NSSoundDelegate> {
+@interface MGMEventsPane : MGMPreferencesPane
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+<NSSoundDelegate>
+#endif
+{
 	IBOutlet NSView *view;
 	IBOutlet NSPopUpButton *eventPopUp;
 	IBOutlet NSPopUpButton *soundPopUp;

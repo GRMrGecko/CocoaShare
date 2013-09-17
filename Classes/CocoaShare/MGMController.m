@@ -532,6 +532,7 @@ static MGMController *MGMSharedController;
 	}
 }
 - (void)subscribedPathChanged:(NSString *)thePath {
+	NSLog(@"Changed: %@", thePath);
 	if (filtersEnabled) {
 		NSFileManager *manager = [NSFileManager defaultManager];
 		int uploadLimit = [[NSUserDefaults standardUserDefaults] integerForKey:MGMUploadLimit];
@@ -571,6 +572,19 @@ static MGMController *MGMSharedController;
 							CFRelease(metadata);
 						} else {
 							NSLog(@"Unable to get metadata of %@", fullPath);
+						}
+						
+						NSDictionary *extendedAttributes = nil;
+						if ([manager respondsToSelector:@selector(attributesOfItemAtPath:error:)]) {
+							extendedAttributes = [[manager attributesOfItemAtPath:fullPath error:nil] objectForKey:@"NSFileExtendedAttributes"];
+						} else {
+							extendedAttributes = [[manager fileSystemAttributesAtPath:fullPath] objectForKey:@"NSFileExtendedAttributes"];
+						}
+						for (int a=0; a<[[extendedAttributes allKeys] count]; a++) {
+							if ([[[extendedAttributes allKeys] objectAtIndex:a] isMatchedByRegex:filter])
+								[self addPathToUploads:fullPath isAutomatic:YES];
+							else if ([[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isKindOfClass:[NSString class]] && [[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isMatchedByRegex:filter])
+								[self addPathToUploads:fullPath isAutomatic:YES];
 						}
 					} else {
 						if ([file isMatchedByRegex:filter])

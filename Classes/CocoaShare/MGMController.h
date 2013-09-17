@@ -36,7 +36,11 @@ extern NSString * const MGMFFilter;
 
 @class MGMURLConnectionManager, MGMPreferences, MGMAbout, MGMMenuItem, MGMPathSubscriber;
 
-@interface MGMController : NSObject <NSSoundDelegate> {
+@interface MGMController : NSObject
+#if (MAC_OS_X_VERSION_MAX_ALLOWED >= 1060)
+<NSSoundDelegate>
+#endif
+{
 	NSTimer *autoreleaseDrain;
 	
 	MGMURLConnectionManager *connectionManager;
