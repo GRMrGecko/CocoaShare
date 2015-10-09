@@ -149,7 +149,7 @@ void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathS
 	if (directory) {
 		if (NSFoundationVersionNumber>=677.00/*NSFoundationVersionNumber10_5*/) {
 			FSEventStreamContext context = {0, self, NULL, NULL, NULL};
-			FSEventStreamRef stream = FSEventStreamCreate(NULL, &MGMPathSubscriptionFSChange, &context, (CFArrayRef)[NSArray arrayWithObject:thePath], kFSEventStreamEventIdSinceNow, 0.5, kFSEventStreamCreateFlagFileEvents);
+			FSEventStreamRef stream = FSEventStreamCreate(NULL, &MGMPathSubscriptionFSChange, &context, (CFArrayRef)[NSArray arrayWithObject:thePath], kFSEventStreamEventIdSinceNow, 0.5, 0x00000010 /* kFSEventStreamCreateFlagFileEvents */);
 			if (stream==NULL) {
 				NSLog(@"MGMPathSubscription: Unable to subscribe to %@", thePath);
 				return;
