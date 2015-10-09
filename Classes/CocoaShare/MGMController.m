@@ -16,7 +16,7 @@
 #import <Growl/GrowlApplicationBridge.h>
 #import <Carbon/Carbon.h>
 
-NSString * const MGMCopyright = @"Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/";
+NSString * const MGMCopyright = @"Copyright (c) 2015 Mr. Gecko's Media (James Coleman). http://mrgeckosmedia.com/  All rights reserved.";
 NSString * const MGMVersion = @"MGMVersion";
 NSString * const MGMLaunchCount = @"MGMLaunchCount";
 
@@ -56,6 +56,7 @@ NSString * const MGMKCName = @"CocoaShare";
 
 NSString * const MGMUPath = @"path";
 NSString * const MGMUAutomatic = @"automatic";
+NSString * const MGMUMultiUpload = @"multiUpload";
 NSString * const MGMNSStringPboardType = @"NSStringPboardType";
 NSString * const MGMNSPasteboardTypeString = @"public.utf8-plain-text";
 
@@ -118,7 +119,7 @@ static MGMController *MGMSharedController;
 	}
 	
 	if ([defaults boolForKey:MGMStartup])
-		[[MGMLoginItems items] addSelf];
+		[[MGMLoginItems items] addThisApplication];
 	
 	NSFileManager *manager = [NSFileManager defaultManager];
 	if ([manager fileExistsAtPath:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMHistoryPlist]]) {
@@ -192,7 +193,7 @@ static MGMController *MGMSharedController;
 	[defaults setObject:[NSNumber numberWithInt:1] forKey:MGMLaunchCount];
 	
 	[defaults setObject:[NSNumber numberWithInt:([[MGMSystemInfo info] isUIElement] ? 2 : 0)] forKey:MGMDisplay];
-	[defaults setObject:[NSNumber numberWithBool:[[MGMLoginItems items] selfExists]] forKey:MGMStartup];
+	[defaults setObject:[NSNumber numberWithBool:[[MGMLoginItems items] thisApplicationExists]] forKey:MGMStartup];
 	[defaults setObject:[NSNumber numberWithInt:0] forKey:MGMUploadName];
 	[defaults setObject:[NSNumber numberWithInt:5] forKey:MGMHistoryCount];
 	[defaults setObject:[NSNumber numberWithInt:5] forKey:MGMUploadLimit];
@@ -307,8 +308,14 @@ static MGMController *MGMSharedController;
 	if (statusItem==nil) {
 		menuItem = [[MGMMenuItem alloc] initWithFrame:NSZeroRect];
 		[menuItem setDelegate:self];
-		[menuItem setImage:[NSImage imageNamed:@"menuicon"]];
-		[menuItem setAlternateImage:[NSImage imageNamed:@"menuiconselected"]];
+        NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+        if ([osxMode isEqualTo:@"Dark"]) {
+            [menuItem setImage:[NSImage imageNamed:@"menuiconselected"]];
+            [menuItem setAlternateImage:[NSImage imageNamed:@"menuicon"]];
+        } else {
+            [menuItem setImage:[NSImage imageNamed:@"menuicon"]];
+            [menuItem setAlternateImage:[NSImage imageNamed:@"menuiconselected"]];
+        }
 		[menuItem setToolTip:@"CocoaShare"];
 		statusItem = [[[NSStatusBar systemStatusBar] statusItemWithLength:NSVariableStatusItemLength] retain];
 		[statusItem setView:menuItem];
@@ -370,7 +377,12 @@ static MGMController *MGMSharedController;
 	[menuItem setImage:[NSImage imageNamed:@"menuicondrag"]];
 }
 - (void)menuDraggingExited:(id)sender {
-	[menuItem setImage:[NSImage imageNamed:@"menuicon"]];
+    NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+    if ([osxMode isEqualTo:@"Dark"]) {
+        [menuItem setImage:[NSImage imageNamed:@"menuiconselected"]];
+    } else {
+        [menuItem setImage:[NSImage imageNamed:@"menuicon"]];
+    }
 }
 - (void)menu:(id)sender droppedFiles:(NSArray *)files {
 	NSFileManager *manager = [NSFileManager defaultManager];
@@ -384,7 +396,7 @@ static MGMController *MGMSharedController;
 				[alert runModal];
 				continue;
 			}
-			[self addPathToUploads:[files objectAtIndex:i] isAutomatic:NO];
+			[self addPathToUploads:[files objectAtIndex:i] isAutomatic:NO multiUpload:([files count]==1 ? 0 : (i==0 ? 1 : (i==[files count]-1 ? 3 : 2)))];
 		}
 	}
 }
@@ -456,7 +468,7 @@ static MGMController *MGMSharedController;
 	int returnCode = [panel runModal];
 	if (returnCode==NSOKButton) {
 		for (int i=0; i<[[panel URLs] count]; i++) {
-			[self addPathToUploads:[[[panel URLs] objectAtIndex:i] path] isAutomatic:NO];
+			[self addPathToUploads:[[[panel URLs] objectAtIndex:i] path] isAutomatic:NO  multiUpload:([[panel URLs] count]==1 ? 0 : (i==0 ? 1 : (i==[[panel URLs] count]-1 ? 3 : 2)))];
 		}
 	}
 	[self resignFront];
@@ -469,7 +481,7 @@ static MGMController *MGMSharedController;
 }
 - (void)application:(NSApplication *)theApplication openFiles:(NSArray *)theFiles {
 	for (int i=0; i<[theFiles count]; i++) {
-		[self addPathToUploads:[theFiles objectAtIndex:i] isAutomatic:NO];
+		[self addPathToUploads:[theFiles objectAtIndex:i] isAutomatic:NO  multiUpload:([theFiles count]==1 ? 0 : (i==0 ? 1 : (i==[theFiles count]-1 ? 3 : 2)))];
 	}
 }
 
@@ -486,10 +498,10 @@ static MGMController *MGMSharedController;
 	[self becomeFront:[preferences preferencesWindow]];
 }
 - (IBAction)donate:(id)sender {
-	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=U9LTDN57NPZ44"]];
+	[[NSWorkspace sharedWorkspace] openURL:[NSURL URLWithString:@"https://mrgeckosmedia.com/donate?purpose=cocoashare"]];
 }
 - (IBAction)quit:(id)sender {
-	[[MGMLoginItems items] removeSelf];
+	[[MGMLoginItems items] removeThisApplication];
 	[[NSApplication sharedApplication] terminate:self];
 }
 
@@ -693,7 +705,17 @@ static MGMController *MGMSharedController;
 	}
 	return nil;
 }
+
 - (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic {
+	[self addPathToUploads:thePath isAutomatic:isAutomatic multiUpload:0];
+}
+
+//No multi uploads = 0
+//First upload = 1
+//Inbetween upload = 2
+//Last upload = 3
+//HTML = 4
+- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic multiUpload:(int)multiUploadState {
 	[uploadLock lock];
 	if ([self uploadForPath:thePath]==nil) {
 		if ([currentPlugIn respondsToSelector:@selector(allowedExtensions)]) {
@@ -705,7 +727,7 @@ static MGMController *MGMSharedController;
 				return;
 			}
 		}
-		[uploads addObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMUPath, [NSNumber numberWithBool:isAutomatic], MGMUAutomatic, nil]];
+		[uploads addObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMUPath, [NSNumber numberWithBool:isAutomatic], MGMUAutomatic, [NSNumber numberWithInt:multiUploadState], MGMUMultiUpload, nil]];
 		if ([uploads count]==1)
 			[self processNextUpload];
 	}
@@ -730,6 +752,11 @@ static MGMController *MGMSharedController;
 		}
 		NSFileManager *manager = [NSFileManager defaultManager];
 		NSDictionary *upload = [uploads objectAtIndex:0];
+		if ([[upload objectForKey:MGMUMultiUpload] intValue]==1) {
+			[multiUploadLinks release];
+			multiUploadLinks = [NSMutableArray new];
+		}
+		
 		if (![manager fileExistsAtPath:[upload objectForKey:MGMUPath]]) {
 			[uploads removeObject:upload];
 			[self processNextUpload];
@@ -744,7 +771,12 @@ static MGMController *MGMSharedController;
 			name = [randomizedName stringByAppendingPathExtension:[name pathExtension]];
 		[currentPlugIn sendFileAtPath:[upload objectForKey:MGMUPath] withName:name];
 	} else {
-		[menuItem setImage:[NSImage imageNamed:@"menuicon"]];
+        NSString *osxMode = [[NSUserDefaults standardUserDefaults] stringForKey:@"AppleInterfaceStyle"];
+        if ([osxMode isEqualTo:@"Dark"]) {
+            [menuItem setImage:[NSImage imageNamed:@"menuiconselected"]];
+        } else {
+            [menuItem setImage:[NSImage imageNamed:@"menuicon"]];
+        }
 	}
 }
 - (void)upload:(NSString *)thePath receivedError:(NSError *)theError {
@@ -773,6 +805,37 @@ static MGMController *MGMSharedController;
 		[pboard setString:[theURL absoluteString] forType:MGMNSStringPboardType];
 		[pboard setString:[theURL absoluteString] forType:MGMNSPasteboardTypeString];
 		[self addURLToHistory:theURL];
+		
+		int multiUpload = [[upload objectForKey:MGMUMultiUpload] intValue];
+		if (multiUpload>=1 && multiUpload!=4) {
+			[multiUploadLinks addObject:theURL];
+		}
+		if (multiUpload==3) {
+			NSString *randomizedName = [[NSString stringWithFormat:@"%f", [[NSDate date] timeIntervalSince1970]] MD5];
+			NSString *htmlPath = [NSString stringWithFormat:@"/tmp/%@.htm", randomizedName];
+			[[NSFileManager defaultManager] createFileAtPath:htmlPath contents:nil attributes:nil];
+			NSFileHandle *multiUploadHtml = [NSFileHandle fileHandleForWritingAtPath:htmlPath];
+			[multiUploadHtml writeData:[@"<!DOCTYPE html PUBLIC \"-//W3C//DTD XHTML 1.0 Transitional//EN\" \"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd\">\n"
+									  "<html xmlns=\"http://www.w3.org/1999/xhtml\" lang=\"en\">\n"
+									  "<head><style>img {max-width: 100%;}</style><title>Multiple Upload Links</title></head><body>\n" dataUsingEncoding:NSUTF8StringEncoding]];
+			for (int i=0; i<[multiUploadLinks count]; i++) {
+				NSURL *link = [multiUploadLinks objectAtIndex:i];
+				NSString *linkString = [link absoluteString];
+				NSArray *imageExtensions = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"png", @"bmp", @"gif", nil];
+				if ([imageExtensions containsObject:[[link pathExtension] lowercaseString]]) {
+					[multiUploadHtml writeData:[[NSString stringWithFormat:@"<a href=\"%@\"><img src=\"%@\"></a><br />\n", linkString, linkString] dataUsingEncoding:NSUTF8StringEncoding]];
+				} else {
+					[multiUploadHtml writeData:[[NSString stringWithFormat:@"<a href=\"%@\">%@</a><br />\n", linkString, linkString] dataUsingEncoding:NSUTF8StringEncoding]];
+				}
+			}
+			[multiUploadHtml writeData:[@"</body></html>" dataUsingEncoding:NSUTF8StringEncoding]];
+			[multiUploadHtml closeFile];
+			[self addPathToUploads:htmlPath isAutomatic:YES multiUpload:4];
+		}
+		if (multiUpload==4) {
+			[[NSFileManager defaultManager] removeItemAtPath:[upload objectForKey:MGMUPath]];
+		}
+		
 		[uploadLock lock];
 		[uploads removeObject:upload];
 		[self processNextUpload];

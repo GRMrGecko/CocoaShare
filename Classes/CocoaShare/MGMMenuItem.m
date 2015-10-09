@@ -53,7 +53,7 @@
 		[path fill];
 		displayImage = alternateImage;
 	}
-	[displayImage drawInRect:NSMakeRect((22-[image size].width)/2, (22-[image size].height)/2, [image size].width, [image size].height) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
+	[displayImage drawInRect:NSMakeRect(3, 3, 16, 16) fromRect:NSZeroRect operation:NSCompositeSourceOver fraction:1.0];
 }
 
 - (void)mouseDown:(NSEvent *)theEvent {

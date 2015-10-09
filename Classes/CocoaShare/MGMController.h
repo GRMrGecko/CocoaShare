@@ -68,6 +68,7 @@ extern NSString * const MGMFFilter;
 	int currentPlugInIndex;
 	
 	NSLock *uploadLock;
+	NSMutableArray *multiUploadLinks;
 	NSMutableArray *uploads;
 }
 + (id)sharedController;
@@ -121,6 +122,7 @@ extern NSString * const MGMFFilter;
 - (NSMutableArray *)uploads;
 - (NSDictionary *)uploadForPath:(NSString *)thePath;
 - (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic;
+- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic multiUpload:(int)multiUploadState;
 - (void)processNextUpload;
 - (void)upload:(NSString *)thePath receivedError:(NSError *)theError;
 - (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL;

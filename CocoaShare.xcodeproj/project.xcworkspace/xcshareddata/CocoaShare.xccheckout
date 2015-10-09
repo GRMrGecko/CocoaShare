@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>334F6FCC-850E-4ACB-B8A5-A74C9642A6EE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>CocoaShare</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9</key>
+		<string>mrgeckosmedia.com:public/CocoaShare</string>
+		<key>FC64668886F843E3F3F1528DF74D9C3877AA42A0</key>
+		<string>mrgeckosmedia.com:public/GeckoReporter</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>CocoaShare.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9</key>
+		<string>../..</string>
+		<key>FC64668886F843E3F3F1528DF74D9C3877AA42A0</key>
+		<string>../../../GeckoReporter</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>mrgeckosmedia.com:public/CocoaShare</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CocoaShare</string>
+		</dict>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FC64668886F843E3F3F1528DF74D9C3877AA42A0</string>
+			<key>IDESourceControlWCCName</key>
+			<string>GeckoReporter</string>
+		</dict>
+	</array>
+</dict>
+</plist>

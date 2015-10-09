@@ -107,8 +107,14 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[self unlockLogin];
 }
 - (void)checkDidFinish:(MGMURLBasicHandler *)theHandler {
+    isJSON = [[[theHandler response] MIMEType] isEqual:@"application/json"];
 	NSString *error = nil;
-	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+    NSDictionary *response = nil;
+    if (isJSON) {
+        response = [[theHandler string] parseJSON];
+    } else {
+        response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+    }
 	if (error!=nil)
 		NSLog(@"HTTP Error: %@", error);
 	if (response!=nil) {
@@ -209,7 +215,12 @@ const BOOL MGMHTTPResponseInvisible = YES;
 }
 - (void)uploadDidFinish:(MGMURLBasicHandler *)theHandler {
 	NSString *error = nil;
-	NSDictionary *response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+	NSDictionary *response = nil;
+    if (isJSON) {
+        response = [[theHandler string] parseJSON];
+    } else {
+        response = [NSPropertyListSerialization propertyListFromData:[theHandler data] mutabilityOption:NSPropertyListImmutable format:nil errorDescription:&error];
+    }
 	if (error!=nil)
 		NSLog(@"HTTP Error: %@", error);
 	if (response!=nil) {

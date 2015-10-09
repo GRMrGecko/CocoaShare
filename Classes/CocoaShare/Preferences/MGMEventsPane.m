@@ -122,6 +122,8 @@
 		[sound setDelegate:self];
 		[sound play];
 		[preferences setObject:[[soundPopUp selectedItem] representedObject] forKey:[NSString stringWithFormat:MGMESound, [eventPopUp indexOfSelectedItem]]];
+	} else {
+		[preferences removeObjectForKey:[NSString stringWithFormat:MGMESound, [eventPopUp indexOfSelectedItem]]];
 	}
 }
 - (void)sound:(NSSound *)theSound didFinishPlaying:(BOOL)finishedPlaying {

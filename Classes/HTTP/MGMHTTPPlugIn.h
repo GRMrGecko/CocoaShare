@@ -16,6 +16,8 @@
 	IBOutlet NSButton *loginButton;
 	BOOL userLoggingIn;
 	int loginTries;
+    
+    BOOL isJSON;
 }
 - (void)releaseView;
 

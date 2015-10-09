@@ -7,8 +7,86 @@
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
+class shortID {
+	var $lowerCase = false;
+	
+	var $check = array(3, 20);
+	var $charactersAllCase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@*-_=+,.;'|";
+	var $charactersLowerCase = "abcdefghijklmnopqrstuvwxyz1234567890!@*-_=+,.;'|";
+	var $alphabet = array();
+	var $base = 0;
+	
+	function __construct($lowerCase = false) {
+		$this->lowerCase = $lowerCase;
+		$this->alphabet = str_split(($this->lowerCase ? $this->charactersLowerCase : $this->charactersAllCase));
+		$this->base = count($this->alphabet);
+	}
+	
+	function shuffleAlphabet($lowerCase = false) {
+		$alphabet = str_split(($lowerCase ? $this->charactersLowerCase : $this->charactersAllCase));
+		$count = count($alphabet);
+		for ($i=0; $i<60; $i++) {
+			for ($c=0; $c<$count; $c++) {
+				$newPos = rand(0, $count);
+				$tmp = $alphabet[$c];
+				$alphabet[$c] = $alphabet[$newPos];
+				$alphabet[$newPos] = $tmp;
+			}
+		}
+		return implode($alphabet);
+	}
+	
+	function encode($id) {
+		if ($id<=0) {
+			return "";
+		}
+		
+		$checkString = "";
+		foreach ($this->check as $check) {
+			$checkString .= $this->alphabet[$id%$check];
+		}
+		
+		$encoded = "";
+		while ($id>0) {
+			$encoded = $this->alphabet[$id%$this->base].$encoded;
+			$id = (int)($id/$this->base);
+		}
+		
+		return $checkString.$encoded;
+	}
+	
+	function decode($encoded) {
+		$checkSize = count($this->check);
+		if (strlen($encoded)<=$checkSize) {
+			return 0;
+		}
+		
+		$id = 0;
+		
+		$checkString = substr($encoded, 0, $checkSize);
+		
+		$values = str_split(substr($encoded, $checkSize));
+		
+		foreach ($values as $value) {
+			$id = ($id*$this->base)+array_search($value, $this->alphabet);
+		}
+		
+		$newCheckString = "";
+		foreach ($this->check as $check) {
+			$newCheckString .= $this->alphabet[$id%$check];
+		}
+		
+		if ($newCheckString!=$checkString) {
+			return 0;
+		}
+		return $id;
+	}
+}
+
+header("Content-Type: application/json");
+
 $_CS = array();
-$_CS['version'] = "0.2";
+$_CS['version'] = "0.4";
 $_CS['time'] = time();
 
 // You are expected to understand a little PHP to use this file.
@@ -67,111 +145,69 @@ if (!empty($_COOKIE["{$_CS['cookiePrefix']}user"])) {
 		$_CS['loggedIn'] = true;
 }
 
+$response = array();
+$response["version"] = $_CS['version'];
+
 if (isset($_REQUEST['login'])) {
 	$password = $_CS['users'][strtolower($_REQUEST['user'])];
 	if ($password==md5($_REQUEST['password'])) {
 		setcookie("{$_CS['cookiePrefix']}user", strtolower($_REQUEST['user']), $_CS['time']+31536000/* 1 year */, $_COOKIE['cookiePath'], $_COOKIE['cookieDomain']);
 		setcookie("{$_CS['cookiePrefix']}password", md5($_CS['salt'].md5($_REQUEST['password'])), $_CS['time']+31536000/* 1 year */, $_COOKIE['cookiePath'], $_COOKIE['cookieDomain']);
-		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		?>
-		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-		<plist version="1.0">
-		<dict>
-			<key>successful</key>
-			<true/>
-			<key>loggedIn</key>
-			<true/>
-		</dict>
-		</plist>
-		<?
+		$response["successful"] = true;
+		$response["loggedIn"] = true;
+		echo json_encode($response);
 	} else {
-		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		?>
-		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-		<plist version="1.0">
-		<dict>
-			<key>successful</key>
-			<false/>
-			<key>error</key>
-			<string>Incorrect login details.</string>
-			<key>loggedIn</key>
-			<false/>
-		</dict>
-		</plist>
-		<?
+		$response["successful"] = false;
+		$response["loggedIn"] = false;
+		$response["error"] = "Invalid login details.";
+		echo json_encode($response);
 	}
 	exit();
 }
 if ($_CS['loggedIn']) {
+	$response["loggedIn"] = true;
 	if (isset($_REQUEST['upload'])) {
 		$file = $_FILES[$_REQUEST['upload']];
 		$fileNameArr = explode(".", basename($file['name']));
 		$fileEtc = strtolower(end($fileNameArr));
 		$uploadName = basename($file['name']);
+		$currentID = 0;
+		$idFile = "./index.txt";
+		if (file_exists($idFile)) {
+			$fp = fopen($idFile, "r");
+			$currentID = intval(fread($fp, 10));//Max size is 2147483647 for 32bit int.
+			fclose($fp);
+		}
+		if ($currentID!=2147483647) {//Max id reached.
+			$currentID++;
+			$shortID = new shortID();
+			$uploadName = $shortID->encode($currentID).".".$fileEtc;
+			$fp = fopen($idFile, "w+");
+			fwrite($fp, $currentID);
+			fclose($fp);
+		}
+		
 		if (file_exists("./{$uploadName}"))
 			unlink("./{$uploadName}");
 		if (move_uploaded_file($file['tmp_name'], "./{$uploadName}")) {
 			chmod("./{$uploadName}", 0666);
-			echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			?>
-			<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-			<plist version="1.0">
-			<dict>
-				<key>successful</key>
-				<true/>
-				<key>url</key>
-				<string><?=generateURL(rawurlencode($uploadName))?></string>
-				<key>loggedIn</key>
-				<true/>
-			</dict>
-			</plist>
-			<?
+			$response["successful"] = true;
+			$response["url"] = generateURL(rawurlencode($uploadName));
+			echo json_encode($response);
 		} else {
-			echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-			?>
-			<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-			<plist version="1.0">
-			<dict>
-				<key>successful</key>
-				<false/>
-				<key>error</key>
-				<string>Incorrect access.</string>
-				<key>loggedIn</key>
-				<true/>
-			</dict>
-			</plist>
-			<?
+			$response["successful"] = false;
+			$response["error"] = "Incorrect access.";
+			echo json_encode($response);
 		}
 	} else {
-		echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-		?>
-		<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-		<plist version="1.0">
-		<dict>
-			<key>successful</key>
-			<false/>
-			<key>error</key>
-			<string>Incorrect access.</string>
-			<key>loggedIn</key>
-			<true/>
-		</dict>
-		</plist>
-		<?
+		$response["successful"] = false;
+		$response["error"] = "Invalid request.";
+		echo json_encode($response);
 	}
 } else {
-	echo "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n";
-	?>
-	<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
-	<plist version="1.0">
-	<dict>
-		<key>successful</key>
-		<false/>
-		<key>error</key>
-		<string>You need to login.</string>
-		<key>loggedIn</key>
-		<false/>
-	</dict>
-	</plist>
-	<?
+	$response["successful"] = false;
+	$response["loggedIn"] = false;
+	$response["error"] = "You need to login.";
+	echo json_encode($response);
 }
 ?>

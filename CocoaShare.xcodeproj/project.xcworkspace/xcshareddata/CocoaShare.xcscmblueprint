@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "FC64668886F843E3F3F1528DF74D9C3877AA42A0" : 0,
+    "3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "334F6FCC-850E-4ACB-B8A5-A74C9642A6EE",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "FC64668886F843E3F3F1528DF74D9C3877AA42A0" : "GeckoReporter",
+    "3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9" : "CocoaShare"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "CocoaShare",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "CocoaShare.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "mrgeckosmedia.com:public\/CocoaShare",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "3FBB0551AFF4DBDC5FAA2B71A26D0488BDD753D9"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "mrgeckosmedia.com:public\/GeckoReporter",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "FC64668886F843E3F3F1528DF74D9C3877AA42A0"
+    }
+  ]
+}

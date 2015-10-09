@@ -1,6 +1,6 @@
 //
 //  MGMPathSubscriber.h
-//  CocoaShare
+//  Conmote
 //
 //  Created by Mr. Gecko on 1/15/11.
 //  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/

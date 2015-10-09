@@ -1,9 +1,20 @@
 //
 //  MGMPathSubscriber.m
-//  CocoaShare
+//  Conmote
 //
-//  Created by Mr. Gecko on 1/15/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Created by Mr. Gecko on 8/14/13.
+//  Copyright (c) 2013 Mr. Gecko's Media (James Coleman). http://mrgeckosmedia.com/
+//
+//  Permission to use, copy, modify, and/or distribute this software for any purpose
+//  with or without fee is hereby granted, provided that the above copyright notice
+//  and this permission notice appear in all copies.
+//
+//  THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+//  REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY AND
+//  FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT, INDIRECT,
+//  OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE,
+//  DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS
+//  ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 //
 
 #import "MGMPathSubscriber.h"
@@ -28,7 +39,7 @@
 		fileDescriptor = open([path fileSystemRepresentation], O_EVTONLY, 0);
 		if (fileDescriptor<0) {
 			[self release];
-			self = nil;
+			return nil;
 		}
 	}
 	return self;
@@ -121,21 +132,6 @@ void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathS
 	delegate = theDelegate;
 }
 
-- (int)OSMajorVersion {
-	SInt32 majorVersion;
-	if (Gestalt(gestaltSystemVersionMajor, &majorVersion)==noErr) {
-		return (int)majorVersion;
-	}
-	return -1;
-}
-- (int)OSMinorVersion {
-	SInt32 minorVersion;
-	if (Gestalt(gestaltSystemVersionMinor, &minorVersion)==noErr) {
-		return (int)minorVersion;
-	}
-	return -1;
-}
-
 - (void)addPath:(NSString *)thePath {
 	[self addPath:thePath fileOptions:MGMFODelete | MGMFOWrite | MGMFOExtend | MGMFOAttribute | MGMFOLink | MGMFORename | MGMFORevoke];
 }
@@ -151,9 +147,9 @@ void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathS
 		return;
 	}
 	if (directory) {
-		if ([self OSMajorVersion]==10 && [self OSMinorVersion]>=5) {
+		if (NSFoundationVersionNumber>=677.00/*NSFoundationVersionNumber10_5*/) {
 			FSEventStreamContext context = {0, self, NULL, NULL, NULL};
-			FSEventStreamRef stream = FSEventStreamCreate(NULL, &MGMPathSubscriptionFSChange, &context, (CFArrayRef)[NSArray arrayWithObject:thePath], kFSEventStreamEventIdSinceNow, 0.5, kFSEventStreamCreateFlagNone);
+			FSEventStreamRef stream = FSEventStreamCreate(NULL, &MGMPathSubscriptionFSChange, &context, (CFArrayRef)[NSArray arrayWithObject:thePath], kFSEventStreamEventIdSinceNow, 0.5, kFSEventStreamCreateFlagFileEvents);
 			if (stream==NULL) {
 				NSLog(@"MGMPathSubscription: Unable to subscribe to %@", thePath);
 				return;
@@ -195,7 +191,7 @@ void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathS
 	NSValue *value = [subscriptions objectForKey:thePath];
 	if (value!=nil) {
 		if ([value isKindOfClass:[NSValue class]]) {
-			if ([self OSMajorVersion]==10 && [self OSMinorVersion]>=5) {
+			if (NSFoundationVersionNumber>=677.00/*NSFoundationVersionNumber10_5*/) {
 				FSEventStreamRef stream = [value pointerValue];
 				FSEventStreamStop(stream);
 				FSEventStreamUnscheduleFromRunLoop(stream, runLoop, kCFRunLoopDefaultMode);
@@ -216,7 +212,7 @@ void MGMPathSubscriptionFSChange(ConstFSEventStreamRef streamRef, void *thePathS
 	for (int i=0; i<[keys count]; i++) {
 		NSValue *value = [subscriptions objectForKey:[keys objectAtIndex:i]];
 		if ([value isKindOfClass:[NSValue class]]) {
-			if ([self OSMajorVersion]==10 && [self OSMinorVersion]>=5) {
+			if (NSFoundationVersionNumber>=677.00/*NSFoundationVersionNumber10_5*/) {
 				FSEventStreamRef stream = [value pointerValue];
 				FSEventStreamStop(stream);
 				FSEventStreamUnscheduleFromRunLoop(stream, runLoop, kCFRunLoopDefaultMode);
