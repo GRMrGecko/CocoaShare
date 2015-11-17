@@ -11,8 +11,8 @@ class shortID {
 	var $lowerCase = false;
 	
 	var $check = array(3, 20);
-	var $charactersAllCase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890!@*-_=+,.;'|";
-	var $charactersLowerCase = "abcdefghijklmnopqrstuvwxyz1234567890!@*-_=+,.;'|";
+	var $charactersAllCase = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890-_.";
+	var $charactersLowerCase = "abcdefghijklmnopqrstuvwxyz1234567890-_.";
 	var $alphabet = array();
 	var $base = 0;
 	
@@ -83,8 +83,6 @@ class shortID {
 	}
 }
 
-header("Content-Type: application/json");
-
 $_CS = array();
 $_CS['version'] = "0.4";
 $_CS['time'] = time();
@@ -112,6 +110,15 @@ if (isset($_REQUEST['string']))
 <?
 exit();
 // End of MD5 code.
+*/
+
+/*
+// Beginning of short URL shuffling.
+header("Content-Type: text/plain");
+$shortID = new shortID();
+echo "All case: "$shortID->shuffleAlphabet()."\n";
+echo "Lower case: "$shortID->shuffleAlphabet(true)."\n";
+exit();
 */
 
 $_CS['domain'] = $_SERVER['HTTP_HOST'];
@@ -144,6 +151,9 @@ if (!empty($_COOKIE["{$_CS['cookiePrefix']}user"])) {
 	if (md5($_CS['salt'].$password)==$_COOKIE["{$_CS['cookiePrefix']}password"])
 		$_CS['loggedIn'] = true;
 }
+
+
+header("Content-Type: application/json");
 
 $response = array();
 $response["version"] = $_CS['version'];
