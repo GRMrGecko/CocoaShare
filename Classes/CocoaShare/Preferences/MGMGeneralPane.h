@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/15/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import <Cocoa/Cocoa.h>
@@ -17,6 +17,7 @@
 	IBOutlet NSTextField *historyCountField;
 	IBOutlet NSButton *growlErrors;
 	IBOutlet NSTextField *uploadLimit;
+	IBOutlet NSPopUpButton *MUThemesButton;
 }
 - (id)initWithPreferences:(MGMPreferences *)thePreferences;
 + (void)setUpToolbarItem:(NSToolbarItem *)theItem;
@@ -29,4 +30,5 @@
 - (IBAction)changeHistoryCount:(id)sender;
 - (IBAction)changeGrowlErrors:(id)sender;
 - (IBAction)changeUploadLimit:(id)sender;
+- (IBAction)changeMUTheme:(id)sender;
 @end

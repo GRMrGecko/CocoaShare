@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/18/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMHTTPPlugIn.h"
@@ -107,7 +107,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[self unlockLogin];
 }
 - (void)checkDidFinish:(MGMURLBasicHandler *)theHandler {
-    isJSON = [[[theHandler response] MIMEType] isEqual:@"application/json"];
+    BOOL isJSON = [[[theHandler response] MIMEType] isEqual:@"application/json"];
 	NSString *error = nil;
     NSDictionary *response = nil;
     if (isJSON) {
@@ -214,6 +214,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 	[[MGMController sharedController] upload:[theHandler object] receivedError:theError];
 }
 - (void)uploadDidFinish:(MGMURLBasicHandler *)theHandler {
+	BOOL isJSON = [[[theHandler response] MIMEType] isEqual:@"application/json"];
 	NSString *error = nil;
 	NSDictionary *response = nil;
     if (isJSON) {

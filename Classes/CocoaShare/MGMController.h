@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/15/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import <Cocoa/Cocoa.h>
@@ -67,6 +67,10 @@ extern NSString * const MGMFFilter;
 	id<MGMPlugInProtocol> currentPlugIn;
 	int currentPlugInIndex;
 	
+	
+	NSMutableArray *MUThemes;
+	int currentMUThemeIndex;
+	
 	NSLock *uploadLock;
 	NSMutableArray *multiUploadLinks;
 	NSMutableArray *uploads;
@@ -84,6 +88,12 @@ extern NSString * const MGMFFilter;
 - (void)setCurrentPlugIn:(id)thePlugIn;
 - (id<MGMPlugInProtocol>)currentPlugIn;
 - (int)currentPlugInIndex;
+
+- (void)loadMUThemes;
+- (NSArray *)MUThemes;
+- (void)setCurrentMUTheme:(NSString *)theMUTheme;
+- (int)currentMUThemeIndex;
+- (NSString *)currentMUTheme;
 
 - (void)setFrontProcess:(ProcessSerialNumber *)theProcess;
 - (void)becomeFront:(NSWindow *)theWindow;
@@ -126,4 +136,5 @@ extern NSString * const MGMFFilter;
 - (void)processNextUpload;
 - (void)upload:(NSString *)thePath receivedError:(NSError *)theError;
 - (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL;
+- (void)multiUploadPageCreated:(NSURL *)theURL;
 @end

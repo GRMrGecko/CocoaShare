@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/15/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMGeneralPane.h"
@@ -22,6 +22,13 @@
 			[historyCountField setIntValue:[preferences integerForKey:MGMHistoryCount]];
 			[growlErrors setState:([preferences boolForKey:MGMGrowlErrors] ? NSOnState : NSOffState)];
 			[uploadLimit setIntValue:[preferences integerForKey:MGMUploadLimit]];
+			
+			[MUThemesButton removeAllItems];
+			NSArray *MUThemes = [[MGMController sharedController] MUThemes];
+			for (int i=0; i<[MUThemes count]; i++) {
+				[MUThemesButton addItemWithTitle:[[MUThemes objectAtIndex:i] lastPathComponent]];
+			}
+			[MUThemesButton selectItemAtIndex:[[MGMController sharedController] currentMUThemeIndex]];
 		}
 	}
 	return self;
@@ -81,5 +88,9 @@
 }
 - (IBAction)changeUploadLimit:(id)sender {
 	[preferences setInteger:[uploadLimit intValue] forKey:MGMUploadLimit];
+}
+- (IBAction)changeMUTheme:(id)sender {
+	MGMController *controller = [MGMController sharedController];
+	[controller setCurrentMUTheme:[[controller MUThemes] objectAtIndex:[MUThemesButton indexOfSelectedItem]]];
 }
 @end

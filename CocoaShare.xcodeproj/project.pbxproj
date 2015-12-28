@@ -46,6 +46,7 @@
 		2A2F97A212F05C720069B37E /* FTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0C8C9412EF844F00A75AB7 /* FTP.bundle */; };
 		2A2F995412F094F10069B37E /* SFTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A2F994512F094710069B37E /* SFTP.bundle */; };
 		2A2F996E12F095DA0069B37E /* MGMSFTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F996D12F095DA0069B37E /* MGMSFTPPlugIn.m */; };
+		2A3954E71C3194A700DE02CC /* Multi Upload Themes in Resources */ = {isa = PBXBuildFile; fileRef = 2A3954E61C3194A700DE02CC /* Multi Upload Themes */; };
 		2A48832E12E52E84001618B5 /* RegexKitLite.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A48832D12E52E84001618B5 /* RegexKitLite.m */; };
 		2A48833512E52EAA001618B5 /* libicucore.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A48833412E52EAA001618B5 /* libicucore.dylib */; };
 		2A48835612E53232001618B5 /* MGMAutoUpdateField.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A48835512E53232001618B5 /* MGMAutoUpdateField.m */; };
@@ -269,6 +270,7 @@
 		2A2F996912F0957E0069B37E /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/SFTPAccountPane.xib; sourceTree = "<group>"; };
 		2A2F996C12F095DA0069B37E /* MGMSFTPPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMSFTPPlugIn.h; sourceTree = "<group>"; };
 		2A2F996D12F095DA0069B37E /* MGMSFTPPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMSFTPPlugIn.m; sourceTree = "<group>"; wrapsLines = 1; };
+		2A3954E61C3194A700DE02CC /* Multi Upload Themes */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "Multi Upload Themes"; sourceTree = "<group>"; };
 		2A48832C12E52E84001618B5 /* RegexKitLite.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RegexKitLite.h; sourceTree = "<group>"; };
 		2A48832D12E52E84001618B5 /* RegexKitLite.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RegexKitLite.m; sourceTree = "<group>"; };
 		2A48833412E52EAA001618B5 /* libicucore.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libicucore.dylib; path = usr/lib/libicucore.dylib; sourceTree = SDKROOT; };
@@ -821,6 +823,7 @@
 				2AEF118512F52A7D00F495BE /* CocoaShareIcon.png */,
 				2A52DDC612E3AC26000FC8CD /* menuicon.png */,
 				2A52DDC712E3AC26000FC8CD /* menuicondrag.png */,
+				2A3954E61C3194A700DE02CC /* Multi Upload Themes */,
 				2A52DF5712E3D041000FC8CD /* menuiconselected.png */,
 				2A52DDC812E3AC26000FC8CD /* menuiconupload.png */,
 				2A4FA61012F9F8DE009F5B3A /* Localizable.strings */,
@@ -1105,6 +1108,7 @@
 				2AEAB4EF12E2B2F600552BAA /* GeneralPane.xib in Resources */,
 				2AEAB4F112E2B2FB00552BAA /* AccountPane.xib in Resources */,
 				2AEAB4F312E2B2FF00552BAA /* AutoUploadPane.xib in Resources */,
+				2A3954E71C3194A700DE02CC /* Multi Upload Themes in Resources */,
 				2AEAB4F512E2B30500552BAA /* EventsPane.xib in Resources */,
 				2AEAB53712E2B68300552BAA /* dsa_pub.pem in Resources */,
 				2A52DDC512E3AC17000FC8CD /* CocoaShare.icns in Resources */,

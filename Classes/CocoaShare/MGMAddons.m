@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/22/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import "MGMAddons.h"

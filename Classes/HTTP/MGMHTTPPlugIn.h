@@ -3,7 +3,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 1/18/11.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 #import <Cocoa/Cocoa.h>
@@ -16,8 +16,6 @@
 	IBOutlet NSButton *loginButton;
 	BOOL userLoggingIn;
 	int loginTries;
-    
-    BOOL isJSON;
 }
 - (void)releaseView;
 

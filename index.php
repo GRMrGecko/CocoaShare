@@ -4,7 +4,7 @@
 //  CocoaShare
 //
 //  Created by Mr. Gecko on 4/14/10.
-//  Copyright (c) 2011 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
+//  Copyright (c) 2015 Mr. Gecko's Media (James Coleman). All rights reserved. http://mrgeckosmedia.com/
 //
 
 class shortID {
