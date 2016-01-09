@@ -29,7 +29,7 @@
 /*
  If the plugin is responsible for creating the multi upload page, use this method to be called instead of having CocoaShare itself create a page.
  If you have this method, you must ether:
-  1. Tell CocoaShare to upload the page to go through the usual file sending with [self addPathToUploads:filePath isAutomatic:YES multiUpload:4];
+  1. Tell CocoaShare to upload the page to go through the usual file sending with [self addPathToUploads:filePath automaticFilter:nil multiUpload:4];
   2. Call multiUploadPageCreated: with the URL of the multi upload page.
  */
 @end

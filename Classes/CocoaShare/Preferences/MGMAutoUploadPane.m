@@ -41,7 +41,7 @@
 	return view;
 }
 
-- (NSInteger)numberOfRowsInTableView:(NSTableView *)aTableView {
+- (NSInteger)numberOfRowsInTableView:(NSTableView *)theTableView {
 	return [[controller filters] count];
 }
 - (id)tableView:(NSTableView *)theTableView objectValueForTableColumn:(NSTableColumn *)theTableColumn row:(NSInteger)rowIndex {
@@ -80,7 +80,10 @@
 	[NSMenu popUpContextMenu:addMenu withEvent:event forView:addButton];
 }
 - (IBAction)addNewFilter:(id)sender {
-	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"", MGMFPath, @"", MGMFFilter, nil]];
+	CFUUIDRef uuid = CFUUIDCreate(NULL);
+	NSString *uuidString = [(NSString *)CFUUIDCreateString(NULL, uuid) autorelease];
+	CFRelease(uuid);
+	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:uuidString, MGMFID, @"", MGMFPath, @"", MGMFFilter, nil]];
 	[filtersTable reloadData];
 	int index = [[controller filters] count]-1;
 	[filtersTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];
@@ -92,7 +95,10 @@
 		filter = @"MD:(?i)isScreenCapture\\z";
 	else
 		filter = [@"(?i)Picture [0-9]+\\.(?:bmp|gif|jpg|pdf|pict|png|sgi|tga|tif|tiff)\\z" localized];
-	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:@"~/Desktop", MGMFPath, filter, MGMFFilter, nil]];
+	CFUUIDRef uuid = CFUUIDCreate(NULL);
+	NSString *uuidString = [(NSString *)CFUUIDCreateString(NULL, uuid) autorelease];
+	CFRelease(uuid);
+	[[controller filters] addObject:[NSDictionary dictionaryWithObjectsAndKeys:uuidString, MGMFID, @"~/Desktop", MGMFPath, filter, MGMFFilter, nil]];
 	[filtersTable reloadData];
 	int index = [[controller filters] count]-1;
 	[filtersTable selectRowIndexes:[NSIndexSet indexSetWithIndex:index] byExtendingSelection:NO];

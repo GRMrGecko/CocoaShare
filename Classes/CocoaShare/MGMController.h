@@ -9,6 +9,7 @@
 #import <Cocoa/Cocoa.h>
 #import "MGMPlugInProtocol.h"
 #import "MGMLocalized.h"
+#import <SystemConfiguration/SystemConfiguration.h>
 
 extern NSString * const MGMDisplay;
 extern NSString * const MGMStartup;
@@ -16,6 +17,10 @@ extern NSString * const MGMUploadName;
 extern NSString * const MGMHistoryCount;
 extern NSString * const MGMGrowlErrors;
 extern NSString * const MGMUploadLimit;
+
+extern NSString * const MGMHURL;
+extern NSString * const MGMHInfo;
+extern NSString * const MGMHDate;
 
 extern NSString * const MGMESound;
 extern NSString * const MGMEPath;
@@ -30,9 +35,17 @@ extern NSString * const MGMEvent;
 extern NSString * const MGMEventPath;
 extern NSString * const MGMEventURL;
 
-extern NSString * const MGMFiltersPlist;
+extern NSString * const MGMFID;
 extern NSString * const MGMFPath;
 extern NSString * const MGMFFilter;
+
+extern NSString * const MGMRID;
+extern NSString * const MGMRWidth;
+extern NSString * const MGMRHeight;
+extern NSString * const MGMRScale;
+extern NSString * const MGMRFilters;
+extern NSString * const MGMRNetworks;
+extern NSString * const MGMRIPPrefix;
 
 @class MGMURLConnectionManager, MGMPreferences, MGMAbout, MGMMenuItem, MGMPathSubscriber;
 
@@ -42,6 +55,12 @@ extern NSString * const MGMFFilter;
 #endif
 {
 	NSTimer *autoreleaseDrain;
+	
+	CFRunLoopSourceRef runLoop;
+	SCDynamicStoreRef store;
+	NSDictionary *lastAirPortState;
+	NSArray *IPv4Addresses;
+	NSArray *IPv6Addresses;
 	
 	MGMURLConnectionManager *connectionManager;
 	MGMPreferences *preferences;
@@ -62,22 +81,27 @@ extern NSString * const MGMFFilter;
 	MGMPathSubscriber *filterWatcher;
 	BOOL filtersEnabled;
 	
+	NSMutableArray *resizeLogic;
+	
 	NSMutableArray *accountPlugIns;
 	NSMutableArray *plugIns;
 	id<MGMPlugInProtocol> currentPlugIn;
 	int currentPlugInIndex;
 	
-	
 	NSMutableArray *MUThemes;
 	int currentMUThemeIndex;
 	
-	NSLock *uploadLock;
 	NSMutableArray *multiUploadLinks;
 	NSMutableArray *uploads;
 }
 + (id)sharedController;
 
 - (void)registerDefaults;
+
+- (void)ipv4Changed:(NSDictionary *)theInfo;
+- (void)ipv6Changed:(NSDictionary *)theInfo;
+
+- (void)airportChanged:(NSDictionary *)theInfo;
 
 - (MGMURLConnectionManager *)connectionManager;
 - (MGMPreferences *)preferences;
@@ -122,6 +146,12 @@ extern NSString * const MGMFFilter;
 - (void)updateFilterWatcher;
 - (void)subscribedPathChanged:(NSString *)thePath;
 
+- (NSMutableArray *)resizeLogic;
+- (void)resizeIfNeeded:(NSString *)thePath;
+- (void)resizeIfNeeded:(NSString *)thePath filterID:(NSString *)theID;
+- (void)resize:(NSString *)thePath toSize:(NSSize)theSize scale:(float)theScale;
+- (void)saveResizeLogic;
+
 - (void)removePassword;
 - (void)setPassword:(NSString *)thePassword;
 - (NSString *)password;
@@ -131,10 +161,11 @@ extern NSString * const MGMFFilter;
 
 - (NSMutableArray *)uploads;
 - (NSDictionary *)uploadForPath:(NSString *)thePath;
-- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic;
-- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic multiUpload:(int)multiUploadState;
+- (void)addPathToUploads:(NSString *)thePath automaticFilter:(NSString *)theFilter;
+- (void)addPathToUploads:(NSString *)thePath automaticFilter:(NSString *)theFilter multiUpload:(int)multiUploadState;
 - (void)processNextUpload;
 - (void)upload:(NSString *)thePath receivedError:(NSError *)theError;
 - (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL;
+- (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL info:(id)theInfo;
 - (void)multiUploadPageCreated:(NSURL *)theURL;
 @end

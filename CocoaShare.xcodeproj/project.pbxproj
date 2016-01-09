@@ -43,6 +43,7 @@
 		2A28115012EBCE4A00435C36 /* AutoUpload.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28113E12EBCDFC00435C36 /* AutoUpload.png */; };
 		2A28115112EBCE4A00435C36 /* Events.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28113F12EBCDFC00435C36 /* Events.png */; };
 		2A28115212EBCE4A00435C36 /* General.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A28114012EBCDFC00435C36 /* General.png */; };
+		2A2B36DA1C3C587400D00446 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2A2B36D91C3C587400D00446 /* SystemConfiguration.framework */; };
 		2A2F97A212F05C720069B37E /* FTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A0C8C9412EF844F00A75AB7 /* FTP.bundle */; };
 		2A2F995412F094F10069B37E /* SFTP.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A2F994512F094710069B37E /* SFTP.bundle */; };
 		2A2F996E12F095DA0069B37E /* MGMSFTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A2F996D12F095DA0069B37E /* MGMSFTPPlugIn.m */; };
@@ -70,6 +71,9 @@
 		2A55259D12F05BA700F97FE6 /* MGMFTPPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A0C8CB412EF854D00A75AB7 /* MGMFTPPlugIn.m */; };
 		2A5C1B0812F2FB5D005153FA /* MGMWebDavPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A5C1B0712F2FB5D005153FA /* MGMWebDavPlugIn.m */; };
 		2A5C1B4912F32EE3005153FA /* WebDav.bundle in PlugIns */ = {isa = PBXBuildFile; fileRef = 2A5C1AF312F2FA6F005153FA /* WebDav.bundle */; };
+		2A63D4991C346D040048B9FF /* ResizePane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2A63D49B1C346D040048B9FF /* ResizePane.xib */; };
+		2A63D49E1C346D4A0048B9FF /* MGMResizePane.m in Sources */ = {isa = PBXBuildFile; fileRef = 2A63D49D1C346D4A0048B9FF /* MGMResizePane.m */; };
+		2A63D4A01C346FB10048B9FF /* Resize.png in Resources */ = {isa = PBXBuildFile; fileRef = 2A63D49F1C346FB10048B9FF /* Resize.png */; };
 		2ACA5CD8160E76C700F294C2 /* MGMTinyGrabPlugIn.m in Sources */ = {isa = PBXBuildFile; fileRef = 2ACA5CD7160E76C700F294C2 /* MGMTinyGrabPlugIn.m */; };
 		2ACA5CF1160E782700F294C2 /* TinyGrabAccountPane.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2ACA5CEB160E782700F294C2 /* TinyGrabAccountPane.xib */; };
 		2ACA5CF3160E782700F294C2 /* tinygrab.png in Resources */ = {isa = PBXBuildFile; fileRef = 2ACA5CF0160E782700F294C2 /* tinygrab.png */; };
@@ -264,6 +268,7 @@
 		2A28114012EBCDFC00435C36 /* General.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = General.png; sourceTree = "<group>"; };
 		2A28148112ECD20C00435C36 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		2A28153D12ECE24300435C36 /* libcrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcrypto.dylib; path = usr/lib/libcrypto.dylib; sourceTree = SDKROOT; };
+		2A2B36D91C3C587400D00446 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		2A2F994512F094710069B37E /* SFTP.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SFTP.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2A2F996112F095320069B37E /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/SFTP/prefix.pch; sourceTree = "<group>"; };
 		2A2F996712F0955B0069B37E /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -311,6 +316,10 @@
 		2A5C1B0312F2FB3F005153FA /* English */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = English; path = English.lproj/WebDavAccountPane.xib; sourceTree = "<group>"; };
 		2A5C1B0612F2FB5D005153FA /* MGMWebDavPlugIn.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMWebDavPlugIn.h; sourceTree = "<group>"; };
 		2A5C1B0712F2FB5D005153FA /* MGMWebDavPlugIn.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMWebDavPlugIn.m; sourceTree = "<group>"; };
+		2A63D49A1C346D040048B9FF /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ResizePane.xib; sourceTree = "<group>"; };
+		2A63D49C1C346D4A0048B9FF /* MGMResizePane.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MGMResizePane.h; sourceTree = "<group>"; };
+		2A63D49D1C346D4A0048B9FF /* MGMResizePane.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MGMResizePane.m; sourceTree = "<group>"; };
+		2A63D49F1C346FB10048B9FF /* Resize.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Resize.png; sourceTree = "<group>"; };
 		2ACA5CC7160E763A00F294C2 /* TinyGrab.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TinyGrab.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
 		2ACA5CC8160E763A00F294C2 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		2ACA5CD5160E76B300F294C2 /* prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = prefix.pch; path = Classes/TinyGrab/prefix.pch; sourceTree = "<group>"; };
@@ -412,6 +421,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2A2B36DA1C3C587400D00446 /* SystemConfiguration.framework in Frameworks */,
 				2ACA5CF6160E796B00F294C2 /* Carbon.framework in Frameworks */,
 				8D11072F0486CEB800E47090 /* Cocoa.framework in Frameworks */,
 				2AEAB3F312E2A57400552BAA /* GeckoReporter.framework in Frameworks */,
@@ -496,6 +506,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				2A2B36D91C3C587400D00446 /* SystemConfiguration.framework */,
 				2A48833312E52E9B001618B5 /* Linked Libraries */,
 				1058C7A0FEA54F0111CA2CBB /* Linked Frameworks */,
 				2ACA5CC8160E763A00F294C2 /* CoreFoundation.framework */,
@@ -789,6 +800,8 @@
 				2AEAB4BA12E2AF9800552BAA /* MGMAccountPane.m */,
 				2AEAB4BF12E2AFB100552BAA /* MGMAutoUploadPane.h */,
 				2AEAB4C012E2AFB100552BAA /* MGMAutoUploadPane.m */,
+				2A63D49C1C346D4A0048B9FF /* MGMResizePane.h */,
+				2A63D49D1C346D4A0048B9FF /* MGMResizePane.m */,
 				2AEAB4C412E2AFC800552BAA /* MGMEventsPane.h */,
 				2AEAB4C512E2AFC800552BAA /* MGMEventsPane.m */,
 			);
@@ -841,6 +854,8 @@
 				2A28113D12EBCDFC00435C36 /* Account.png */,
 				2AEAB4F212E2B2FF00552BAA /* AutoUploadPane.xib */,
 				2A28113E12EBCDFC00435C36 /* AutoUpload.png */,
+				2A63D49B1C346D040048B9FF /* ResizePane.xib */,
+				2A63D49F1C346FB10048B9FF /* Resize.png */,
 				2AEAB4F412E2B30500552BAA /* EventsPane.xib */,
 				2A28113F12EBCDFC00435C36 /* Events.png */,
 			);
@@ -1100,6 +1115,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2A28114F12EBCE4A00435C36 /* Account.png in Resources */,
+				2A63D4A01C346FB10048B9FF /* Resize.png in Resources */,
 				2A28115012EBCE4A00435C36 /* AutoUpload.png in Resources */,
 				2A28115112EBCE4A00435C36 /* Events.png in Resources */,
 				2A28115212EBCE4A00435C36 /* General.png in Resources */,
@@ -1108,6 +1124,7 @@
 				2AEAB4EF12E2B2F600552BAA /* GeneralPane.xib in Resources */,
 				2AEAB4F112E2B2FB00552BAA /* AccountPane.xib in Resources */,
 				2AEAB4F312E2B2FF00552BAA /* AutoUploadPane.xib in Resources */,
+				2A63D4991C346D040048B9FF /* ResizePane.xib in Resources */,
 				2A3954E71C3194A700DE02CC /* Multi Upload Themes in Resources */,
 				2AEAB4F512E2B30500552BAA /* EventsPane.xib in Resources */,
 				2AEAB53712E2B68300552BAA /* dsa_pub.pem in Resources */,
@@ -1218,6 +1235,7 @@
 				2A0501D512F49A7B000F74EA /* MGMWebDav.m in Sources */,
 				2A0501D612F49A7B000F74EA /* MGMWebDavAddons.m in Sources */,
 				2A0501D712F49A7B000F74EA /* MGMWebDavDelete.m in Sources */,
+				2A63D49E1C346D4A0048B9FF /* MGMResizePane.m in Sources */,
 				2A0501D812F49A7B000F74EA /* MGMWebDavGet.m in Sources */,
 				2A0501D912F49A7B000F74EA /* MGMWebDavMkCol.m in Sources */,
 				2A0501DA12F49A7B000F74EA /* MGMWebDavOptions.m in Sources */,
@@ -1352,6 +1370,14 @@
 				2A1E47B71309695400102EBD /* sv */,
 			);
 			name = twitpicPostWindow.xib;
+			sourceTree = "<group>";
+		};
+		2A63D49B1C346D040048B9FF /* ResizePane.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				2A63D49A1C346D040048B9FF /* en */,
+			);
+			name = ResizePane.xib;
 			sourceTree = "<group>";
 		};
 		2ACA5CEB160E782700F294C2 /* TinyGrabAccountPane.xib */ = {

@@ -30,6 +30,7 @@ NSString * const MGMUploadLimit = @"MGMUploadLimit";
 
 NSString * const MGMHistoryPlist = @"history.plist";
 NSString * const MGMHURL = @"url";
+NSString * const MGMHInfo = @"info";
 NSString * const MGMHDate = @"date";
 
 NSString * const MGMESound = @"MGME%dSound";
@@ -46,8 +47,18 @@ NSString * const MGMEventPath = @"path";
 NSString * const MGMEventURL = @"URL";
 
 NSString * const MGMFiltersPlist = @"filters.plist";
+NSString * const MGMFID = @"id";
 NSString * const MGMFPath = @"path";
 NSString * const MGMFFilter = @"filter";
+
+NSString * const MGMResizePlist = @"resize.plist";
+NSString * const MGMRID = @"id";
+NSString * const MGMRWidth = @"width";
+NSString * const MGMRHeight = @"height";
+NSString * const MGMRScale = @"scale";
+NSString * const MGMRFilters = @"filters";
+NSString * const MGMRNetworks = @"networks";
+NSString * const MGMRIPPrefix = @"IPPrefix";
 
 NSString * const MGMPluginFolder = @"PlugIns";
 NSString * const MGMCurrentPlugIn = @"MGMCurrentPlugIn";
@@ -78,6 +89,34 @@ OSStatus frontAppChanged(EventHandlerCallRef nextHandler, EventRef theEvent, voi
 
 static MGMController *MGMSharedController;
 
+NSString * const MGMPrimaryInterface = @"PrimaryInterface";
+NSString * const MGMAddresses = @"Addresses";
+
+NSString * const MGMIPv4Info = @"State:/Network/Interface/%@/IPv4";
+NSString * const MGMIPv6Info = @"State:/Network/Interface/%@/IPv6";
+NSString * const MGMIPv4State = @"State:/Network/Global/IPv4";
+NSString * const MGMIPv6State = @"State:/Network/Global/IPv6";
+NSString * const MGMAirPortInfo = @"State:/Network/Interface/%@/AirPort";
+
+static void systemNotification(SCDynamicStoreRef store, NSArray *changedKeys, void *info) {
+	for (int i=0; i<[changedKeys count]; ++i) {
+		NSString *key = [changedKeys objectAtIndex:i];
+		if ([key isEqual:MGMIPv4State]) {
+			NSDictionary *value = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)key);
+			[(MGMController *)info ipv4Changed:value];
+			[value release];
+		} else if ([key isEqual:MGMIPv6State]) {
+			NSDictionary *value = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)key);
+			[(MGMController *)info ipv6Changed:value];
+			[value release];
+		} else if ([key hasSuffix:@"AirPort"]) {
+			NSDictionary *value = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)key);
+			[(MGMController *)info airportChanged:value];
+			[value release];
+		}
+	}
+}
+
 @implementation MGMController
 + (id)sharedController {
 	if (MGMSharedController==nil) {
@@ -103,6 +142,53 @@ static MGMController *MGMSharedController;
 	autoreleaseDrain = [[NSTimer scheduledTimerWithTimeInterval:30.0 target:self selector:@selector(drainAutoreleasePool) userInfo:nil repeats:YES] retain];
 	
 	[GrowlApplicationBridge setGrowlDelegate:nil];
+	
+	NSString *AirPortBSDName = nil;
+	CFArrayRef interfaces = SCNetworkInterfaceCopyAll();
+	for (int i=0; i<CFArrayGetCount(interfaces); i++) {
+		SCNetworkInterfaceRef interface = CFArrayGetValueAtIndex(interfaces, i);
+		if ([(NSString *)SCNetworkInterfaceGetInterfaceType(interface) isEqual:@"IEEE80211"]) {
+			AirPortBSDName = (NSString *)SCNetworkInterfaceGetBSDName(interface);
+		}
+	}
+	CFRelease(interfaces);
+	
+	SCDynamicStoreContext context = {0, self, NULL, NULL, NULL};
+	store = SCDynamicStoreCreate(kCFAllocatorDefault, CFBundleGetIdentifier(CFBundleGetMainBundle()), (SCDynamicStoreCallBack)systemNotification, &context);
+	if (!store) {
+		NSLog(@"Unable to create store for system configuration %s", SCErrorString(SCError()));
+	} else {
+		NSMutableArray *keys = [NSMutableArray arrayWithObjects:MGMIPv4State, MGMIPv6State, nil];
+		if (AirPortBSDName!=nil) {
+			[keys addObject:[NSString stringWithFormat:MGMAirPortInfo, AirPortBSDName]];
+		}
+		if (!SCDynamicStoreSetNotificationKeys(store, (CFArrayRef)keys, NULL)) {
+			NSLog(@"faild to set the store for notifications %s", SCErrorString(SCError()));
+			CFRelease(store);
+			store = NULL;
+		} else {
+			runLoop = SCDynamicStoreCreateRunLoopSource(kCFAllocatorDefault, store, 0);
+			CFRunLoopAddSource(CFRunLoopGetCurrent(), runLoop, kCFRunLoopDefaultMode);
+			
+			
+			NSDictionary *IPv4State = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)MGMIPv4State);
+			NSDictionary *IPv4Info = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)[NSString stringWithFormat:MGMIPv4Info, [IPv4State objectForKey:MGMPrimaryInterface]]);
+			IPv4Addresses = [[IPv4Info objectForKey:MGMAddresses] retain];
+			[IPv4Info release];
+			[IPv4State release];
+			
+			NSDictionary *IPv6State = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)MGMIPv6State);
+			NSDictionary *IPv6Info = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)[NSString stringWithFormat:MGMIPv6Info, [IPv6State objectForKey:MGMPrimaryInterface]]);
+			IPv6Addresses = [[IPv6Info objectForKey:MGMAddresses] retain];
+			[IPv6Info release];
+			[IPv6State release];
+			
+			if (AirPortBSDName!=nil) {
+				lastAirPortState = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)[NSString stringWithFormat:MGMAirPortInfo, AirPortBSDName]);
+			}
+		}
+	}
+	
 	
 	connectionManager = [[MGMURLConnectionManager managerWithCookieStorage:[MGMUser cookieStorage]] retain];
 	
@@ -147,13 +233,26 @@ static MGMController *MGMSharedController;
 	}
 	filtersEnabled = YES;
 	
+	if ([manager fileExistsAtPath:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMResizePlist]]) {
+		NSData *plistData = [NSData dataWithContentsOfFile:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMResizePlist]];
+		NSString *error = nil;
+		resizeLogic = [[NSPropertyListSerialization propertyListFromData:plistData mutabilityOption:NSPropertyListMutableContainersAndLeaves format:NULL errorDescription:&error] retain];
+		if (error!=nil) {
+			NSLog(@"Error processing resize.plist: %@", error);
+		}
+	} else {
+		resizeLogic = [NSMutableArray new];
+		[self saveResizeLogic];
+	}
+	
 	if ([defaults integerForKey:MGMDisplay]>0)
 		[self addMenu];
 	
 	preferences = [MGMPreferences new];
     [preferences addPreferencesPaneClassName:@"MGMGeneralPane"];
     [preferences addPreferencesPaneClassName:@"MGMAccountPane"];
-    [preferences addPreferencesPaneClassName:@"MGMAutoUploadPane"];
+	[preferences addPreferencesPaneClassName:@"MGMAutoUploadPane"];
+	[preferences addPreferencesPaneClassName:@"MGMResizePane"];
     [preferences addPreferencesPaneClassName:@"MGMEventsPane"];
 	
 	EventTypeSpec eventType;
@@ -167,8 +266,23 @@ static MGMController *MGMSharedController;
 	
 	about = [MGMAbout new];
 	
-	uploadLock = [NSLock new];
 	uploads = [NSMutableArray new];
+	
+	if ([defaults objectForKey:MGMVersion]==nil || [[defaults objectForKey:MGMVersion] doubleValue]<=0.3) {
+		for (int i=0; i<[filters count]; i++) {
+			if ([[filters objectAtIndex:i] objectForKey:MGMFID]==nil) {
+				CFUUIDRef uuid = CFUUIDCreate(NULL);
+				NSString *uuidString = [(NSString *)CFUUIDCreateString(NULL, uuid) autorelease];
+				CFRelease(uuid);
+				NSDictionary *filter = [[filters objectAtIndex:i] mutableCopy];
+				[filter setValue:uuidString forKey:MGMFID];
+				[filters replaceObjectAtIndex:i withObject:filter];
+				[filter release];
+			}
+		}
+		[self saveFilters];
+	}
+	[defaults setObject:[[MGMSystemInfo info] applicationVersion] forKey:MGMVersion];
 	
 	[self loadMUThemes];
 	[self loadPlugIns];
@@ -176,6 +290,13 @@ static MGMController *MGMSharedController;
 - (void)dealloc {
 	[autoreleaseDrain invalidate];
 	[autoreleaseDrain release];
+	if (store!=NULL) {
+		CFRunLoopRemoveSource(CFRunLoopGetCurrent(), runLoop, kCFRunLoopDefaultMode);
+		CFRelease(store);
+	}
+	[IPv4Addresses release];
+	[IPv6Addresses release];
+	[lastAirPortState release];
 	[connectionManager release];
 	[preferences release];
 	[[NSStatusBar systemStatusBar] removeStatusItem:statusItem];
@@ -187,14 +308,12 @@ static MGMController *MGMSharedController;
 	[filterWatcher release];
 	[accountPlugIns release];
 	[plugIns release];
-	[uploadLock release];
 	[uploads release];
 	[super dealloc];
 }
 
 - (void)registerDefaults {
 	NSMutableDictionary *defaults = [NSMutableDictionary dictionary];
-	[defaults setObject:[[MGMSystemInfo info] applicationVersion] forKey:MGMVersion];
 	[defaults setObject:[NSNumber numberWithInt:1] forKey:MGMLaunchCount];
 	
 	[defaults setObject:[NSNumber numberWithInt:([[MGMSystemInfo info] isUIElement] ? 2 : 0)] forKey:MGMDisplay];
@@ -204,6 +323,8 @@ static MGMController *MGMSharedController;
 	[defaults setObject:[NSNumber numberWithInt:5] forKey:MGMUploadLimit];
 	
 	[defaults setObject:[NSNumber numberWithInt:2] forKey:[NSString stringWithFormat:MGMEDelete, MGMEUploadedAutomatic]];
+	
+	[defaults setObject:[[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:MGMMUThemesFolder] stringByAppendingPathComponent:@"White Background"] forKey:MGMCurrentMUTheme];
 	[[NSUserDefaults standardUserDefaults] registerDefaults:defaults];
 }
 
@@ -211,6 +332,26 @@ static MGMController *MGMSharedController;
 	NSEvent *event = [NSEvent otherEventWithType:NSApplicationDefined location:NSMakePoint(0, 0) modifierFlags:0 timestamp:CFAbsoluteTimeGetCurrent() windowNumber:0 context:nil subtype:0 data1:0 data2:0];
 	[[NSApplication sharedApplication] postEvent:event atStart:NO];
 }
+
+
+- (void)ipv4Changed:(NSDictionary *)theInfo {
+	NSDictionary *info = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)[NSString stringWithFormat:MGMIPv4Info, [theInfo objectForKey:MGMPrimaryInterface]]);
+	[IPv4Addresses autorelease];
+	IPv4Addresses = [[info objectForKey:MGMAddresses] retain];
+	[info release];
+}
+- (void)ipv6Changed:(NSDictionary *)theInfo {
+	NSDictionary *info = (NSDictionary *)SCDynamicStoreCopyValue(store, (CFStringRef)[NSString stringWithFormat:MGMIPv6Info, [theInfo objectForKey:MGMPrimaryInterface]]);
+	[IPv6Addresses autorelease];
+	IPv6Addresses = [[info objectForKey:MGMAddresses] retain];
+	[info release];
+}
+
+- (void)airportChanged:(NSDictionary *)theInfo {
+	[lastAirPortState autorelease];
+	lastAirPortState = [theInfo retain];
+}
+
 
 - (MGMURLConnectionManager *)connectionManager {
 	return connectionManager;
@@ -445,7 +586,7 @@ static MGMController *MGMSharedController;
 				[alert runModal];
 				continue;
 			}
-			[self addPathToUploads:[files objectAtIndex:i] isAutomatic:NO multiUpload:([files count]==1 ? 0 : (i==0 ? 1 : (i==[files count]-1 ? 3 : 2)))];
+			[self addPathToUploads:[files objectAtIndex:i] automaticFilter:nil multiUpload:([files count]==1 ? 0 : (i==0 ? 1 : (i==[files count]-1 ? 3 : 2)))];
 		}
 	}
 }
@@ -504,6 +645,18 @@ static MGMController *MGMSharedController;
 	[history writeToFile:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMHistoryPlist] atomically:YES];
 	[self updateMenu];
 }
+- (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL info:(id)theInfo {
+	[history addObject:[NSDictionary dictionaryWithObjectsAndKeys:[theURL absoluteString], MGMHURL, theInfo, MGMHInfo, [NSDate date], MGMHDate, nil]];
+	int maxHistoryItems = [[NSUserDefaults standardUserDefaults] integerForKey:MGMHistoryCount];
+	int itemsToDelete = [history count]-maxHistoryItems;
+	if (itemsToDelete>0) {
+		for (int i=0; i<itemsToDelete; i++) {
+			[history removeObjectAtIndex:0];
+		}
+	}
+	[history writeToFile:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMHistoryPlist] atomically:YES];
+	[self updateMenu];
+}
 
 - (IBAction)uploadFile:(id)sender {
 	NSOpenPanel *panel = [NSOpenPanel openPanel];
@@ -517,7 +670,7 @@ static MGMController *MGMSharedController;
 	int returnCode = [panel runModal];
 	if (returnCode==NSOKButton) {
 		for (int i=0; i<[[panel URLs] count]; i++) {
-			[self addPathToUploads:[[[panel URLs] objectAtIndex:i] path] isAutomatic:NO  multiUpload:([[panel URLs] count]==1 ? 0 : (i==0 ? 1 : (i==[[panel URLs] count]-1 ? 3 : 2)))];
+			[self addPathToUploads:[[[panel URLs] objectAtIndex:i] path] automaticFilter:nil  multiUpload:([[panel URLs] count]==1 ? 0 : (i==0 ? 1 : (i==[[panel URLs] count]-1 ? 3 : 2)))];
 		}
 	}
 	[self resignFront];
@@ -530,7 +683,7 @@ static MGMController *MGMSharedController;
 }
 - (void)application:(NSApplication *)theApplication openFiles:(NSArray *)theFiles {
 	for (int i=0; i<[theFiles count]; i++) {
-		[self addPathToUploads:[theFiles objectAtIndex:i] isAutomatic:NO  multiUpload:([theFiles count]==1 ? 0 : (i==0 ? 1 : (i==[theFiles count]-1 ? 3 : 2)))];
+		[self addPathToUploads:[theFiles objectAtIndex:i] automaticFilter:nil  multiUpload:([theFiles count]==1 ? 0 : (i==0 ? 1 : (i==[theFiles count]-1 ? 3 : 2)))];
 	}
 }
 
@@ -592,6 +745,7 @@ static MGMController *MGMSharedController;
 		}
 	}
 }
+
 - (void)subscribedPathChanged:(NSString *)thePath {
 	NSLog(@"Changed: %@", thePath);
 	if (filtersEnabled) {
@@ -621,10 +775,11 @@ static MGMController *MGMSharedController;
 							NSArray *items = (NSArray *)MDItemCopyAttributeNames(metadata);
 							for (int m=0; m<[items count]; m++) {
 								id item = (id)MDItemCopyAttribute(metadata, (CFStringRef)[items objectAtIndex:m]);
-								if ([[items objectAtIndex:m] isMatchedByRegex:filter])
-									[self addPathToUploads:fullPath isAutomatic:YES];
-								else if ([item isKindOfClass:[NSString class]] && [item isMatchedByRegex:filter])
-									[self addPathToUploads:fullPath isAutomatic:YES];
+								if ([[items objectAtIndex:m] isMatchedByRegex:filter]) {
+									[self addPathToUploads:fullPath automaticFilter:[[filtersFound objectAtIndex:f] objectForKey:MGMFID]];
+								} else if ([item isKindOfClass:[NSString class]] && [item isMatchedByRegex:filter]) {
+									[self addPathToUploads:fullPath automaticFilter:[[filtersFound objectAtIndex:f] objectForKey:MGMFID]];
+								}
 								if (item!=nil)
 									CFRelease((CFTypeRef)item);
 							}
@@ -642,19 +797,188 @@ static MGMController *MGMSharedController;
 							extendedAttributes = [[manager fileSystemAttributesAtPath:fullPath] objectForKey:@"NSFileExtendedAttributes"];
 						}
 						for (int a=0; a<[[extendedAttributes allKeys] count]; a++) {
-							if ([[[extendedAttributes allKeys] objectAtIndex:a] isMatchedByRegex:filter])
-								[self addPathToUploads:fullPath isAutomatic:YES];
-							else if ([[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isKindOfClass:[NSString class]] && [[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isMatchedByRegex:filter])
-								[self addPathToUploads:fullPath isAutomatic:YES];
+							if ([[[extendedAttributes allKeys] objectAtIndex:a] isMatchedByRegex:filter]) {
+								[self addPathToUploads:fullPath automaticFilter:[[filtersFound objectAtIndex:f] objectForKey:MGMFID]];
+							} else if ([[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isKindOfClass:[NSString class]] && [[extendedAttributes objectForKey:[[extendedAttributes allKeys] objectAtIndex:a]] isMatchedByRegex:filter]) {
+								[self addPathToUploads:fullPath automaticFilter:[[filtersFound objectAtIndex:f] objectForKey:MGMFID]];
+							}
 						}
 					} else {
-						if ([file isMatchedByRegex:filter])
-							[self addPathToUploads:fullPath isAutomatic:YES];
+						if ([file isMatchedByRegex:filter]) {
+							[self addPathToUploads:fullPath automaticFilter:[[filtersFound objectAtIndex:f] objectForKey:MGMFID]];
+						}
 					}
 				}
 			}
 		}
 	}
+}
+
+- (NSMutableArray *)resizeLogic {
+	return resizeLogic;
+}
+- (void)resizeIfNeeded:(NSString *)thePath {
+	[self resizeIfNeeded:thePath filterID:nil];
+}
+- (void)resizeIfNeeded:(NSString *)thePath filterID:(NSString *)theID {
+	NSArray *extensions = [NSArray arrayWithObjects:@"jpg", @"jpeg", @"png", @"tif", @"tiff", @"bmp", nil];
+	if (![extensions containsObject:[[thePath pathExtension] lowercaseString]])
+		return;
+	NSDictionary *lastMatch = nil;
+	BOOL matchedOnFilter = NO;
+	BOOL matchedOnNetwork = NO;
+	BOOL matchedOnPrefix = NO;
+	for (int i=0; i<[resizeLogic count]; i++) {
+		NSDictionary *logic = [resizeLogic objectAtIndex:i];
+		BOOL prefixMatch = NO;
+		if (![[logic objectForKey:MGMRIPPrefix] isEqual:@""]) {
+			NSString *prefix = [logic objectForKey:MGMRIPPrefix];
+			for (int ip=0; ip<[IPv4Addresses count]; ip++) {
+				if ([[IPv4Addresses objectAtIndex:ip] hasPrefix:prefix]) {
+					prefixMatch = YES;
+				}
+			}
+			for (int ip=0; ip<[IPv6Addresses count]; ip++) {
+				if ([[IPv6Addresses objectAtIndex:ip] hasPrefix:prefix]) {
+					prefixMatch = YES;
+				}
+			}
+		}
+		BOOL networkMatch = (lastAirPortState!=nil && [lastAirPortState objectForKey:@"SSID"]!=nil && [[logic objectForKey:MGMRNetworks] containsObject:[[[NSString alloc] initWithData:[lastAirPortState objectForKey:@"SSID"] encoding:NSUTF8StringEncoding] autorelease]]);
+		BOOL filterMatch = (theID!=nil && [[logic objectForKey:MGMRFilters] containsObject:theID]);
+		NSLog(@"%d %d %d", prefixMatch, networkMatch, filterMatch);
+		if ([[logic objectForKey:MGMRFilters] count]==0 && (networkMatch || prefixMatch)) {//No filters and network or prefix match.
+			if (lastMatch!=nil && matchedOnFilter) {//If this is a network match and previous was a filter match, do not match.
+				continue;
+			}
+			if (lastMatch!=nil && matchedOnNetwork && !networkMatch) {//If this isn't a network match, yet the previous was, do not match.
+				continue;
+			}
+		} else if ([[logic objectForKey:MGMRFilters] count]==0) {//No filters and not network or prefix.
+			if (lastMatch!=nil && (matchedOnNetwork || matchedOnPrefix || matchedOnFilter)) {//If previous matches on network, prefix, or filter, do not match.
+				continue;
+			}
+		} else if ([[logic objectForKey:MGMRFilters] count]!=0 && !filterMatch) {//Cannot match if filteres exist, but not matched.
+			continue;
+		} else if (filterMatch) {//If filtere match.
+			if (networkMatch || prefixMatch) {//Network or prefix match.
+				if (lastMatch!=nil && matchedOnFilter && matchedOnNetwork && !networkMatch) {//Previous matched on network and this isn't a network match, do not match.
+					continue;
+				}
+			} else {//Not network or prefix match.
+				if (lastMatch!=nil && matchedOnFilter && (matchedOnNetwork || matchedOnFilter)) {//If was a network match, do not match.
+					continue;
+				}
+			}
+		}
+		if (([[logic objectForKey:MGMRWidth] intValue]==0 || [[logic objectForKey:MGMRHeight] intValue]==0) && [[logic objectForKey:MGMRScale] intValue]==0) {//Incorrect resize logic.
+			continue;
+		}
+		lastMatch = logic;
+		matchedOnFilter = filterMatch;
+		matchedOnNetwork = networkMatch;
+		matchedOnPrefix = prefixMatch;
+	}
+	
+	if (lastMatch!=nil) {
+		int scale = [[lastMatch objectForKey:MGMRScale] intValue];
+		if (scale!=0) {
+			[self resize:thePath toSize:NSZeroSize scale:1-(((float)scale)/100)];
+		} else {
+			[self resize:thePath toSize:NSMakeSize([[lastMatch objectForKey:MGMRWidth] floatValue], [[lastMatch objectForKey:MGMRHeight] floatValue]) scale:0.0];
+		}
+	}
+}
+- (void)resize:(NSString *)thePath toSize:(NSSize)theSize scale:(float)theScale {
+	NSString *extension = [[thePath pathExtension] lowercaseString];
+	CFStringRef type = kUTTypeImage;
+	if ([extension isEqual:@"jpg"] || [extension isEqual:@"jpeg"]) {
+		type = kUTTypeJPEG;
+	} else if ([extension isEqual:@"png"]) {
+		type = kUTTypePNG;
+	} else if ([extension isEqual:@"bmp"]) {
+		type = kUTTypeBMP;
+	} else if ([extension isEqual:@"tif"] || [extension isEqual:@"tiff"]) {
+		type = kUTTypeTIFF;
+	} else {
+		return;
+	}
+	
+	CFURLRef fileURL = (__bridge CFURLRef)[NSURL fileURLWithPath:[thePath stringByExpandingTildeInPath]];
+	CGImageSourceRef source = CGImageSourceCreateWithURL(fileURL, NULL);
+	if (source==NULL) {
+		NSLog(@"Unable to create image source: %@", thePath);
+		return;
+	}
+	CGImageRef imageRef = CGImageSourceCreateImageAtIndex(source, 0, NULL);
+	CFRelease(source);
+	if (imageRef==NULL) {
+		NSLog(@"Unable to create image: %@", thePath);
+		return;
+	}
+	NSSize size = NSMakeSize(CGImageGetWidth(imageRef), CGImageGetHeight(imageRef));
+	
+	float scaleFactor = 0.0;
+	float scaledWidth = 0.0;
+	float scaledHeight = 0.0;
+	if (NSEqualSizes(theSize, NSZeroSize)) {
+		scaleFactor = theScale;
+	} else {
+		float widthFactor = theSize.width / size.width;
+		float heightFactor = theSize.height / size.height;
+		
+		if (widthFactor < heightFactor)
+			scaleFactor = widthFactor;
+		else
+			scaleFactor = heightFactor;
+	}
+	scaledWidth = size.width * scaleFactor;
+	scaledHeight = size.height * scaleFactor;
+	if (size.width<=scaledWidth && size.height<=scaledHeight) {
+		CGImageRelease(imageRef);
+		return;//Output larger or equal to input.
+	}
+	NSLog(@"Resizing: %@", thePath);
+	NSLog(@"Width: %f Height: %f", size.width, size.height);
+	NSLog(@"Width: %f Height: %f", scaledWidth, scaledHeight);
+	
+	NSSize newSize = NSMakeSize(scaledWidth, scaledHeight);
+	if (!NSEqualSizes(newSize, NSZeroSize)) {
+		CGContextRef bitmap = CGBitmapContextCreate(NULL, newSize.width, newSize.height, CGImageGetBitsPerComponent(imageRef), 0, CGImageGetColorSpace(imageRef), (CGBitmapInfo)((type==kUTTypePNG || type==kUTTypeTIFF) ? kCGImageAlphaPremultipliedLast : kCGImageAlphaNoneSkipLast));
+		CGContextSetInterpolationQuality(bitmap, kCGInterpolationHigh);
+		CGContextDrawImage(bitmap, NSMakeRect(0, 0, newSize.width, newSize.height), imageRef);
+		CGImageRef newImage = CGBitmapContextCreateImage(bitmap);
+		CGContextRelease(bitmap);
+		
+		
+		CGImageDestinationRef destination = CGImageDestinationCreateWithURL(fileURL, type, 1, NULL);
+		if (!destination) {
+			NSLog(@"Failed to create CGImageDestination for %@", thePath);
+			CGImageRelease(newImage);
+			CGImageRelease(imageRef);
+			return;
+		}
+		
+		CGImageDestinationAddImage(destination, newImage, nil);
+		if (!CGImageDestinationFinalize(destination)) {
+			NSLog(@"Failed to write image to %@", thePath);
+		}
+		
+		CFRelease(destination);
+		CGImageRelease(newImage);
+	}
+	CGImageRelease(imageRef);
+}
+- (void)saveResizeLogic {
+	if (saveCount==2)
+		return;
+	saveCount++;
+	NSAutoreleasePool *pool = [NSAutoreleasePool new];
+	[saveLock lock];
+	[resizeLogic writeToFile:[[MGMUser applicationSupportPath] stringByAppendingPathComponent:MGMResizePlist] atomically:YES];
+	saveCount--;
+	[pool drain];
+	[saveLock unlock];
 }
 
 - (void)removePassword {
@@ -755,8 +1079,8 @@ static MGMController *MGMSharedController;
 	return nil;
 }
 
-- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic {
-	[self addPathToUploads:thePath isAutomatic:isAutomatic multiUpload:0];
+- (void)addPathToUploads:(NSString *)thePath automaticFilter:(NSString *)theFilter {
+	[self addPathToUploads:thePath automaticFilter:theFilter multiUpload:0];
 }
 
 /*
@@ -766,8 +1090,7 @@ static MGMController *MGMSharedController;
  3 - Last upload in the queue.
  4 - The multi upload page.
  */
-- (void)addPathToUploads:(NSString *)thePath isAutomatic:(BOOL)isAutomatic multiUpload:(int)multiUploadState {
-	[uploadLock lock];
+- (void)addPathToUploads:(NSString *)thePath automaticFilter:(NSString *)theFilter multiUpload:(int)multiUploadState {
 	if ([self uploadForPath:thePath]==nil) {
 		if ([currentPlugIn respondsToSelector:@selector(allowedExtensions)]) {
 			if (![[currentPlugIn allowedExtensions] containsObject:[[thePath pathExtension] lowercaseString]]) {
@@ -778,11 +1101,12 @@ static MGMController *MGMSharedController;
 				return;
 			}
 		}
-		[uploads addObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMUPath, [NSNumber numberWithBool:isAutomatic], MGMUAutomatic, [NSNumber numberWithInt:multiUploadState], MGMUMultiUpload, nil]];
+		[self resizeIfNeeded:thePath filterID:theFilter];
+		
+		[uploads addObject:[NSDictionary dictionaryWithObjectsAndKeys:thePath, MGMUPath, [NSNumber numberWithBool:(theFilter!=nil)], MGMUAutomatic, [NSNumber numberWithInt:multiUploadState], MGMUMultiUpload, nil]];
 		if ([uploads count]==1)
 			[self processNextUpload];
 	}
-	[uploadLock unlock];
 }
 - (void)processNextUpload {
 	if ([uploads count]>0) {
@@ -838,6 +1162,7 @@ static MGMController *MGMSharedController;
 - (void)upload:(NSString *)thePath receivedError:(NSError *)theError {
 	NSDictionary *upload = [self uploadForPath:thePath];
 	if (upload!=nil) {
+		NSLog(@"Error: %@", theError);
 		if ([[NSUserDefaults standardUserDefaults] boolForKey:MGMGrowlErrors]) {
 			[GrowlApplicationBridge notifyWithTitle:[@"Unable to upload" localized] description:[NSString stringWithFormat:@"%@: %@", [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]] notificationName:@"UploadError" iconData:[[[NSApplication sharedApplication] applicationIconImage] TIFFRepresentation] priority:1 isSticky:NO clickContext:nil];
 		} else {
@@ -846,10 +1171,8 @@ static MGMController *MGMSharedController;
 			[alert setInformativeText:[NSString stringWithFormat:[@"Unable to upload %@: %@" localized], [[upload objectForKey:MGMUPath] lastPathComponent], [theError localizedDescription]]];
 			[alert runModal];
 		}
-		[uploadLock lock];
 		[uploads removeObject:upload];
 		[self processNextUpload];
-		[uploadLock unlock];
 	}
 }
 - (void)uploadFinished:(NSString *)thePath url:(NSURL *)theURL {
@@ -878,10 +1201,8 @@ static MGMController *MGMSharedController;
 				
 				NSString *imageHTML = [NSString stringWithContentsOfFile:[[self currentMUTheme] stringByAppendingPathComponent:@"image.html"] encoding:NSUTF8StringEncoding error:nil];
 				if (imageHTML==nil) {
-					[uploadLock lock];
 					[uploads removeObject:upload];
 					[self processNextUpload];
-					[uploadLock unlock];
 					return;
 				}
 				NSString *fileHTML = [NSString stringWithContentsOfFile:[[self currentMUTheme] stringByAppendingPathComponent:@"file.html"] encoding:NSUTF8StringEncoding error:nil];
@@ -901,17 +1222,15 @@ static MGMController *MGMSharedController;
 				}
 				[multiUploadHtml writeData:[NSData dataWithContentsOfFile:[[self currentMUTheme] stringByAppendingPathComponent:@"footer.html"]]];
 				[multiUploadHtml closeFile];
-				[self addPathToUploads:htmlPath isAutomatic:YES multiUpload:4];
+				[self addPathToUploads:htmlPath automaticFilter:nil multiUpload:4];
 			}
 		}
 		if (multiUpload==4) {
 			[[NSFileManager defaultManager] removeItemAtPath:[upload objectForKey:MGMUPath]];
 		}
 		
-		[uploadLock lock];
 		[uploads removeObject:upload];
 		[self processNextUpload];
-		[uploadLock unlock];
 	}
 }
 - (void)multiUploadPageCreated:(NSURL *)theURL {

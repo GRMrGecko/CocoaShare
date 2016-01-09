@@ -186,7 +186,7 @@ const BOOL MGMHTTPResponseInvisible = YES;
 
 - (void)sendFileAtPath:(NSString *)thePath withName:(NSString *)theName {
 	NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-	if ([defaults objectForKey:MGMHTTPURL]==nil) {
+	if ([defaults objectForKey:MGMHTTPURL]==nil || [[defaults objectForKey:MGMHTTPURL] isEqual:@""]) {
 		NSError *error = [NSError errorWithDomain:[[NSBundle bundleForClass:[self class]] bundleIdentifier] code:5 userInfo:[NSDictionary dictionaryWithObject:[@"Account is not logged in." localizedFor:self] forKey:NSLocalizedDescriptionKey]];
 		[[MGMController sharedController] upload:thePath receivedError:error];
 		return;
